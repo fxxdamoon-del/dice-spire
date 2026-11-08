@@ -1464,6 +1464,63 @@ html.o-port #view-battle .die{width:56px;height:56px}
 #view-battle .die{width:52px;height:52px}
 #view-battle{gap:6px}
 }
+/* ================= v40: DICE-SIDE HAND & DAMAGE PREVIEW =================
+Per lee's request: the current hand （牌型） and the expected damage now
+also sit right beside the dice, not only in the top bar — the player
+locks / rerolls while looking at the tray, so the verdict belongs there.
+Same numbers as the top preview (one computeAttack() call feeds both):
+combo name, chips × mult formula, charm/element notes, the big damage
+figure, and a verdict line that already accounts for enemy armour —
+"can finish the enemy" vs "enemy left at X HP after this hit".
+Wide / landscape: panel on the right of the tray. Portrait or narrow:
+it folds into a compact horizontal strip under the tray so the dice
+never get squeezed and nothing scrolls sideways. */
+.dice-zone{display:flex;gap:10px;align-items:stretch}
+.dice-main{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.dice-side{flex:0 0 220px;display:flex;flex-direction:column;justify-content:center;gap:2px;background:#14101D;border:2px solid #0B0910;border-radius:0;box-shadow:inset 0 0 0 2px #3B2D55,0 3px 0 rgba(11,9,16,.4);padding:9px 12px 10px;color:#E8DFC8}
+.dsp-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:#B8AC93}
+.dsp-combo{font-size:20px;font-weight:900;line-height:1.25;color:#EFC94C}
+.dsp-formula{font-size:12.5px;color:#E8DFC8;font-variant-numeric:tabular-nums;line-height:1.45}
+.dsp-notes{font-size:11px;color:#B8AC93;line-height:1.45}
+.dsp-notes:empty{display:none}
+.dsp-dmgrow{display:flex;align-items:baseline;gap:8px;margin-top:5px;border-top:1px dashed rgba(232,223,200,.28);padding-top:6px}
+.dsp-dmglbl{font-size:12px;color:#B8AC93;white-space:nowrap}
+.dsp-dmgrow b{margin-left:auto;font-size:32px;line-height:1;color:#E05A3A;font-variant-numeric:tabular-nums}
+.dsp-dmgrow b.bump{animation:dspBump .28s ease}
+@keyframes dspBump{0%{transform:scale(1)}35%{transform:scale(1.22)}100%{transform:scale(1)}}
+.dsp-verdict{font-size:12px;line-height:1.5;color:#B8AC93;min-height:18px}
+.dsp-verdict:empty{display:none}
+.dsp-verdict.kill{color:#9CC184;font-weight:900}
+.dsp-verdict .armor-note{color:#6FA8C9}
+/* portrait / narrow: strip under the dice, combo left, damage right */
+html.o-port .dice-zone{flex-direction:column;gap:6px}
+html.o-port .dice-side{flex:0 0 auto;display:grid;grid-template-columns:1fr auto;grid-template-areas:"label dmg" "combo dmg" "formula dmg" "notes notes" "verdict verdict";column-gap:12px;align-items:center;padding:7px 10px 8px}
+html.o-port .dsp-label{grid-area:label}
+html.o-port .dsp-combo{grid-area:combo;font-size:17px}
+html.o-port .dsp-formula{grid-area:formula;font-size:12px}
+html.o-port .dsp-notes{grid-area:notes}
+html.o-port .dsp-dmgrow{grid-area:dmg;border-top:none;margin-top:0;padding-top:0;flex-direction:column;align-items:flex-end;gap:0}
+html.o-port .dsp-dmgrow b{margin-left:0;font-size:27px}
+html.o-port .dsp-verdict{grid-area:verdict}
+@media (max-width:640px){
+.dice-zone{flex-direction:column;gap:6px}
+.dice-side{flex:0 0 auto;display:grid;grid-template-columns:1fr auto;grid-template-areas:"label dmg" "combo dmg" "formula dmg" "notes notes" "verdict verdict";column-gap:12px;align-items:center;padding:7px 10px 8px}
+.dsp-label{grid-area:label}
+.dsp-combo{grid-area:combo;font-size:17px}
+.dsp-formula{grid-area:formula;font-size:12px}
+.dsp-notes{grid-area:notes}
+.dsp-dmgrow{grid-area:dmg;border-top:none;margin-top:0;padding-top:0;flex-direction:column;align-items:flex-end;gap:0}
+.dsp-dmgrow b{margin-left:0;font-size:27px}
+.dsp-verdict{grid-area:verdict}
+}
+/* short landscape phones: keep the side panel, just slimmer */
+@media (max-height:540px) and (orientation:landscape){
+.dice-side{flex-basis:188px;padding:6px 10px 7px}
+.dsp-combo{font-size:16px}
+.dsp-dmgrow b{font-size:25px}
+.dsp-dmgrow{margin-top:3px;padding-top:4px}
+}
+@media (prefers-reduced-motion: reduce){.dsp-dmgrow b.bump{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1540,8 +1597,20 @@ html.o-port #view-battle .die{width:56px;height:56px}
 <div class="status-row" id="talisman-row"></div>
 
 <div class="dice-cup" id="dice-cup"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 骰盅摇动中… 骰子正在翻滚！</div>
+<div class="dice-zone">
+<div class="dice-main">
 <div class="dice-tray" id="dice-tray"></div>
 <div class="dice-hint" id="dice-hint">点骰子可以锁定，重摇时锁定的骰子不变</div>
+</div>
+<aside class="dice-side" id="dice-side" aria-live="polite" aria-label="当前牌型与预计伤害">
+<div class="dsp-label"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 当前牌型</div>
+<div class="dsp-combo" id="dsp-combo">—</div>
+<div class="dsp-formula" id="dsp-formula">摇骰子后显示</div>
+<div class="dsp-notes" id="dsp-notes"></div>
+<div class="dsp-dmgrow"><span class="dsp-dmglbl"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA5klEQVR4nO3XMW4CMRBAUY6QgjZ17p3TwCnScovQuInE8mUEAYv3Jbdjz2tWu9u9WfuPz9+Z8+z3/nuAIkARoAhQBGi0tfDp53DxAAL0N0ARoAhQBGgEIgIUAYoARYAiQCMQEaAIUAQoAhQtA/Toi5eBmF3g0fMBxXxAMR9QzAcU818OaOvi4/fXxTP70GUgZhcAFAsAigUAxQKAYgFA0b3glofYClAEKAIUAYoA3djWYoBGgCJAEaAIUARoNPuZv9fP7TIBigBFgCJAEaARiAhQBCgCFAGKAI1ARIAiQBGgCFAE6HpnBO4ijpPj/zkAAAAASUVORK5CYII=> 预计伤害</span><b id="dsp-dmg">0</b></div>
+<div class="dsp-verdict" id="dsp-verdict"></div>
+</aside>
+</div>
 
 <div class="actions">
 <button class="btn" id="btn-reroll" type="button">重摇（剩 2 次）</button>
@@ -2972,6 +3041,27 @@ var formula = "（筹码 " + a.chips + "）× 乘数 " + a.mult;
 if (a.notes.length) formula += " · " + a.notes.slice(0, 5).join(" · ") + (a.notes.length > 5? " · …": "");
 $("pv-formula").textContent = formula;
 $("pv-dmg").textContent = a.dmg;
+/* Dice-side preview (v40): same `a` feeds the panel beside the tray, so
+the two readouts can never disagree. Verdict already nets out enemy
+armour, exactly like doAttack() resolves it. */
+var dc = $("dsp-combo"), df = $("dsp-formula"), dn = $("dsp-notes"), dd = $("dsp-dmg"), dv = $("dsp-verdict");
+if (dc) dc.textContent = a.combo.name;
+if (df) df.textContent = "筹码 " + a.chips + " × 乘数 " + a.mult + " = " + (a.chips * a.mult);
+if (dn) dn.textContent = a.notes.length? a.notes.slice(0, 3).join(" · ") + (a.notes.length > 3? " · …": ""): "";
+if (dd && dd.textContent !== String(a.dmg)) { dd.textContent = a.dmg; dd.classList.remove("bump"); void dd.offsetWidth; dd.classList.add("bump"); }
+if (dv) {
+var eArmor = S.enemy.armor || 0;
+var blocked = Math.min(eArmor, a.dmg);
+var eff = a.dmg - blocked;
+var remain = S.enemy.hp - eff;
+if (eff >= S.enemy.hp) {
+dv.className = "dsp-verdict kill";
+dv.innerHTML = (blocked? "先破护甲 " + blocked + " 点——": "") + "这一击能击败敌人！";
+} else {
+dv.className = "dsp-verdict";
+dv.innerHTML = (blocked? '<span class="armor-note">护甲挡下 ' + blocked + " 点</span> · ": "") + "实打 " + eff + " 点 · 敌人还剩 " + remain + " 点生命";
+}
+}
 }
 
 /* ================= Dice rolling ================= */
