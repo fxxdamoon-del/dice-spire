@@ -430,6 +430,71 @@ background: repeating-conic-gradient(from 0deg, rgba(201,162,39,.28) 0deg 12deg,
 @media(max-width:520px){.upg-grid{grid-template-columns:repeat(2,1fr)}}
 .upg-opt{white-space:normal;line-height:1.4;padding:10px 8px;font-size:13.5px;text-align:center;min-height:52px}
 .upg-opt small{opacity:.72;font-weight:400;font-size:11.5px}
+/* enhancement overview （强化一览）: full combo levels + face bonuses, checkable any time */
+.enh-overlay{position:fixed;inset:0;z-index:96;display:none;align-items:flex-start;justify-content:center;padding:16px;background:rgba(11,9,16,.92);overflow-y:auto}
+.enh-overlay.show{display:flex}
+.enh-box{background:var(--panel);color:var(--ink);border-radius:18px;max-width:600px;width:100%;padding:22px;border:1px solid var(--line);margin:auto 0}
+.enh-box h2{font-family:"Noto Serif SC",serif;margin:0 0 6px}
+.enh-box h3{margin:16px 0 0;font-family:"Noto Serif SC",serif;font-size:16px}
+.enh-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel-2);margin-top:6px}
+.enh-row .enh-name{font-weight:700;min-width:104px}
+.enh-row.up{border-color:var(--gold)}
+.enh-row.up .enh-name{color:var(--gold)}
+.enh-lv{font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid var(--armor);color:var(--armor);background:var(--panel);white-space:nowrap}
+.enh-row.up .enh-lv{border-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
+.enh-val{font-weight:700;white-space:nowrap}
+.enh-per{font-size:12px;color:var(--ink-soft);margin-left:auto}
+.enh-face-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.enh-face{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:9px 6px;text-align:center}
+.enh-face .f-num{font-size:12.5px;color:var(--ink-soft)}
+.enh-face .f-val{font-size:19px;font-weight:800;line-height:1.25}
+.enh-face.up{border-color:var(--gold);background:var(--gold-bg)}
+.enh-face.up .f-val{color:var(--gold)}
+.enh-face .f-none{font-size:13px;color:var(--ink-soft);font-weight:400}
+.enh-misc{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+button.bonus-chip{cursor:pointer;font-family:inherit}
+button.bonus-chip:hover{filter:brightness(1.15)}
+.upg-current{margin-top:14px;border:1.5px solid #5B4382;border-radius:12px;padding:12px 14px;background:var(--panel-2)}
+.upg-current h3{margin:0;font-family:"Noto Serif SC",serif;font-size:15.5px}
+/* tutorial （新手引导）: paged overlay teaching the real buttons */
+.tutorial-overlay{position:fixed;inset:0;z-index:97;display:none;align-items:flex-start;justify-content:center;padding:16px;background:rgba(11,9,16,.93);overflow-y:auto}
+.tutorial-overlay.show{display:flex}
+.tut-box{background:var(--panel);color:var(--ink);border-radius:18px;max-width:520px;width:100%;padding:22px;border:1px solid var(--line);margin:auto 0;text-align:center}
+.tut-box h2{font-family:"Noto Serif SC",serif;margin:4px 0 0}
+.tut-icon{margin:10px auto 0;display:flex;align-items:center;justify-content:center}
+.tut-icon .pxi{width:54px;height:54px;vertical-align:0}
+.tut-body{font-size:14.5px;line-height:1.75;text-align:left;min-height:122px;margin:10px 0 0}
+.tut-body b{color:var(--gold)}
+.tut-dots{display:flex;gap:6px;justify-content:center;margin:12px 0 0}
+.tut-dots i{width:9px;height:9px;border-radius:99px;background:var(--line);display:block}
+.tut-dots i.on{background:var(--gold)}
+.tut-count{font-size:12px;color:var(--ink-soft);margin-top:6px}
+.tut-actions{display:flex;gap:8px;margin-top:12px}
+.tut-actions .btn{flex:1;padding-left:4px;padding-right:4px}
+/* coach （互动式第一局引导）: in-game bubble + spotlight highlight on the real controls */
+.coach-bubble{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:130;width:min(520px,calc(100vw - 20px));background:var(--panel);color:var(--ink);border:2px solid var(--gold);border-radius:14px;padding:13px 15px 12px;box-shadow:0 14px 34px rgba(11,9,16,.65);display:none;text-align:left}
+.coach-bubble.show{display:block}
+.coach-bubble.top{bottom:auto;top:calc(12px + env(safe-area-inset-top,0px))}
+.coach-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.coach-tag{font-size:11.5px;font-weight:800;letter-spacing:.14em;color:var(--gold)}
+.coach-count{font-size:11.5px;color:var(--ink-soft);white-space:nowrap}
+.coach-title{margin:5px 0 0;font-family:"Noto Serif SC",serif;font-size:17.5px}
+.coach-text{margin:5px 0 0;font-size:13.5px;line-height:1.65}
+.coach-text b{color:var(--gold)}
+.coach-actions{display:flex;gap:7px;margin-top:10px}
+.coach-actions .btn{flex:1;padding-left:4px;padding-right:4px;font-size:13.5px}
+.coach-actions .coach-skipall{flex:0 0 auto}
+.coach-hi{outline:3px solid #EFC94C!important;outline-offset:3px;box-shadow:0 0 0 6px rgba(201,162,39,.28),0 0 24px rgba(239,201,76,.6)!important;animation:coachPulse .9s ease-in-out infinite alternate}
+@keyframes coachPulse{from{outline-offset:2px}to{outline-offset:5px}}
+@media (prefers-reduced-motion: reduce){.coach-hi{animation:none!important}}
+/* tutorial level （教程关卡）: a standalone practice battle played BEFORE the
+real game — home entry above START GAME, banner chip inside the battle */
+.btn-tut-level{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(3% + 82px + env(safe-area-inset-bottom,0px));z-index:3;appearance:none;font-family:inherit;font-size:15px;font-weight:800;letter-spacing:.08em;padding:10px 22px;color:#EFC94C;background:rgba(20,16,29,.88);border:2px solid #C9A227;border-radius:10px;box-shadow:0 4px 0 rgba(11,9,16,.55);cursor:pointer;white-space:nowrap}
+.btn-tut-level:active{transform:translate(-50%,3px);box-shadow:0 1px 0 rgba(11,9,16,.55)}
+@media (max-width:560px){ .btn-tut-level{bottom:calc(3% + 72px + env(safe-area-inset-bottom,0px));font-size:14px;padding:9px 16px} }
+.tut-banner{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:rgba(201,162,39,.14);border:1.5px dashed #C9A227;border-radius:8px;padding:5px 9px;font-size:12.5px;color:#EFC94C}
+.tut-banner.hidden{display:none}
+.tut-banner .btn{margin-left:auto;padding:4px 12px;font-size:12.5px}
 /* elements / taunt / collection */
 .die[data-type="water"] { background:#E8DFC8; border-color:#6FA8C9; color:#2C4A66;}
 .die[data-type="earth"] { background:#E8DFC8; border-color:#B8AC93; color:#6E5518;}
@@ -1036,7 +1101,7 @@ repeating-linear-gradient(90deg, rgba(232,223,200,.05) 0 2px, rgba(232,223,200,0
 linear-gradient(180deg,#2A2140,#14101D);
 }
 /* --- STONE: panels, shop, rewards, menus, HUD --- */
-.panel,.hud,.menu-box,.skip-box,.class-box,.collection-box,.gamble-box,
+.panel,.hud,.menu-box,.skip-box,.class-box,.collection-box,.gamble-box,.enh-box,.tut-box,
 .card,.map-card,.mode-card,.class-card,.preview,.essence-panel,.inflict-panel,
 .sell-panel,.charm-bar-wrap,details.rules,.tip-popover{
 background:var(--tex-stone);border:3px solid #0B0910;border-radius:0;
@@ -1157,7 +1222,7 @@ RULES — the single source of truth for the whole UI:
 --px-gold:#C9A227; --px-gold-hi:#EFC94C; --px-red:#B03327; --px-violet:#5B4382;
 }
 /* --- stroke tiers: 2px small controls / 4px large panels & main buttons --- */
-.panel,.menu-box,.skip-box,.class-box,.collection-box,.gamble-box,
+.panel,.menu-box,.skip-box,.class-box,.collection-box,.gamble-box,.enh-box,.tut-box,
 .overlay .box,details.rules{
 border-width:var(--bw-l);border-image-width:12px;
 }
@@ -1299,7 +1364,7 @@ the old rotate prompt: the layout is adaptive now.) */
 .btn-start-big{bottom:calc(3% + env(safe-area-inset-bottom,0px))}
 .home-inner{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px));padding-left:calc(16px + env(safe-area-inset-left,0px));padding-right:calc(16px + env(safe-area-inset-right,0px))}
 .wrap{padding-bottom:env(safe-area-inset-bottom,0px)}
-.menu-overlay,.overlay,.class-overlay,.collection-overlay,.upgrade-overlay,.gamble-overlay,.draw-overlay,.skip-overlay,.cutscene,.travel-overlay{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:calc(16px + env(safe-area-inset-left,0px));padding-right:calc(16px + env(safe-area-inset-right,0px))}
+.menu-overlay,.overlay,.class-overlay,.collection-overlay,.upgrade-overlay,.gamble-overlay,.draw-overlay,.skip-overlay,.cutscene,.travel-overlay,.enh-overlay,.tutorial-overlay{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:calc(16px + env(safe-area-inset-left,0px));padding-right:calc(16px + env(safe-area-inset-right,0px))}
 /* (v31: the rotate prompt and all orientation locking were removed —
 the layout is adaptive now; see the v31 block at the end of this style) */
 /* ================= v28: DARK PIXEL ISLAND MAP + VILLAGE SCENES + CLASS SPRITES =================
@@ -1521,6 +1586,33 @@ html.o-port .dsp-verdict{grid-area:verdict}
 .dsp-dmgrow{margin-top:3px;padding-top:4px}
 }
 @media (prefers-reduced-motion: reduce){.dsp-dmgrow b.bump{animation:none!important}}
+/* ================= v45: HOME MENU REACHABILITY (player report: 滑不动 / 点不动) =====
+Root cause: the two home buttons were position:absolute, hung off the
+bottom of .home-inner, while the hint line stayed in flow — on phone
+viewports they overlapped (tutorial button sat on the hint text) and
+START GAME was pinned to the very bottom edge, under the browser
+toolbar / home indicator. Worse, when a swipe did not land inside the
+fixed home screen's own scroll region, the swipe scrolled the long
+game document BEHIND the overlay instead: the browser chrome collapsed
+and a scrollbar showed, but the menu itself never moved — "滑不动、
+滑不到能点的东西".
+Fix: both buttons join the normal flow of the home column (the spacer
+still pushes them to the bottom when the screen is tall), the column
+uses the flex-safe sizing (flex:0 0 auto + min-height:100%) so the
+home screen reliably scrolls on iOS WebKit whenever the menu is
+taller than the visible area, and the document behind is scroll-locked
+while any full-screen overlay is up (see the ds-lock script before
+</body>), so a swipe can never move the hidden page again. */
+.home-screen{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.home-inner{flex:0 0 auto;min-height:100%;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+.btn-tut-level{position:relative;left:auto;bottom:auto;transform:none;margin:16px auto 0}
+.btn-tut-level:active{transform:translateY(3px)}
+.btn-start-big{position:relative;left:auto;bottom:auto;transform:none;margin:12px auto 0}
+.btn-start-big:active{transform:translateY(4px)}
+.home-hint{margin-top:12px}
+/* background scroll lock while a full-screen overlay is shown */
+html.ds-lock,html.ds-lock body{overflow:hidden!important}
+body{overscroll-behavior:none}
 </style>
 </head>
 <body>
@@ -1538,6 +1630,7 @@ html.o-port .dsp-verdict{grid-area:verdict}
 <button class="btn-ghost btn-menu-open" id="btn-menu-top" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAjElEQVR4nO3VsQ2AMAxFQUagoGUjFmcaRoAJUlgyijH3pddFUXRNlmWwbd3vPzVyGG72gwEVCxAgQN8Aus4jpVn3hyEAAQIECFAjoK4BAgQIEKDCpQFlfcNvlwYBCBAgQIAaAXUNECBAgAAVLg0o+q1WOx+GAAQIECBAjYC6BggQIECAChcGMjMzK78HULf+DhjJd00AAAAASUVORK5CYII=> 菜单</button>
 <button class="btn-ghost notebook-btn" id="btn-notebook" type="button" aria-label="规则笔记本"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAnklEQVR4nO3VsQ2DMBCGUY9AkZaaATJCxmCbTJQx2II2W8AEFCc55A7eJ/215efCrQV7DONWedH7hvv3BQEBApR6gM4COjpgfr1LrxscIECAAAG6ENB3XX66Xg8GCBAgQIAAAQIECBAgQHcG+jyn0AABAgQIEKA8QL55QIAAAQKUB6jKAAECBAhQ4nUDisJVWTcIQIAAAQJUEEiSpDTtgviNZLZ42NsAAAAASUVORK5CYII=></button>
 <button class="btn-ghost" id="btn-collection" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAnUlEQVR4nO3QsQ2AMAxFQUagoKVmABZnDLagZQuYIEWURLbgnvRbS75p6tQyr0+m9fqrW9EggAABApRp6SDu60y1MDhAgAABAvQDoGPfqgYIECBAgAABAgQIECBAgNqBRg8QIECAAAEaB1S6M/o+IECAAAEC1P7A6AECBAgQIECAAAECBAjQl4Bq4aIWBlEqGgQQIECAMi3aQ5Kk+F7bKBFZ/4XfkQAAAABJRU5ErkJggg==> 符咒收藏</button>
+<button class="btn-ghost" id="btn-enh" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 强化一览</button>
 <button class="btn-ghost" id="btn-restart-top" type="button">重开一局</button>
 <button class="btn-ghost" id="btn-audio" type="button" aria-label="音乐与音效开关"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAqklEQVR4nO3QMQ7CMAyG0R6BgbUz9+Y2nKosXaMfo1g04n1Stki237Y1d7/tR+V173O5AIUAhQCFAIUAnY0Ofj0fpVeFWwYaUAhQCFAIUAhQWKgKMQuoumeHyUeDAYXBgMJgQGEwoDD474C6IWYBdf8HBAgQIECA+oDaIQABAgQI0IJAsxbqBrocxChAIUAhQCFAIUBfNjpg+cNmBSgEKAQoBCgESJKkX/UGb1LuVY+TaWUAAAAASUVORK5CYII=> 音乐开</button>
 </div>
@@ -1547,6 +1640,7 @@ html.o-port .dsp-verdict{grid-area:verdict}
 <!-- BATTLE -->
 <section class="panel" id="view-battle" style="position:relative">
 <div class="battle-topbar" id="battle-topbar">
+<div class="tut-banner hidden" id="tut-banner"><span><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAnklEQVR4nO3VsQ2DMBCGUY9AkZaaATJCxmCbTJQx2II2W8AEFCc55A7eJ/215efCrQV7DONWedH7hvv3BQEBApR6gM4COjpgfr1LrxscIECAAAG6ENB3XX66Xg8GCBAgQIAAAQIECBAgQHcG+jyn0AABAgQIEKA8QL55QIAAAQKUB6jKAAECBAhQ4nUDisJVWTcIQIAAAQJUEEiSpDTtgviNZLZ42NsAAAAASUVORK5CYII=> <b>教程关卡</b> · 训练史莱姆（血低、打人不疼，不会真的倒下）— 练完这一关再正式上塔</span><button class="btn" id="btn-tut-exit" type="button">退出教程</button></div>
 <div class="preview" id="preview">
 <span class="turn-line" id="turn-pill">第 1 回合 · 你的回合</span>
 <span class="combo" id="pv-combo">—</span>
@@ -1801,6 +1895,11 @@ html.o-port .dsp-verdict{grid-area:verdict}
 <div class="upg-grid" id="upg-targets"></div>
 <div class="actions"><button class="btn" id="upg-btn-back" type="button">← 返回，换个方式</button><button class="btn" id="upg-btn-cancel2" type="button">先不选 · 返回再想想</button></div>
 </div>
+<div class="upg-current" id="upg-current">
+<h3 id="upg-current-title"></h3>
+<div id="upg-current-body"></div>
+<div class="actions" style="margin-top:10px"><button class="btn" id="upg-btn-all" type="button">查看全部强化（牌型 · 点数 · 元素 · 骰子）</button></div>
+</div>
 </div>
 </div>
 
@@ -1815,6 +1914,58 @@ html.o-port .dsp-verdict{grid-area:verdict}
 <h3 style="margin:18px 0 0;font-family:'Noto Serif SC',serif">符咒图鉴（未拥有）</h3>
 <div class="charm-grid" id="collection-rest"></div>
 <div class="actions"><button class="btn primary" id="btn-collection-close" type="button">关闭</button></div>
+</div>
+</div>
+
+<!-- ENHANCEMENT OVERVIEW OVERLAY （强化一览） -->
+<div class="enh-overlay" id="enh-overlay" role="dialog" aria-label="强化一览">
+<div class="enh-box">
+<h2><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 强化一览</h2>
+<p class="sub" style="margin:0">这一局到现在攒下的全部永久强化，都在这里：每个牌型升到几级、现在实际是多少筹码 × 乘数；每个点数每颗加了多少筹码。随机强化完拿不准强到哪了，来这里对一眼，再决定下一步怎么走。</p>
+<div id="enh-body"></div>
+<div class="actions"><button class="btn primary" id="btn-enh-close" type="button">关闭</button></div>
+</div>
+</div>
+
+<!-- TUTORIAL OVERLAY （新手引导） -->
+<div class="tutorial-overlay" id="tutorial-overlay" role="dialog" aria-label="新手引导">
+<div class="tut-box">
+<p class="sub" style="margin:0">新手引导 · 一分钟学会怎么玩</p>
+<div class="tut-icon" id="tut-icon"></div>
+<h2 id="tut-title"></h2>
+<p class="tut-body" id="tut-body"></p>
+<div class="tut-dots" id="tut-dots"></div>
+<div class="tut-count" id="tut-count"></div>
+<div class="tut-actions">
+<button class="btn" id="tut-skip" type="button">跳过引导</button>
+<button class="btn" id="tut-prev" type="button">← 上一步</button>
+<button class="btn primary" id="tut-next" type="button">下一步 →</button>
+</div>
+</div>
+</div>
+
+<!-- COACH BUBBLE （互动式第一局引导） -->
+<div class="coach-bubble" id="coach-bubble" role="dialog" aria-label="互动新手引导">
+<div class="coach-head"><span class="coach-tag">教程关卡</span><span class="coach-count" id="coach-count"></span></div>
+<h3 class="coach-title" id="coach-title"></h3>
+<p class="coach-text" id="coach-text"></p>
+<div class="coach-actions">
+<button class="btn coach-skipall" id="coach-skip" type="button">退出教程</button>
+<button class="btn" id="coach-skipstep" type="button">跳过这一步</button>
+<button class="btn primary" id="coach-next" type="button">知道了 →</button>
+</div>
+</div>
+
+<!-- TUTORIAL LEVEL COMPLETE （教程完成） -->
+<div class="menu-overlay" id="tutwin-overlay" role="dialog" aria-label="教程完成">
+<div class="menu-box">
+<h2><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 教程关卡 · 通关！</h2>
+<p class="sub" style="margin:0">整套打法你已经在这一关里练完了：<b>看牌型/伤害面板 → 锁骰 → 重摇 → 出招</b>，还有顶栏 <b>「强化一览」</b> 随时查牌型等级和点数强化。</p>
+<p class="sub">正式游戏里，打赢一场有 <b>三选一奖励</b>（符咒 / 祝福 / 点数强化），然后在 <b>地图</b> 上选下一站：商店补给、休息回血、奇遇和 Boss 都在路上。死了会退回上一档，构筑不丢。</p>
+<div class="actions">
+<button class="btn" id="btn-tutwin-home" type="button">回主界面</button>
+<button class="btn primary" id="btn-tutwin-start" type="button">开始游戏 →</button>
+</div>
 </div>
 </div>
 
@@ -1899,6 +2050,7 @@ html.o-port .dsp-verdict{grid-area:verdict}
 </div>
 <div class="home-banner"><h1 class="home-title">DICE<br>MASTER</h1></div>
 <div class="home-spacer"></div>
+<button class="btn-tut-level" id="btn-tut-level" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAnklEQVR4nO3VsQ2DMBCGUY9AkZaaATJCxmCbTJQx2II2W8AEFCc55A7eJ/215efCrQV7DONWedH7hvv3BQEBApR6gM4COjpgfr1LrxscIECAAAG6ENB3XX66Xg8GCBAgQIAAAQIECBAgQHcG+jyn0AABAgQIEKA8QL55QIAAAQKUB6jKAAECBAhQ4nUDisJVWTcIQIAAAQJUEEiSpDTtgviNZLZ42NsAAAAASUVORK5CYII=> 教程关卡 · 先练一局</button>
 <button class="btn-start-big" id="btn-start" type="button">START GAME</button>
 <div class="home-continue hidden" id="home-continue"><h3>继续游戏</h3><div id="home-saves"></div></div>
 <p class="home-hint"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAnklEQVR4nO3VsQ2DMBCGUY9AkZaaATJCxmCbTJQx2II2W8AEFCc55A7eJ/215efCrQV7DONWedH7hvv3BQEBApR6gM4COjpgfr1LrxscIECAAAG6ENB3XX66Xg8GCBAgQIAAAQIECBAgQHcG+jyn0AABAgQIEKA8QL55QIAAAQKUB6jKAAECBAhQ4nUDisJVWTcIQIAAAQJUEEiSpDTtgviNZLZ42NsAAAAASUVORK5CYII=> 在角落：长按速览规则，点开看完整版 · <img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAjElEQVR4nO3VsQ2AMAxFQUagoGUjFmcaRoAJUlgyijH3pddFUXRNlmWwbd3vPzVyGG72gwEVCxAgQN8Aus4jpVn3hyEAAQIECFAjoK4BAgQIEKDCpQFlfcNvlwYBCBAgQIAaAXUNECBAgAAVLg0o+q1WOx+GAAQIECBAjYC6BggQIECAChcGMjMzK78HULf+DhjJd00AAAAASUVORK5CYII=> 菜单里有局外进度与 5 个存档位</p>
@@ -1942,6 +2094,8 @@ html.o-port .dsp-verdict{grid-area:verdict}
 <p class="sub" style="margin:2px 0 0">档位 1 是自动存档：每完成一站自动写入。手动存档点任意档位的「存入」。战斗中存档不保留当前敌人，读取后回到地图继续。</p>
 <div id="save-list"></div>
 <div class="actions" style="justify-content:flex-start">
+<button class="btn" id="btn-menu-tutorial" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAnklEQVR4nO3VsQ2DMBCGUY9AkZaaATJCxmCbTJQx2II2W8AEFCc55A7eJ/215efCrQV7DONWedH7hvv3BQEBApR6gM4COjpgfr1LrxscIECAAAG6ENB3XX66Xg8GCBAgQIAAAQIECBAgQHcG+jyn0AABAgQIEKA8QL55QIAAAQKUB6jKAAECBAhQ4nUDisJVWTcIQIAAAQJUEEiSpDTtgviNZLZ42NsAAAAASUVORK5CYII=> 教程关卡</button>
+<button class="btn" id="btn-menu-enh" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 强化一览</button>
 <button class="btn" id="btn-menu-collection" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAnUlEQVR4nO3QsQ2AMAxFQUagoKVmABZnDLagZQuYIEWURLbgnvRbS75p6tQyr0+m9fqrW9EggAABApRp6SDu60y1MDhAgAABAvQDoGPfqgYIECBAgAABAgQIECBAgNqBRg8QIECAAAEaB1S6M/o+IECAAAEC1P7A6AECBAgQIECAAAECBAjQl4Bq4aIWBlEqGgQQIECAMi3aQ5Kk+F7bKBFZ/4XfkQAAAABJRU5ErkJggg==> 符咒收藏</button>
 <button class="btn" id="btn-menu-home" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAtUlEQVR4nO3Quw3CMABF0YxAQUvNACzDCKmYjTHYgpYtoElrPVk4sh2dK73Wn7MsnTqfLt+a9XpntwCFAIUAhQCFAG2VPvy8Xat2WDhAIUAhQCFAIUBbrSAOCwcoBCgEKAQoBKgzxDRwgAABAgRoAKDSBY/1PvWawQECBAgQoIGBauE+71fVSufsfX4zCECAAAECBAgQIECAAAECBAgQIECAAP0BNMsAAQIECNDA2x1IkqRh+gF/oChwbi+dIQAAAABJRU5ErkJggg==> 回主菜单</button>
 <button class="btn primary" id="btn-menu-close" type="button">关闭</button>
@@ -2338,6 +2492,7 @@ $("upg-rand-desc").textContent = isB? "随机一个牌型，等级直接 +2 级�
 $("upg-modes").classList.remove("hidden");
 $("upg-target-wrap").classList.add("hidden");
 $("upgrade-overlay").classList.add("show");
+renderUpgCurrent();
 }
 function closeUpgradePicker(summary) {
 var st = upgradeState; upgradeState = null;
@@ -2361,6 +2516,7 @@ var spec = upgradeState.spec;
 $("upg-modes").classList.add("hidden");
 $("upg-target-wrap").classList.remove("hidden");
 $("upg-target-hint").textContent = spec.kind === "blessing"? "点一个牌型，它立刻 +1 级：": "点一个点数，它立刻每颗 +" + spec.amt + " 筹码：";
+renderUpgCurrent();
 var box = $("upg-targets"); box.innerHTML = "";
 function targetBtn(html, key) {
 var b = document.createElement("button");
@@ -2382,6 +2538,305 @@ targetBtn("点数 " + f + "<br><small>当前每颗 +" + (S.faceBonus[f] || 0) + 
 });
 }
 }
+
+/* ================= Enhancement overview （强化一览） =================
+Every permanent upgrade, listed in full: all nine combo levels with
+their CURRENT chips × mult (base + blessing bonus), every face's
+per-die chip bonus, plus the global stats. Reachable from the HUD,
+the menu and the battle drawer's bonus row; the upgrade picker also
+embeds the relevant half (renderUpgCurrent) so the player can check
+where every level stands BEFORE choosing targeted vs random — and
+re-open this panel afterwards to verify where a random +2 landed. */
+function enhComboRowsHTML() {
+var keys = Object.keys(COMBOS).sort(function(a, b){ return COMBOS[b].rank - COMBOS[a].rank; });
+var h = "";
+keys.forEach(function(k) {
+var c = COMBOS[k]; var b = blessingBonus(k);
+h += '<div class="enh-row' + (b.lv > 1? " up": "") + '"><span class="enh-name">' + c.name + '</span><span class="enh-lv">Lv.' + b.lv + '</span><span class="enh-val">' + (c.chips + b.chips) + ' 筹码 × ' + (c.mult + b.mult) + ' 乘数</span><span class="enh-per">每升一级 +' + c.upChips + ' 筹码 / +' + c.upMult + ' 乘数</span></div>';
+});
+return h;
+}
+function enhFaceGridHTML() {
+var cap = Math.max(6, currentCap());
+var h = '<div class="enh-face-grid">';
+for (var f = 1; f <= cap; f++) {
+var v = (S.faceBonus && S.faceBonus[f]) || 0;
+h += '<div class="enh-face' + (v > 0? " up": "") + '"><div class="f-num">点数 ' + f + '</div>' + (v > 0? '<div class="f-val">+' + v + '</div><div class="f-num">筹码 / 颗</div>': '<div class="f-val f-none">未强化</div><div class="f-num">+0 / 颗</div>') + '</div>';
+}
+return h + "</div>";
+}
+function enhMiscHTML() {
+var h = '<div class="enh-misc">';
+h += '<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==> 元素强化 Lv.' + (S.elemLevel || 1) + ' · 克制 +' + (2 * (S.elemLevel || 1)) + '%/颗</span>';
+h += '<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 骰子上限 ' + currentCap() + '</span>';
+h += '<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 骰子 ×' + S.dice.length + ' 颗</span>';
+h += '<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAA1klEQVR4nO3ZsQ3CQBBEUZdAQEpLNEBHNA0dsBy+hTnzvuTMkmdf6m1r7ny6PDqf7v3tASoCVASoCFDR3wGNHnC7X1ufODhAgAABAhQANOvg0QO6oaeBAgIECBCgAwFN+3AzHCBAgAABOhJQGsRo7fsBAQIE6EWAigAVje4BBOi9/bPeBwRo3/uAPt2fBpe2J25Q2p64QWl74gal7YkblLYnblDanuV/HAICBCjqu4AAfRlo9IBZhy0DAQgQIECAFgQabRR09Pn1fbsDVASoCFARoKLVgZ74DWabJcOMxwAAAABJRU5ErkJggg==> 每场重摇 ' + baseRerolls() + ' 次（永久 +' + (S.rerollBonus || 0) + '）</span>';
+if (S.guardBonus > 0) h += '<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAvElEQVR4nO3QwQ2DMBBFQUrgwDU1pq2UQqrINV2ECpyV0Vqs0TzpXzE7y5LUtj5+lZZ1V1pXgwACBAhQpZWDeL7epXYZHCBAgAABKgCUBdH6zvezd230/wACBAgQIECAAAECBAjQnYBa6wXKehcQIECAAAGad4AAAQIEqPDSgGaHGw4BCBAgQIAmBKoGVw6iFaAgQEGAggAFATrZaDhAgAAB+hegIEAnax1224N7AxQEKAhQEKAgQJIkje4AB7p69Y6EN40AAAAASUVORK5CYII=> 每回合起始护甲 +' + S.guardBonus + '</span>';
+if (typeof S.inflictChance === "number") h += '<span class="bonus-chip">诅咒命中率 ' + S.inflictChance + '%</span>';
+if (S.scoreMultPerm && S.scoreMultPerm !== 1) h += '<span class="bonus-chip">最终计分 ×' + S.scoreMultPerm + '</span>';
+S.dice.forEach(function(d, di){ if (d.buff) h += '<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA0UlEQVR4nO3VMQoCQRAAQZ9gYGDiswSfYOT/M002ETybE5dDrILJZzqZ3W6yw/50nzmz959OoCBQECgIFAQalg64XS9T52fCCRQECgIFgYJAYW2gv3v/AgWBgkBBoCBQ+Fagre+YRqAgUBAoCBQE+pAQQaAgUBAoCBQEGhbf/Pn4cv4unEBBoCBQECgINKwNIZBAzwQKAgWBgkDBOw8CBYGCQEGgINDgnQeBgkBBoCBQECh450GgIFAQKAgUBBqWDls7W98xjUBBoCBQECgI9N4DsoVoCdIdCM8AAAAASUVORK5CYII=> 第 ' + (di + 1) + ' 颗骰子 · ' + d.buff.name + '：' + (d.buff.desc || "") + '</span>'; });
+return h + "</div>";
+}
+function renderEnhOverview() {
+$("enh-body").innerHTML =
+'<h3><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 牌型等级（祝福）</h3>' + enhComboRowsHTML() +
+'<h3><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAoElEQVR4nO3VsQ2AIBRFUUawsHUjB9cpbO0cQVeACIGv5yavI4GchpQkSfpN87TckQcIECBAgAZec4jz2EKvGhwgQIAAAfoQUO/v++07AQECBAgQoPzzrb9tQIAAAQIEqB3Qta9FAwQIECBAgMYBqjVAgAABAgSoHVCvAQIECBAgQPkXRxkgQIAAARp41YBK4aKsGgQgQIAAAQoIJEnSMD3GoklO2wu/rAAAAABJRU5ErkJggg==> 点数强化（摇到该点数，每颗额外加筹码）</h3>' + enhFaceGridHTML() +
+'<h3><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==> 其他强化</h3>' + enhMiscHTML();
+}
+function openEnh() { renderEnhOverview(); $("enh-overlay").classList.add("show"); }
+function renderUpgCurrent() {
+if (!upgradeState) return;
+var isB = upgradeState.spec.kind === "blessing";
+$("upg-current-title").innerHTML = isB? '<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 当前牌型等级 · 先看清楚再选': '<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAoElEQVR4nO3VsQ2AIBRFUUawsHUjB9cpbO0cQVeACIGv5yavI4GchpQkSfpN87TckQcIECBAgAZec4jz2EKvGhwgQIAAAfoQUO/v++07AQECBAgQoPzzrb9tQIAAAQIEqB3Qta9FAwQIECBAgMYBqjVAgAABAgSoHVCvAQIECBAgQPkXRxkgQIAAARp41YBK4aKsGgQgQIAAAQoIJEnSMD3GoklO2wu/rAAAAABJRU5ErkJggg==> 当前点数强化 · 先看清楚再选';
+$("upg-current-body").innerHTML = isB? enhComboRowsHTML(): enhFaceGridHTML();
+}
+
+/* ================= Tutorial （新手引导） =================
+Eight short pages that teach the ACTUAL buttons and the core loop:
+start / mode / class, map nodes, the dice tray + hand & damage
+panel, lock & reroll, attack & the charm row order, rewards &
+upgrades (and where 强化一览 lives), shop / rest / gold, survival
+& saves. Auto-opens once on first launch (seen flag in localStorage
+under dice-spire-tutorial-v1 — same try/catch pattern as META,
+saves and orientation), skippable on every page, and re-openable
+any time from the menu's 「新手引导」 button. */
+var TUT_KEY = "dice-spire-tutorial-v1";
+var TUT_STEPS = [
+{ icon: "px-tower", title: "欢迎来到骰子爬塔", body: "你是初六，一名骰手。目标：穿过 <b>12 个村庄</b>、爬上 <b>77 层高塔</b>，在塔顶打败恶龙。<br>点主界面的 <b>START GAME</b>，先选 <b>故事模式</b>（有终点）或 <b>无尽模式</b>（一直打），再选一个职业出发——三个职业的起手骰组和符咒完全不同。" },
+{ icon: "px-sword", title: "在地图上选路", body: "每一站都是一座村庄或一层塔，点 <b>发亮的节点</b> 走过去：普通战斗、精英、商店、奇遇、宝箱、休息会岔开成不同的路。<br>每座村庄都有守关的 <b>Boss</b>：打赢它，才能前往下一站；塔里每隔几层也会遇上一个。" },
+{ icon: "px-dice", title: "战斗：先看骰盘旁边的面板", body: "每回合你的骰子会自动摇出，落在屏幕下方的 <b>骰盘</b> 里。<br>骰盘旁边有个面板，会实时告诉你：现在是什么 <b>牌型</b>、这一手 <b>预计打多少伤害</b>、够不够打死对面。先看它，再做决定。" },
+{ icon: "px-reroll", title: "锁定与重摇：凑大牌型", body: "<b>点一颗骰子</b> 可以把它锁定，重摇时它保持不变；点 <b>「重摇」</b> 换掉没锁的骰子（每场次数有限，按钮上写着剩余次数）。<br>牌型从小到大：散牌 ＜ 一对 ＜ 两对 ＜ 三条 ＜ 小顺 ＜ 大顺 ＜ 葫芦 ＜ 四条 ＜ 五条（豹子）。伤害 = <b>筹码 × 乘数</b>，牌型越大越高。" },
+{ icon: "px-card", title: "出招与符咒顺序", body: "满意了就点 <b>「出招」</b> 结算伤害，敌人随后反击，注意双方的 <b>血条</b>。<br>屏幕上方一排是你的 <b>符咒卡槽</b>：符咒从左到右依次计分——先加筹码/乘数的放前面，翻倍的放后面，顺序不同伤害差很多。点顶栏 <b>「符咒收藏」</b> 能看全部符咒并调整顺序。" },
+{ icon: "px-spark", title: "奖励与强化：越打越强", body: "打赢一场有 <b>三选一奖励</b> 和金币。两种核心强化：<b>祝福</b> 升某个牌型的等级，<b>点数强化</b> 让某个点数每颗多加筹码。<br>每次强化二选一：<b>自己指定 +1 份</b>（精准），或 <b>随机 +2 份</b>（翻倍但不能挑）。想查现在每个牌型几级、每个点数加了几点——点顶栏 <b>「强化一览」</b>，随时可看，方便做策略。" },
+{ icon: "px-moneybag", title: "商店、休息与金币", body: "<b>商店</b> 每次只上架 4 样：骰子、符咒、精华液和强化都可能刷出来，老板还开赌局。<b>休息站</b> 能回血，也能冥想拿强化。<br>金币放着有利息（每 10 金 +1，上限 3），但该花就花——活着比攒钱重要。" },
+{ icon: "px-heart", title: "活下去：存档与重试", body: "血量归零不会直接结束：你会 <b>退回上一档</b>，整备好再战，也可以重开当前村庄。<br>点右上角 <b>菜单</b>：里面有 5 个存档位（1 号位每过一站自动存档）、局外进度、设置，还有这份 <b>新手引导</b>——忘了什么随时回来翻。<br>准备好了吗？关掉引导，点 START GAME 出发！" }
+];
+var tutStep = 0;
+function tutSeen() { try { return window.localStorage.getItem(TUT_KEY) === "1"; } catch (e) { return false; } }
+function tutMarkSeen() { try { window.localStorage.setItem(TUT_KEY, "1"); } catch (e) {} }
+function renderTut() {
+var st = TUT_STEPS[tutStep];
+$("tut-icon").innerHTML = '<img class=pxi src=assets/' + st.icon + '.png alt="">';
+$("tut-title").textContent = st.title;
+$("tut-body").innerHTML = st.body;
+$("tut-count").textContent = "第 " + (tutStep + 1) + " / " + TUT_STEPS.length + " 页";
+var dots = ""; for (var i = 0; i < TUT_STEPS.length; i++) dots += '<i class="' + (i === tutStep? "on": "") + '"></i>';
+$("tut-dots").innerHTML = dots;
+$("tut-prev").disabled = tutStep === 0;
+$("tut-next").textContent = tutStep === TUT_STEPS.length - 1? "开始爬塔！": "下一步 →";
+}
+function openTutorial() { tutStep = 0; renderTut(); $("tutorial-overlay").classList.add("show"); }
+function closeTutorial() { tutMarkSeen(); $("tutorial-overlay").classList.remove("show"); }
+function maybeShowTutorial() { if (!tutSeen()) openTutorial(); }
+
+/* ================= Interactive coach （教程关卡内的实操引导） =================
+The bubble + pulsing highlight machinery for the TUTORIAL LEVEL below:
+inside the level's practice battle it walks the player through the
+hand/damage panel, locking a die by tapping it, rerolling, a dedicated
+"how to view" lesson (open 强化一览 from the top bar, read the
+combo-level rows and the face grid, close it), the charm row, reading
+the enemy, attacking for real, and finishing the training slime off.
+Action steps advance only when the player actually does the thing
+(polled from live game state); explanation steps advance with
+「知道了」. It runs ONLY inside the tutorial level — never over a real
+run (coachTick stands down the moment S is no longer the practice
+state). */
+var COACH_KEY = "dice-spire-coach-v1";
+var coach = { active: false, step: 0, timer: null, base: null, hiEl: null };
+function coachDone() { try { return window.localStorage.getItem(COACH_KEY) === "1"; } catch (e) { return false; } }
+function coachMarkDone() { try { window.localStorage.setItem(COACH_KEY, "1"); } catch (e) {} tutMarkSeen(); }
+function coachBattleLive() { return typeof S !== "undefined" && !!S && !!S.enemy && !$("view-battle").classList.contains("hidden"); }
+function coachMapShown() { return !$("view-map").classList.contains("hidden"); }
+function coachRewardShown() { return !$("view-reward").classList.contains("hidden"); }
+var COACH_STEPS = [
+{ id: "welcome", mode: "ack", title: "教程关卡 · 先练一局再上塔",
+text: "这里是<b>开始游戏之前的教程关卡</b>：一整关只用来练打法。对面是<b>训练史莱姆</b>——血放得很低、打人不疼，你不会真的倒下。锁骰、重摇、看牌型、查强化、出招，全在这关里练完，再去正式爬塔。",
+target: function() { return $("fighter-enemy"); } },
+{ id: "panel", mode: "ack", title: "先看面板：牌型与伤害",
+text: "骰子每回合<b>自动摇出</b>，落在下方骰盘里。先看骰盘旁这块面板：<b>当前牌型</b>、筹码 × 乘数、<b>预计伤害</b>，连护甲扣完实打多少、敌人还剩几滴血都算好了。骰子一变，它立刻刷新。",
+target: function() { return $("dice-side"); } },
+{ id: "lock", mode: "action", title: "实操：锁定骰子",
+text: "<b>亲手点一颗骰子</b>试试——点一下锁定（再点一下取消）。想要的点数先锁住，重摇时它纹丝不动。",
+target: function() { return $("dice-tray"); },
+check: function() { return typeof S !== "undefined" && !!S && !!S.dice && S.dice.some(function(d) { return d.locked; }); } },
+{ id: "reroll", mode: "action", title: "实操：重摇",
+text: "点 <b>「重摇」</b>，把没锁的骰子换掉，凑更大的牌型。每回合次数有限，按钮上写着剩余次数。",
+target: function() { return $("btn-reroll"); },
+autoSkip: function() { return typeof S !== "undefined" && !!S && !!S.enemy && baseRerolls() <= 0; },
+check: function() { return typeof S !== "undefined" && !!S && S.rerollsUsed > 0; } },
+{ id: "viewopen", mode: "action", title: "查看课：强化一览在哪",
+text: "强化完不知道自己升了几级？不用猜——点顶栏的 <b>「强化一览」</b>，现在就打开它看一眼。",
+target: function() { return $("btn-enh"); },
+check: function() { return $("enh-overlay").classList.contains("show"); } },
+{ id: "viewread", mode: "action", title: "查看课：这样读这张表",
+text: "上半是<b>牌型等级</b>：9 种牌型各升到几级、现在实际筹码 × 乘数，<b>金色 = 升过的</b>；下半是<b>点数格子</b>：点数 1–6 每颗 +几筹码，没强化的写着「未强化」。这一关预先放了两处强化给你看样本：<b>一对 Lv.2</b>、<b>点数 6 每颗 +2</b>，在表里都是金色的。<b>正式游戏里随机强化完，就来这里核对</b>，再决定下一步。看完点「关闭」继续。",
+target: function() { return document.querySelector("#enh-overlay .enh-box"); },
+check: function() { return !$("enh-overlay").classList.contains("show"); } },
+{ id: "charms", mode: "ack", title: "符咒：顺序就是伤害",
+text: "战斗顶上这排是你的<b>符咒卡槽</b>，出招时<b>从左到右依次计分</b>：加筹码/乘数的放前面，翻倍的放后面。点一张卡能看它的效果，点两张卡可以交换位置。",
+target: function() { return $("charm-bar-wrap"); } },
+{ id: "enemy", mode: "ack", title: "看敌人",
+text: "敌人脚下是<b>红血条</b>。<b>长按敌人</b>，能看它下回合的动作（攻击 / 上护甲 / 让你虚弱）和它怕什么属性——怕什么，就拿什么属性的骰子克它。",
+target: function() { return $("fighter-enemy"); } },
+{ id: "attack", mode: "action", title: "实操：出招！",
+text: "面板上的伤害满意了，就点 <b>「出招」</b> 真打一发：伤害数字会飘出来，敌人挨打后会<b>反击并嘲讽</b>你，然后进入它的回合。",
+target: function() { return $("btn-attack"); },
+check: function() { return !!coach.base && typeof S !== "undefined" && !!S && (!S.enemy || S.enemy.hp < coach.base.hp || S.turn !== coach.base.turn || S.kills > coach.base.kills); } },
+{ id: "finish", mode: "action", last: true, title: "最后一课：打倒它",
+text: "继续<b>出招</b>，把训练史莱姆打倒——锁骰、重摇每回合都能用，面板会一直帮你算伤害。打赢这一关，教程就完成了；之后点 <b>START GAME</b>，才是正式的选模式、选职业、爬塔。",
+target: function() { return $("btn-attack"); },
+check: function() { return typeof S === "undefined" || !S || !S.enemy; } }
+];
+function coachIdx(id) { for (var i = 0; i < COACH_STEPS.length; i++) { if (COACH_STEPS[i].id === id) return i; } return 0; }
+function coachHi(el) {
+if (coach.hiEl && coach.hiEl !== el) coach.hiEl.classList.remove("coach-hi");
+coach.hiEl = el || null;
+if (el && !el.classList.contains("coach-hi")) el.classList.add("coach-hi");
+}
+function coachPaint() {
+var st = COACH_STEPS[coach.step];
+if (!st) return;
+var el = null;
+try { el = st.target? st.target(): null; } catch (e) { el = null; }
+coachHi(el);
+var bub = $("coach-bubble");
+if (el && bub) {
+var r = el.getBoundingClientRect();
+bub.classList.toggle("top", r.top + r.height / 2 > window.innerHeight * 0.52);
+}
+}
+function coachRender() {
+var st = COACH_STEPS[coach.step];
+if (!st) return;
+$("coach-title").textContent = st.title;
+$("coach-text").innerHTML = st.text;
+$("coach-count").textContent = "第 " + (coach.step + 1) + " / " + COACH_STEPS.length + " 步";
+var nx = $("coach-next");
+nx.style.display = st.mode === "ack"? "": "none";
+nx.textContent = st.last? "完成引导 ✓": "知道了 →";
+$("coach-skipstep").style.display = st.mode === "action"? "": "none";
+coachPaint();
+}
+function coachSetStep(i) {
+coach.step = Math.max(0, Math.min(COACH_STEPS.length - 1, i));
+var st = COACH_STEPS[coach.step];
+coach.base = (st.id === "attack" && typeof S !== "undefined" && S && S.enemy)? { hp: S.enemy.hp, turn: S.turn, kills: S.kills }: null;
+coachHi(null);
+coachRender();
+var el = null;
+try { el = st.target? st.target(): null; } catch (e) { el = null; }
+if (el && el.scrollIntoView) { try { el.scrollIntoView({ block: "nearest" }); } catch (e) {} }
+}
+function coachAdvance() {
+if (coach.step >= COACH_STEPS.length - 1) { coachStop(true); return; }
+coachSetStep(coach.step + 1);
+}
+function coachTick() {
+if (!coach.active) return;
+/* the coach lives ONLY inside the tutorial level: if the player left it
+(went home, or a real run replaced the practice state) it stands down */
+if (typeof S === "undefined" || !S || !S.tutorial || $("home-screen").classList.contains("show") || $("class-overlay").classList.contains("show") || $("mode-overlay").classList.contains("show")) { coachStop(false); return; }
+if (S.over) { coachStop(true); return; }
+var st = COACH_STEPS[coach.step];
+if (!st) { coachStop(true); return; }
+if (st.autoSkip && st.autoSkip()) { coachAdvance(); return; }
+if (st.check && st.check()) { coachAdvance(); return; }
+coachPaint();
+}
+function coachStop(mark) {
+coach.active = false;
+if (coach.timer) { clearInterval(coach.timer); coach.timer = null; }
+coachHi(null);
+var bub = $("coach-bubble");
+if (bub) bub.classList.remove("show");
+if (mark) coachMarkDone();
+}
+function startCoach() {
+/* the coach bubble now runs only inside the tutorial level's battle */
+coach.active = true;
+coach.base = null;
+coachHi(null);
+$("coach-bubble").classList.add("show");
+if (coach.timer) clearInterval(coach.timer);
+coach.timer = setInterval(coachTick, 300);
+coachSetStep(0);
+}
+$("coach-next").addEventListener("click", function() { coachAdvance(); });
+$("coach-skipstep").addEventListener("click", function() { coachAdvance(); });
+$("coach-skip").addEventListener("click", function() { if (typeof S !== "undefined" && S && S.tutorial) exitTutorialLevel(); else coachStop(true); });
+
+/* ================= Tutorial LEVEL （教程关卡） =================
+A standalone practice battle that runs BEFORE the real game starts —
+not an overlay on the player's first real run. Entry points: the home
+screen's 「教程关卡」 button (always there, replayable), the menu's
+「新手引导」 button, and START GAME itself: a player who has never
+finished the level is routed into it first, and winning it lands on a
+completion panel whose 「开始游戏」 continues into mode select.
+The level reuses the real battle engine on a throwaway practice state
+(fresh 骰手 build, flagged S.tutorial): the training slime's HP and
+intents are softened after startBattle, the player cannot die in it
+(enemyTurn clamps HP at 1), winCombat diverts to tutorialWin() so no
+gold / rewards / meta stats leak into the real game, and two sample
+enhancements （一对 Lv.2, 点数 6 +2/颗） are pre-seeded so the 查看课
+step has real gold rows to read in 强化一览. Exiting early counts as
+seen (localStorage dice-spire-tutlevel-v1) so START GAME never traps
+anyone in the level twice. */
+var TUTLV_KEY = "dice-spire-tutlevel-v1";
+function tutLevelDone() { try { return window.localStorage.getItem(TUTLV_KEY) === "1"; } catch (e) { return false; } }
+function tutLevelMarkDone() { try { window.localStorage.setItem(TUTLV_KEY, "1"); } catch (e) {} coachMarkDone(); }
+function startTutorialLevel() {
+var mo = $("menu-overlay"); if (mo) mo.classList.remove("show");
+var to = $("tutorial-overlay"); if (to) to.classList.remove("show");
+var tw = $("tutwin-overlay"); if (tw) tw.classList.remove("show");
+hideMenus();
+S = freshState("dicehand", 0);
+S.tutorial = true;
+S.gold = 20;
+S.comboLevels.pair = 2;
+S.faceBonus[6] = 2;
+$("log").innerHTML = "";
+showView("battle");
+startBattle("slime");
+if (S.enemy) {
+S.enemy.hp = 36;
+S.enemy.maxHp = 36;
+S.enemy.baseMaxHp = 36;
+S.enemy.intents = [{ t: "atk", v: 3 }, { t: "armor", v: 4 }, { t: "atk", v: 3 }];
+}
+log("—— 教程关卡：训练史莱姆（36 点生命，打你只疼 3 点）——这一关只练打法，不算正式游戏，输赢都不影响任何进度。", "strong");
+var tb = $("tut-banner"); if (tb) tb.classList.remove("hidden");
+renderAll();
+startCoach();
+}
+function exitTutorialLevel() {
+coachStop(false);
+tutLevelMarkDone();
+var tb = $("tut-banner"); if (tb) tb.classList.add("hidden");
+var tw = $("tutwin-overlay"); if (tw) tw.classList.remove("show");
+showHome();
+}
+function tutorialWin() {
+var art = $("enemy-art");
+if (art) art.classList.add("dead");
+fxFloat("教程完成!", art, "crit");
+if (window.sfx) sfx("coin");
+S.enemy = null;
+S.busy = false;
+coachStop(false);
+tutLevelMarkDone();
+var tb = $("tut-banner"); if (tb) tb.classList.add("hidden");
+renderAll();
+setTimeout(function() { $("tutwin-overlay").classList.add("show"); }, 650);
+}
+function onStartGame() {
+if (!tutLevelDone()) { startTutorialLevel(); return; }
+showModeSelect();
+}
+/* The tutorial is a level now, not a first-launch popup: nothing
+auto-opens on load — START GAME routes first-timers into the level,
+and the menu's 「新手引导」 button re-enters it any time. */
+openTutorial = function() { startTutorialLevel(); };
+maybeShowTutorial = function() {};
 
 /* ================= v29: PIXEL-ART FIGURES (21-color palette, chunky blocks) =================
 Every enemy, NPC and scene figure is drawn from a pixel grid in the same
@@ -2844,7 +3299,7 @@ var _pa=$("player-armor-stage"); if(_pa) _pa.textContent=" "+S.armor;
 var _pw=$("player-hpbar-wrap"); if(_pw) _pw.classList.toggle("low", S.hp/S.maxHp<=0.3);
 var _sa=$("stage-act"); if(_sa && S.enemy) _sa.textContent="第 "+S.act+" 幕 · "+ENEMIES[S.enemy.id].name+" 之战";
 var _ss=$("stage-scene"); if(_ss) _ss.textContent=ACTS[S.act].scene+" · 双方呼吸可见，静待出手";
-var _br=$("bonus-row"); if(_br){ var bh='<span class="lbl" style="font-size:12.5px;color:var(--ink-soft)">强化：</span>'; var any=false; Object.keys(COMBOS).forEach(function(k){ var lv=S.comboLevels[k]||1; if(lv>1){any=true; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> '+COMBOS[k].name+' Lv.'+lv+'</span>';}}); [1,2,3,4,5,6].forEach(function(f){ if(S.faceBonus[f]>0){any=true; bh+='<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAoElEQVR4nO3VsQ2AIBRFUUawsHUjB9cpbO0cQVeACIGv5yavI4GchpQkSfpN87TckQcIECBAgAZec4jz2EKvGhwgQIAAAfoQUO/v++07AQECBAgQoPzzrb9tQIAAAQIEqB3Qta9FAwQIECBAgMYBqjVAgAABAgSoHVCvAQIECBAgQPkXRxkgQIAAARp41YBK4aKsGgQgQIAAAQoIJEnSMD3GoklO2wu/rAAAAABJRU5ErkJggg==> 点数 '+f+' +'+S.faceBonus[f]+'/颗</span>';}}); bh+='<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==> 元素强化 Lv.'+(S.elemLevel||1)+' · 克制 +'+(2*(S.elemLevel||1))+'%/颗</span>'; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 骰子上限 '+currentCap()+'</span>'; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 骰子 ×'+S.dice.length+' 颗</span>'; if(S.guardBonus>0){ any=true; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAvElEQVR4nO3QwQ2DMBBFQUrgwDU1pq2UQqrINV2ECpyV0Vqs0TzpXzE7y5LUtj5+lZZ1V1pXgwACBAhQpZWDeL7epXYZHCBAgAABKgCUBdH6zvezd230/wACBAgQIECAAAECBAjQnYBa6wXKehcQIECAAAGad4AAAQIEqPDSgGaHGw4BCBAgQIAmBKoGVw6iFaAgQEGAggAFATrZaDhAgAAB+hegIEAnax1224N7AxQEKAhQEKAgQJIkje4AB7p69Y6EN40AAAAASUVORK5CYII=> 每回合起始护甲 +'+S.guardBonus+'</span>'; } S.dice.forEach(function(d,di){ if(d.buff){ any=true; bh+='<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA0UlEQVR4nO3VMQoCQRAAQZ9gYGDiswSfYOT/M002ETybE5dDrILJZzqZ3W6yw/50nzmz959OoCBQECgIFAQalg64XS9T52fCCRQECgIFgYJAYW2gv3v/AgWBgkBBoCBQ+Fagre+YRqAgUBAoCBQE+pAQQaAgUBAoCBQEGhbf/Pn4cv4unEBBoCBQECgINKwNIZBAzwQKAgWBgkDBOw8CBYGCQEGgINDgnQeBgkBBoCBQECh450GgIFAQKAgUBBqWDls7W98xjUBBoCBQECgI9N4DsoVoCdIdCM8AAAAASUVORK5CYII=> 第 '+(di+1)+' 颗 · '+d.buff.name+'</span>'; }}); if(!any) bh+='<span class="bonus-chip none">暂无祝福 / 点数强化（奖励、商店、跳过可获得）</span>'; _br.innerHTML=bh; }
+var _br=$("bonus-row"); if(_br){ var bh='<span class="lbl" style="font-size:12.5px;color:var(--ink-soft)">强化：</span>'; var any=false; Object.keys(COMBOS).forEach(function(k){ var lv=S.comboLevels[k]||1; if(lv>1){any=true; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> '+COMBOS[k].name+' Lv.'+lv+'</span>';}}); [1,2,3,4,5,6].forEach(function(f){ if(S.faceBonus[f]>0){any=true; bh+='<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAoElEQVR4nO3VsQ2AIBRFUUawsHUjB9cpbO0cQVeACIGv5yavI4GchpQkSfpN87TckQcIECBAgAZec4jz2EKvGhwgQIAAAfoQUO/v++07AQECBAgQoPzzrb9tQIAAAQIEqB3Qta9FAwQIECBAgMYBqjVAgAABAgSoHVCvAQIECBAgQPkXRxkgQIAAARp41YBK4aKsGgQgQIAAAQoIJEnSMD3GoklO2wu/rAAAAABJRU5ErkJggg==> 点数 '+f+' +'+S.faceBonus[f]+'/颗</span>';}}); bh+='<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==> 元素强化 Lv.'+(S.elemLevel||1)+' · 克制 +'+(2*(S.elemLevel||1))+'%/颗</span>'; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 骰子上限 '+currentCap()+'</span>'; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 骰子 ×'+S.dice.length+' 颗</span>'; if(S.guardBonus>0){ any=true; bh+='<span class="bonus-chip"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAvElEQVR4nO3QwQ2DMBBFQUrgwDU1pq2UQqrINV2ECpyV0Vqs0TzpXzE7y5LUtj5+lZZ1V1pXgwACBAhQpZWDeL7epXYZHCBAgAABKgCUBdH6zvezd230/wACBAgQIECAAAECBAjQnYBa6wXKehcQIECAAAGad4AAAQIEqPDSgGaHGw4BCBAgQIAmBKoGVw6iFaAgQEGAggAFATrZaDhAgAAB+hegIEAnax1224N7AxQEKAhQEKAgQJIkje4AB7p69Y6EN40AAAAASUVORK5CYII=> 每回合起始护甲 +'+S.guardBonus+'</span>'; } S.dice.forEach(function(d,di){ if(d.buff){ any=true; bh+='<span class="bonus-chip face"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA0UlEQVR4nO3VMQoCQRAAQZ9gYGDiswSfYOT/M002ETybE5dDrILJZzqZ3W6yw/50nzmz959OoCBQECgIFAQalg64XS9T52fCCRQECgIFgYJAYW2gv3v/AgWBgkBBoCBQ+Fagre+YRqAgUBAoCBQE+pAQQaAgUBAoCBQEGhbf/Pn4cv4unEBBoCBQECgINKwNIZBAzwQKAgWBgkDBOw8CBYGCQEGgINDgnQeBgkBBoCBQECh450GgIFAQKAgUBBqWDls7W98xjUBBoCBQECgI9N4DsoVoCdIdCM8AAAAASUVORK5CYII=> 第 '+(di+1)+' 颗 · '+d.buff.name+'</span>'; }}); if(!any) bh+='<span class="bonus-chip none">暂无祝福 / 点数强化（奖励、商店、跳过可获得）</span>'; bh+='<button type="button" class="bonus-chip face" id="bonus-enh-btn">查看全部强化</button>'; _br.innerHTML=bh; var _beb=$("bonus-enh-btn"); if(_beb) _beb.addEventListener("click", openEnh); }
 renderEssencePanel();
 var _sk=$("btn-skip"); if(_sk){ var canSkip=S.enemy&&S.node&&S.node.kind==="battle"; _sk.style.display=canSkip?"":"none"; _sk.disabled=S.busy||S.over||!canSkip; }
 var _fl=$("btn-flee"); if(_fl){ var canFlee=!!(S.disguisedBattle&&S.enemy&&!S.over); _fl.style.display=canFlee?"":"none"; _fl.disabled=S.busy||!canFlee; }
@@ -3936,10 +4391,11 @@ if (it.t === "armorWeak") { S.weakTurns = Math.max(S.weakTurns, 1); log("你被�
 }
 S.busy = false;
 renderAll();
-if (S.hp <= 0) { if (tryAegisSave()) { renderAll(); } else if (handleDisguisedLose() || handleRobberyLose()) return; else { gameOver(false); return; } }
+if (S.hp <= 0) { if (S.tutorial) { S.hp = 1; log("教程关卡里不会真的倒下——最后一滴血被护住了，继续练！", "strong"); renderAll(); } else if (tryAegisSave()) { renderAll(); } else if (handleDisguisedLose() || handleRobberyLose()) return; else { gameOver(false); return; } }
 startTurn(false);
 }
 function winCombat() {
+if (S && S.tutorial) { tutorialWin(); return; }
 var def = ENEMIES[S.enemy.id];
 if (S.robbery) { robberyWin(); return; }
 if (S.disguisedBattle) {
@@ -4243,7 +4699,7 @@ if (typeof csState !== "undefined" && csState.timer) { clearTimeout(csState.time
 if (typeof csState !== "undefined") csState.cb = null;
 if (typeof drawState !== "undefined") drawState.cb = null;
 if (typeof travelState !== "undefined") { if (travelState.timer) { clearTimeout(travelState.timer); travelState.timer = null;} travelState.cb = null;}
-["cutscene", "draw-overlay", "skip-overlay", "upgrade-overlay", "collection-overlay", "travel-overlay", "gamble-overlay"].forEach(function(id) {
+["cutscene", "draw-overlay", "skip-overlay", "upgrade-overlay", "collection-overlay", "travel-overlay", "gamble-overlay", "enh-overlay", "tutorial-overlay"].forEach(function(id) {
 var el = $(id); if (el) el.classList.remove("show");
 });
 }
@@ -5549,6 +6005,9 @@ gRefresh();
 /* ================= Wiring ================= */
 $("btn-collection").addEventListener("click", openCollection);
 $("btn-collection-close").addEventListener("click", function(){ $("collection-overlay").classList.remove("show"); renderAll();});
+$("btn-enh").addEventListener("click", openEnh);
+$("btn-enh-close").addEventListener("click", function(){ $("enh-overlay").classList.remove("show"); });
+$("upg-btn-all").addEventListener("click", openEnh);
 $("btn-skip").addEventListener("click", openSkip);
 $("btn-skip-cancel").addEventListener("click", function(){ $("skip-overlay").classList.remove("show"); });
 $("upg-btn-pick").addEventListener("click", showUpgradeTargets);
@@ -6309,7 +6768,7 @@ showHome();
 function hideMenus() {
 ["home-screen", "mode-overlay", "menu-overlay", "rules-overlay", "class-overlay"].forEach(function(id) { var el = $(id); if (el) el.classList.remove("show"); });
 }
-function showHome() { hideMenus(); try { renderSaves(); } catch (e) {} $("home-screen").classList.add("show"); }
+function showHome() { hideMenus(); var tb0 = $("tut-banner"); if (tb0) tb0.classList.add("hidden"); var tw0 = $("tutwin-overlay"); if (tw0) tw0.classList.remove("show"); try { renderSaves(); } catch (e) {} $("home-screen").classList.add("show"); }
 function showModeSelect() { hideMenus(); $("mode-overlay").classList.add("show"); }
 function openMenu() { try { renderSaves(); } catch (e) {} $("menu-overlay").classList.add("show"); }
 function openRules() { $("rules-overlay").classList.add("show"); }
@@ -6343,7 +6802,11 @@ document.addEventListener("pointerup", function() { if (tipTimer) clearTimeout(t
 document.addEventListener("pointercancel", function() { if (tipTimer) clearTimeout(tipTimer); });
 document.addEventListener("scroll", hideTip, true);
 /* ---------- wiring ---------- */
-$("btn-start").addEventListener("click", showModeSelect);
+$("btn-start").addEventListener("click", onStartGame);
+$("btn-tut-level").addEventListener("click", function() { startTutorialLevel(); });
+$("btn-tut-exit").addEventListener("click", function() { exitTutorialLevel(); });
+$("btn-tutwin-start").addEventListener("click", function() { $("tutwin-overlay").classList.remove("show"); showModeSelect(); });
+$("btn-tutwin-home").addEventListener("click", function() { exitTutorialLevel(); });
 window.__dmWired = true; /* v27: main wiring reached — watchdog below stands down */
 $("btn-mode-back").addEventListener("click", showHome);
 $("btn-mode-story").addEventListener("click", function() { pendingMode = "story"; hideMenus(); showClassSelect(); });
@@ -6353,6 +6816,11 @@ document.querySelectorAll(".btn-menu-open").forEach(function(b) { b.addEventList
 $("btn-menu-close").addEventListener("click", function() { $("menu-overlay").classList.remove("show"); });
 $("btn-menu-home").addEventListener("click", function() { $("overlay").classList.remove("show"); showHome(); });
 $("btn-menu-collection").addEventListener("click", function() { $("menu-overlay").classList.remove("show"); openCollection(); });
+$("btn-menu-enh").addEventListener("click", function() { $("menu-overlay").classList.remove("show"); openEnh(); });
+$("btn-menu-tutorial").addEventListener("click", function() { $("menu-overlay").classList.remove("show"); openTutorial(); });
+$("tut-prev").addEventListener("click", function(){ if (tutStep > 0) { tutStep--; renderTut(); } });
+$("tut-next").addEventListener("click", function(){ if (tutStep < TUT_STEPS.length - 1) { tutStep++; renderTut(); } else closeTutorial(); });
+$("tut-skip").addEventListener("click", closeTutorial);
 $("btn-rules-close").addEventListener("click", function() { $("rules-overlay").classList.remove("show"); });
 $("btn-death-village").addEventListener("click", doRestartStation);
 $("btn-death-home").addEventListener("click", function() { S.dead = false; S.over = false; S.enemy = null; $("overlay").classList.remove("show"); showHome(); });
@@ -6391,6 +6859,7 @@ must never take down the home screen or the already-bound buttons. */
 try { renderSaves(); } catch (e) {}
 try { showHome(); } catch (e) { var hs = $("home-screen"); if (hs) hs.classList.add("show"); }
 try { renderAll(); } catch (e) {}
+try { maybeShowTutorial(); } catch (e) {}
 </script>
 
 <script>
@@ -6946,6 +7415,40 @@ window.addEventListener("orientationchange", function() { apply(); setTimeout(ap
 if (window.visualViewport && window.visualViewport.addEventListener) window.visualViewport.addEventListener("resize", apply);
 setInterval(apply, 600);
 apply();
+})();
+</script>
+<script>
+/* v45: background scroll lock. While any full-screen overlay (home
+screen, menus, shop, rewards, ...) is shown, lock the document behind
+it (html.ds-lock) so a swipe scrolls the overlay itself — never the
+hidden game page. Player report behind this: swiping on the main menu
+only collapsed the browser chrome and showed a scrollbar while the
+menu stayed frozen ("滑不动、滑不到能点的东西"). The overlays all
+toggle visibility with a .show class and scroll internally, so the
+lock is safe; it releases the moment no overlay is shown. In the
+rotated fake-land mode the rotor is the scroller and already implies
+a locked body, so the class is a no-op there. */
+(function() {
+"use strict";
+var SEL = "#home-screen,.overlay,.menu-overlay,.class-overlay,.collection-overlay,.upgrade-overlay,.gamble-overlay,.draw-overlay,.skip-overlay,.travel-overlay,.enh-overlay,.tutorial-overlay,.cutscene";
+var els = [];
+try { els = Array.prototype.slice.call(document.querySelectorAll(SEL)); } catch (e) {}
+function anyShown() {
+for (var i = 0; i < els.length; i++) {
+var e = els[i];
+if (e.classList && e.classList.contains("show")) {
+try { if (window.getComputedStyle(e).display !== "none") return true; } catch (err) { return true; }
+}
+}
+return false;
+}
+function sync() { document.documentElement.classList.toggle("ds-lock", anyShown()); }
+if (window.MutationObserver) {
+var mo = new MutationObserver(sync);
+for (var j = 0; j < els.length; j++) mo.observe(els[j], { attributes: true, attributeFilter: ["class"] });
+}
+setInterval(sync, 800);
+sync();
 })();
 </script>
 </body>
