@@ -5032,7 +5032,7 @@ box.innerHTML = "";
 htmlBtns.forEach(function(cfg) {
 var b = document.createElement("button");
 b.type = "button"; b.className = "btn" + (cfg.primary? " primary": cfg.gold? " gold": "");
-b.textContent = cfg.label;
+b.innerHTML = cfg.label;
 b.disabled =!!cfg.disabled;
 b.addEventListener("click", cfg.fn);
 box.appendChild(b);
@@ -5106,6 +5106,7 @@ gActions(acts);
 function startCup() {
 if (S.gold < G.bet) { bossSay(randomOf(BOSS_LINES_BROKE)); return;}
 S.gold -= G.bet;
+G.busy = true;
 G.cup = { bet: G.bet, phase: "bossShake", shaking: false,
 boss: [0, 0, 0].map(function(){ return 1 + Math.floor(Math.random() * 6);}),
 mine: [0, 0, 0].map(function(){ return 1 + Math.floor(Math.random() * 6);})};
@@ -5113,6 +5114,7 @@ bossSay("「看好了——我先摇，我先开。这叫规矩。」");
 gLog("老板扣上骰盅，摇得哗哗响……");
 renderGDice(); gRefresh();
 setTimeout(function() {
+G.busy = false;
 if (!G.cup) return;
 G.cup.phase = "playerTurn";
 var hs = G.cup.boss.reduce(function(a, b){ return a + b;}, 0);
@@ -5503,7 +5505,7 @@ this.value = v;
 renderGambleBets();
 showGambleTab();
 });
-document.querySelectorAll(".gamble-tab").forEach(function(t){ t.addEventListener("click", function(){ if (G.busy) return; G.tab = t.dataset.gtab; syncGTabs(); showGambleTab();});});
+document.querySelectorAll(".gamble-tab").forEach(function(t){ t.addEventListener("click", function(){ if (G.busy || gameInProgress()) return; G.tab = t.dataset.gtab; syncGTabs(); showGambleTab();});});
 $("btn-shop-leave").addEventListener("click", function() { finishNode();});
 $("btn-event-done").addEventListener("click", function() {
 if (S.pendingRobbery) {
