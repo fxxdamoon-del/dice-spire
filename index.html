@@ -2032,6 +2032,13 @@ body{overscroll-behavior:none}
 <button class="btn-ghost" id="btn-reset-meta" type="button">重置局外进度</button>
 <span style="font-size:12px;color:var(--ink-soft)">只清解锁与飞升进度，不影响正在进行的这一局。</span>
 </div>
+<div style="margin-top:14px;border:2px solid #0B0910;background:#241b33;padding:10px 12px">
+<label style="display:block;font-size:13px;color:#E8DFC8">种子码（选填）
+<input id="seed-input-56" type="text" autocomplete="off" placeholder="输入种子开同一局，如 DS-XXXXXX；留空随机" style="width:100%;margin-top:6px;padding:8px;font-size:14px;background:#171126;color:#E8DFC8;border:2px solid #C9A227;box-sizing:border-box">
+</label>
+<p class="sub" style="margin:6px 0 0">种子局跟 Balatro 一样只供娱乐：同一种子 = 同一局（地图、敌人、奖励、商店、转盘全一样），但<b>种子局不计入主线</b>——不会推动进度，也不会解锁角色 / 符咒 / 飞升。每局的种子会显示在菜单里，可以复制发给朋友。</p>
+<p class="sub" id="cheat-state-56" style="margin:6px 0 0;color:#ffd968"></p>
+</div>
 </div>
 </div>
 
@@ -2134,6 +2141,7 @@ body{overscroll-behavior:none}
 <div class="menu-box">
 <h2><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAjElEQVR4nO3VsQ2AMAxFQUagoGUjFmcaRoAJUlgyijH3pddFUXRNlmWwbd3vPzVyGG72gwEVCxAgQN8Aus4jpVn3hyEAAQIECFAjoK4BAgQIEKDCpQFlfcNvlwYBCBAgQIAaAXUNECBAgAAVLg0o+q1WOx+GAAQIECBAjYC6BggQIECAChcGMjMzK78HULf+DhjJd00AAAAASUVORK5CYII=> 菜单</h2>
 <div class="menu-meta" id="menu-meta"></div>
+<div class="set-row"><span class="set-lab"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAk0lEQVR4nO3asRGAIBBFQUowMLX/VuzC1C6wAsYhQA5v38yP0U1IKEWSpN+1b0fNNECAAAECFHjdEPd1ploTDhAgQIAAzd9woNWhAQECBAhQ4IW75lvnRvseQIAAAQIE6Pv1/hcgQIAAAcoMtDo0IECAAAEKvHTXPCBAgEINEKBBQB5xvkAAAgQIEKD56waSJCl8D666AUekQHSSAAAAAElFTkSuQmCC> 本局种子<span class="set-sub">把种子发给朋友，他在选人界面输入同一种子就能开出同一局（种子局不计主线进度与解锁）</span></span><span style="display:flex;gap:6px;align-items:center;flex:0 0 auto"><b id="menu-seed-code">—</b><button class="btn" id="btn-copy-seed-56" type="button">复制</button></span></div>
 <h3 style="margin:16px 0 0;font-family:'Noto Serif SC',serif">设置</h3>
 <div class="set-row"><span class="set-lab"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAu0lEQVR4nO3QsQ3CQBQFQZdAQEpMM1RJN66GEiAhxFoZGXyCWeln1tN5pmmnjofTfY/b639XBygCFAGKAEWAni09dL6eP3q3+fLyhoMDBAgQIEA/BLT2B5a+BxT7gGIfUOwDin1AsQ8o9gHFPqDYBxT7gGIfUOwDin1AsQ8o9gHFPqDYBxT7wwGBiABFgCJAEaAI0JsQgAABAgQI0PeBtoIABAgQIECAxgHa6vZ6DyBAgAAB+gcgSZKG7wE6pVbbH8nGTgAAAABJRU5ErkJggg==> 音乐与音效<span class="set-sub">总开关，和主界面右上角的 <img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAqklEQVR4nO3QMQ7CMAyG0R6BgbUz9+Y2nKosXaMfo1g04n1Stki237Y1d7/tR+V173O5AIUAhQCFAIUAnY0Ofj0fpVeFWwYaUAhQCFAIUAhQWKgKMQuoumeHyUeDAYXBgMJgQGEwoDD474C6IWYBdf8HBAgQIECA+oDaIQABAgQI0IJAsxbqBrocxChAIUAhQCFAIUBfNjpg+cNmBSgEKAQoBCgESJKkX/UGb1LuVY+TaWUAAAAASUVORK5CYII=> 按钮同步</span></span><button class="px-switch" id="set-music-switch" type="button" role="switch" aria-checked="true" aria-label="音乐与音效总开关"><i></i></button></div>
 <div class="set-row"><span class="set-lab"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAqklEQVR4nO3QMQ7CMAyG0R6BgbUz9+Y2nKosXaMfo1g04n1Stki237Y1d7/tR+V173O5AIUAhQCFAIUAnY0Ofj0fpVeFWwYaUAhQCFAIUAhQWKgKMQuoumeHyUeDAYXBgMJgQGEwoDD474C6IWYBdf8HBAgQIECA+oDaIQABAgQI0IJAsxbqBrocxChAIUAhQCFAIUBfNjpg+cNmBSgEKAQoBCgESJKkX/UGb1LuVY+TaWUAAAAASUVORK5CYII=> 音量<span class="set-sub">拖动滑杆调节，立即生效</span></span><input class="px-range" id="set-volume" type="range" min="0" max="100" step="5" value="100" aria-label="音量滑杆"></div>
@@ -2165,6 +2173,23 @@ body{overscroll-behavior:none}
 
 <script>
 "use strict";
+/* ================= v56: 种子 RNG + 金手指 =================
+玩法随机统一走 R()：开局时若设定了种子，R() 走可复现的种子流
+（同一种子 = 同一局）；粒子、雨雪、音效等纯表现随机仍用 Math.random，
+不会污染种子流。金手指码不在界面任何地方显示，只能在选人界面的
+种子码输入框里输对指定代码才激活（判断在 v56 补丁的 startRun 包装里）。 */
+var SEED56 = { on: false, code: "", s: 0 };
+function R() { return SEED56.on? seedNext56(): Math.random(); }
+function seedNext56() { SEED56.s = (SEED56.s + 0x6D2B79F5) >>> 0; var t = SEED56.s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+function seedHash56(str) { var h = 2166136261 >>> 0; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function seedStart56(code) { SEED56.code = code; SEED56.s = seedHash56(code); SEED56.on = true; }
+function seedCore56(raw) { var c = (raw || "").toUpperCase().replace(/[^A-Z0-9]/g, ""); if (c.indexOf("DS") === 0) c = c.slice(2); return c.slice(0, 10) || "DICE"; }
+function seedCanonical56(raw) { return "DS-" + seedCore56(raw); }
+function makeSeedCode56() { var ch = "ABCDEFGHJKMNPQRSTUVWXYZ23456789", c = ""; for (var i = 0; i < 6; i++) c += ch[Math.floor(Math.random() * ch.length)]; return "DS-" + c; }
+var CHEAT56 = { on: false };
+try { CHEAT56.on = localStorage.getItem("dice-spire-cheat-v1") === "1"; } catch (e) {}
+function cheatNormalize56(raw) { return (raw || "").toUpperCase().replace(/[^A-Z0-9]/g, ""); }
+var CHEAT56_CODE = "LAOSANNB666";
 /* ================= Data ================= */
 var DIE_TYPES = {
 normal: { name: "普通骰", element: null, desc: "均匀随机，没有元素属性，也没有额外效果。"},
@@ -2422,7 +2447,7 @@ choices: [
 { title: "路边赌局", scene: "gambler", npc: "独眼老头", text: "一个独眼老头摆着三只碗：「押一把？赢了翻倍，输了……嘿嘿。」",
 lines: [["nar", "老头面前摆着三只倒扣的碗，手快得只剩残影。"], ["npc", "嘿嘿，年轻人，眼神不错。看上哪只碗了？"], ["you", "三只碗，一颗豆。赢了翻倍，输了呢？"], ["npc", "输了——嘿嘿，输了也有'奖励'。就问你，敢不敢押？"]],
 choices: [
-{ label: "押上 8 金币赌一把", desc: "一半概率 +16 金币，一半概率血本无归还挨一闷棍（-6 生命）", fx: "gamble", can: function(){ return S.gold >= 8;}, apply: function(){ S.gold -= 8; if (Math.random() < 0.5) { S.gold += 16; return "碗底是金豆子！老头脸都绿了，你净赚 8 金币。";} S.hp -= 6; return "碗底空空，老头还顺手敲了你一闷棍（-6 生命）。";}},
+{ label: "押上 8 金币赌一把", desc: "一半概率 +16 金币，一半概率血本无归还挨一闷棍（-6 生命）", fx: "gamble", can: function(){ return S.gold >= 8;}, apply: function(){ S.gold -= 8; if (R() < 0.5) { S.gold += 16; return "碗底是金豆子！老头脸都绿了，你净赚 8 金币。";} S.hp -= 6; return "碗底空空，老头还顺手敲了你一闷棍（-6 生命）。";}},
 { label: "不赌，赶路", desc: "什么也不发生", apply: function(){ return "你目不斜视地走过去，身后传来老头的叹气声。";}}]},
 { title: "受伤的旅人", scene: "traveler", npc: "受伤的旅人", text: "一位旅人靠在墙边，腿上缠着渗血的布条，怀里抱着一卷发光的卷轴。",
 lines: [["nar", "墙角传来压抑的呻吟——一个旅人靠坐在石壁边，动弹不得。"], ["npc", "咳……别、别踩到我。腿……断了，走不了了。"], ["you", "都这样了，你怀里还死死抱着什么？"], ["npc", "一卷祝福卷轴。本想卖了换药的……你要是肯帮我，它就归你。"], ["you", "先别说话了，我看看能帮上什么忙。"]],
@@ -2478,8 +2503,8 @@ choices: [
 lines: [["nar", "老者面前摊着一整块绒布，上面整整齐齐码着几十张符咒，在暗处微微发光。"], ["npc", "别踩！这些可都是老夫半辈子的收藏。年轻人，你身上那几张……啧，有点意思。"], ["you", "这么多符咒，您自己不用？"], ["npc", "收藏家的快乐，你不懂。不过——你要是肯帮老夫个忙，或者出个好价，老夫也不是不能割爱。当然，你要是想抢……老夫这把骨头，也不是没见过血。"]],
 choices: [
 { label: "动手抢他的收藏（开战！）", desc: "掠夺战：真打一场——墨老和你一样掷骰、用符咒，只是年老带伤（流血＋麻痹等、血量不满）。实力随机，越强抢到的符咒越多（弱小 1 张 / 相当 2 张 / 恐怖 3 张）。赢了业力 +20%；输了不死，但你掉落随机物品、业力 +15% 并染上 Debuff", fx: "flare", floatText: "掠夺战！", apply: function(){ S.pendingRobbery = { key: "collector" }; return "墨老慢悠悠地站起来，把绒布一卷：「想要老夫的收藏？先接住老夫的骰子。」点「继续上路」迎战。";}},
-{ label: "给他 8 金，请他开眼鉴定", desc: "他回赠一张收藏级符咒（优先稀有/史诗）；你爬得越高，他拿出的货越好", fx: "sparkle", floatText: "-8 金币", can: function(){ return S.gold >= 8 && S.talismans.length < MAX_TALISMANS && unownedTalismans().length > 0;}, apply: function(){ S.gold -= 8; var pool = unownedTalismans().filter(function(id){ return TALISMANS[id].rarity !== "普通";}); if (!pool.length || Math.random() < 0.3) pool = unownedTalismans(); var tid2 = randomOf(pool); S.talismans.push(tid2); clampFacesToCap(); return "墨老戴上单片镜，把你的符咒挨个看了一遍，末了从绒布最里层抽出一张塞给你：「" + TALISMANS[tid2].name + "」（" + TALISMANS[tid2].rarity + "）——8 金买这张，塔外能炒到十倍。」";}},
-{ label: "和他交换一张符咒", desc: "随机交出你的一张符咒，换一张你未拥有的随机符咒（无业力）", fx: "sparkle", can: function(){ return S.talismans.length > 0 && unownedTalismans().length > 0;}, apply: function(){ var gi = Math.floor(Math.random() * S.talismans.length); var given = S.talismans.splice(gi, 1)[0]; var pool3 = unownedTalismans().filter(function(id){ return id!== given;}); if (!pool3.length) pool3 = unownedTalismans(); var tid3 = randomOf(pool3); S.talismans.push(tid3); clampFacesToCap(); return "你交出「" + TALISMANS[given].name + "」，墨老回赠「" + TALISMANS[tid3].name + "」。各取所需，江湖规矩，谁也不欠谁。";}}]},
+{ label: "给他 8 金，请他开眼鉴定", desc: "他回赠一张收藏级符咒（优先稀有/史诗）；你爬得越高，他拿出的货越好", fx: "sparkle", floatText: "-8 金币", can: function(){ return S.gold >= 8 && S.talismans.length < MAX_TALISMANS && unownedTalismans().length > 0;}, apply: function(){ S.gold -= 8; var pool = unownedTalismans().filter(function(id){ return TALISMANS[id].rarity !== "普通";}); if (!pool.length || R() < 0.3) pool = unownedTalismans(); var tid2 = randomOf(pool); S.talismans.push(tid2); clampFacesToCap(); return "墨老戴上单片镜，把你的符咒挨个看了一遍，末了从绒布最里层抽出一张塞给你：「" + TALISMANS[tid2].name + "」（" + TALISMANS[tid2].rarity + "）——8 金买这张，塔外能炒到十倍。」";}},
+{ label: "和他交换一张符咒", desc: "随机交出你的一张符咒，换一张你未拥有的随机符咒（无业力）", fx: "sparkle", can: function(){ return S.talismans.length > 0 && unownedTalismans().length > 0;}, apply: function(){ var gi = Math.floor(R() * S.talismans.length); var given = S.talismans.splice(gi, 1)[0]; var pool3 = unownedTalismans().filter(function(id){ return id!== given;}); if (!pool3.length) pool3 = unownedTalismans(); var tid3 = randomOf(pool3); S.talismans.push(tid3); clampFacesToCap(); return "你交出「" + TALISMANS[given].name + "」，墨老回赠「" + TALISMANS[tid3].name + "」。各取所需，江湖规矩，谁也不欠谁。";}}]},
 { title: "元素导师", scene: "altar", npc: "元素导师·烬", text: "一位浑身缠着元素纹路的创塔者靠坐在祭坛边，气息微弱——他体内的元素乱流，正在反噬他自己。",
 lines: [["nar", "导师皮肤下的八色纹路忽明忽暗，像一锅煮沸的元素汤，随时要炸。"], ["npc", "别靠近……我压不住它们了。元素这东西……用得好是刀，用不好，是债。"], ["you", "你这一身强化，少说练了十年。就这么倒在塔里？"], ["npc", "帮我把乱流压下去，我把毕生心得分你一半；趁火打劫也行——我这一身元素精华，够你抢个够。就看你，想要哪种名声。"]],
 choices: [
@@ -3292,7 +3317,7 @@ if (S.scoreMultPerm && S.scoreMultPerm!== 1) { dmg = Math.floor(dmg * S.scoreMul
 if (hasDebuff("heavy")) { dmg = Math.floor(dmg * 0.75); notes.push("重压Debuff ×0.75");}
 if (hasDebuff("curse")) { dmg = Math.floor(dmg * 0.8); notes.push("虚弱诅咒 ×0.8");}
 if (hasDebuff("venom")) { dmg = Math.floor(dmg * 0.9); notes.push("缠毒 ×0.9");}
-if (hasDebuff("blind")) { var bl = 0.7 + Math.random() * 0.3; dmg = Math.floor(dmg * bl); notes.push("致盲 -" + Math.round((1 - bl) * 100) + "%");}
+if (hasDebuff("blind")) { var bl = 0.7 + R() * 0.3; dmg = Math.floor(dmg * bl); notes.push("致盲 -" + Math.round((1 - bl) * 100) + "%");}
 if (hasDebuff("coward")) { dmg = Math.floor(dmg * 0.5); notes.push("胆小：攻击力 -50%");}
 return { combo: combo, chips: chips, mult: effMult, dmg: dmg, notes: notes};
 }
@@ -3590,9 +3615,9 @@ dv.innerHTML = (blocked? '<span class="armor-note">护甲挡下 ' + blocked + " 
 /* ================= Dice rolling ================= */
 function rollFace(type, die) {
 var cap = currentCap();
-if (die && die.buff && die.buff.kind === "sixth" && Math.random() < 0.35) return cap;
-if (type === "loaded") { var arr = [Math.max(1, cap - 3), Math.max(1, cap - 2), Math.max(1, cap - 1), cap, cap, cap]; return arr[Math.floor(Math.random() * 6)];}
-return 1 + Math.floor(Math.random() * cap);
+if (die && die.buff && die.buff.kind === "sixth" && R() < 0.35) return cap;
+if (type === "loaded") { var arr = [Math.max(1, cap - 3), Math.max(1, cap - 2), Math.max(1, cap - 1), cap, cap, cap]; return arr[Math.floor(R() * 6)];}
+return 1 + Math.floor(R() * cap);
 }
 function animateRoll(indices, done) {
 S.busy = true; renderAll();
@@ -3611,7 +3636,7 @@ ticks++;
 indices.forEach(function(i) {
 var el = tray.children[i] && tray.children[i].querySelector(".die");
 if (!el) return;
-var fake = 1 + Math.floor(Math.random() * 6);
+var fake = 1 + Math.floor(R() * 6);
 el.querySelectorAll(".pip").forEach(function(p, c) {
 p.classList.toggle("on", PIPS[fake].indexOf(c) >= 0);
 });
@@ -3662,7 +3687,7 @@ log(" 你处于【眩晕】：这一回合无法出招，敌人会多行动一�
 S.debuffs.splice(S.debuffs.indexOf("stun"), 1);
 }
 /* Karma: in battle, karma gives the boss a chance to curse you. */
-if ((S.karma || 0) > 0 && Math.random() * 100 < S.karma) {
+if ((S.karma || 0) > 0 && R() * 100 < S.karma) {
 var kid = randomOf(Object.keys(DEBUFFS));
 if (!hasDebuff(kid)) {
 addDebuff("player", kid);
@@ -3821,14 +3846,14 @@ log(" Boss 异能发动：「" + fx.name + "」——" + fx.desc + "！", "bad")
 if (id === "stealCharms") {
 var n = Math.min(2, S.talismans.length);
 for (var i = 0; i < n; i++) {
-var idx = Math.floor(Math.random() * S.talismans.length);
+var idx = Math.floor(R() * S.talismans.length);
 var removed = S.talismans.splice(idx, 1)[0];
 log("符咒「" + TALISMANS[removed].name + "」被 Boss 夺走了！", "bad");
 }
 clampFacesToCap();
 }
 if (id === "destroyDie") {
-var di = Math.floor(Math.random() * S.dice.length);
+var di = Math.floor(R() * S.dice.length);
 var dd = S.dice.splice(di, 1)[0];
 log("你的「" + DIE_TYPES[dd.type].name + "」被 Boss 摧毁了！剩余 " + S.dice.length + " 颗骰子。", "bad");
 }
@@ -3933,7 +3958,7 @@ if (hasTalisman("vamp") && dealt > 0 && S.hp > 0 && S.hp < S.maxHp) { var vh = M
 if (S.weakTurns > 0) S.weakTurns--;
 if (a.combo.rank >= COMBOS.three.rank) S.pity = 0; else S.pity++;
 renderAll();
-if (hasTalisman("glass") && Math.random() < 0.25) {
+if (hasTalisman("glass") && R() < 0.25) {
 S.talismans.splice(S.talismans.indexOf("glass"), 1);
 log(" 「琉璃符」承受不住共鸣，碎裂了！（乘数 ×3 的代价）", "bad");
 renderAll();
@@ -4054,21 +4079,21 @@ taunts: ["元素乱流护着我……你近不了身！", "抽我的精华？先
 };
 function buildRival(key, opts) {
 var V = ROB_VICTIMS[key];
-var r = Math.random();
+var r = R();
 var tier = r < 0.28? ROB_TIERS.weak: r < 0.68? ROB_TIERS.even: r < 0.90? ROB_TIERS.strong: ROB_TIERS.terror;
 var depth = S.depth || 0;
 var diceTypes = V.dice.slice();
 if (tier.id === "weak" && diceTypes.length > 4) diceTypes = diceTypes.slice(0, 4);
 if (tier.id === "terror") diceTypes.push(randomOf(V.dice));
-var pool = V.charmPool.slice().sort(function(){ return Math.random() - 0.5;});
-var nCh = tier.id === "weak"? (Math.random() < 0.5? 0: 1): tier.id === "even"? 1: tier.id === "strong"? 2: 3;
+var pool = V.charmPool.slice().sort(function(){ return R() - 0.5;});
+var nCh = tier.id === "weak"? (R() < 0.5? 0: 1): tier.id === "even"? 1: tier.id === "strong"? 2: 3;
 var charms = pool.slice(0, Math.min(nCh, pool.length));
 var maxHp = Math.round(Math.max(48 + depth * 10 + S.act * 10, measurePower() * 2.0) * tier.hp);
-var startHp = Math.max(8, Math.round(maxHp * (0.5 + Math.random() * 0.25)));
+var startHp = Math.max(8, Math.round(maxHp * (0.5 + R() * 0.25)));
 var debuffs = ["bleed"];
 var extraPool = ["stun", "venom", "heavy", "curse"];
 debuffs.push(randomOf(extraPool));
-if (Math.random() < 0.35) { var e2 = randomOf(extraPool); if (debuffs.indexOf(e2) < 0) debuffs.push(e2);}
+if (R() < 0.35) { var e2 = randomOf(extraPool); if (debuffs.indexOf(e2) < 0) debuffs.push(e2);}
 var element = null;
 for (var i = 0; i < diceTypes.length; i++) { var el = DIE_TYPES[diceTypes[i]].element; if (el) { element = el; break; } }
 return { key: key, name: V.name, scene: V.scene, diceTypes: diceTypes, charms: charms,
@@ -4257,14 +4282,14 @@ if (vRb && ((vRb.bless && Object.keys(vRb.bless).length) || (vRb.springs && Obje
 if (!opts.length) opts.push("gold");
 var pick = randomOf(opts);
 if (pick === "talisman") {
-var i = Math.floor(Math.random() * S.talismans.length);
+var i = Math.floor(R() * S.talismans.length);
 var id = S.talismans.splice(i, 1)[0];
 clampFacesToCap();
 return "你的符咒「" + TALISMANS[id].name + "」被他打落、顺手抢走了";
 }
 if (pick === "die") {
 if (S.dice.length > 3) {
-var j = Math.floor(Math.random() * S.dice.length);
+var j = Math.floor(R() * S.dice.length);
 var dd = S.dice.splice(j, 1)[0];
 return "你的一颗「" + DIE_TYPES[dd.type].name + "」被他打飞夺走（只剩 " + S.dice.length + " 颗骰子）";
 }
@@ -4278,7 +4303,7 @@ if (pick === "item46") {
 return robberyDropItem46(vRb);
 }
 if (pick === "blessing") {
-if (leveled.length && (!faced.length || Math.random() < 0.5)) {
+if (leveled.length && (!faced.length || R() < 0.5)) {
 var bk = randomOf(leveled);
 S.comboLevels[bk] = 1;
 return "你的祝福「" + BLESSINGS[bk].name + "」被打散了（等级回到 Lv.1）";
@@ -4372,7 +4397,7 @@ transforms on the spot (cutscene) and revives into its second form. */
 function tryBossTransformOnDefeat() {
 var e = S.enemy;
 if (!e ||!e.isBoss || e.form2 || e.hp > 0) return false;
-if (Math.random() >= transformChance()) return false;
+if (R() >= transformChance()) return false;
 var variant = randomOf(["hp", "atk", "elem"]);
 var base = e.baseMaxHp || e.maxHp;
 e.form2 = true;
@@ -4526,8 +4551,8 @@ at most once per act (S.treasuresThisAct), so battle stays the main road
 instead of the road everyone avoids. */
 var bag = ["battle", "battle", "battle", "battle", "shop", "event", "rest"];
 if (S.actStep >= 1) bag.push("elite", "elite", "battle");
-if ((S.treasuresThisAct || 0) < 1 && Math.random() < 0.45) bag.push("treasure");
-bag.sort(function(){ return Math.random() - 0.5;});
+if ((S.treasuresThisAct || 0) < 1 && R() < 0.45) bag.push("treasure");
+bag.sort(function(){ return R() - 0.5;});
 var kinds = [], seen = {};
 for (var i = 0; i < bag.length && kinds.length < 3; i++) {
 if (seen[bag[i]]) continue;
@@ -4797,7 +4822,7 @@ $("overlay").classList.add("show");
 
 /* ================= Rewards ================= */
 var pendingDie = null;
-function randomOf(arr) { return arr[Math.floor(Math.random() * arr.length)];}
+function randomOf(arr) { return arr[Math.floor(R() * arr.length)];}
 function unownedTalismans() {
 return Object.keys(TALISMANS).filter(function(id){ return charmUnlocked(id) && (!hasTalisman(id) || id === "capUp" || id === "capDown");});
 }
@@ -4811,8 +4836,8 @@ deduped, so weighted duplicate pool entries (see 命格精华） raise an
 appearance rate without ever showing two identical cards. */
 var DICE_REWARD_KINDS = { face: 1, die: 1, diebuff: 1 };
 function pickRewardPicks(pool) {
-var diceCap = Math.random() < 0.25? 2: 1;
-var shuffled = pool.slice().sort(function(){ return Math.random() - 0.5;});
+var diceCap = R() < 0.25? 2: 1;
+var shuffled = pool.slice().sort(function(){ return R() - 0.5;});
 var picks = [], usedKinds = {}, diceN = 0;
 shuffled.forEach(function(p) {
 if (picks.length >= 3 || usedKinds[p.kind]) return;
@@ -4916,15 +4941,15 @@ sometimes two, on top of die / face), so a
 diebuff now only enters the pool half the time, and never twice —
 and pickRewardPicks() below caps how many dice-kind offers can land
 in one set of 3. */
-if (Math.random() < 0.5) {
-var dIdx = Math.floor(Math.random() * S.dice.length);
+if (R() < 0.5) {
+var dIdx = Math.floor(R() * S.dice.length);
 var bd = randomOf(DIE_BUFFS);
 pool.push({ kind: "diebuff", dieIdx: dIdx, buffKind: bd.kind, buffName: bd.name, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA0UlEQVR4nO3VMQoCQRAAQZ9gYGDiswSfYOT/M002ETybE5dDrILJZzqZ3W6yw/50nzmz959OoCBQECgIFAQalg64XS9T52fCCRQECgIFgYJAYW2gv3v/AgWBgkBBoCBQ+Fagre+YRqAgUBAoCBQE+pAQQaAgUBAoCBQEGhbf/Pn4cv4unEBBoCBQECgINKwNIZBAzwQKAgWBgkDBOw8CBYGCQEGgINDgnQeBgkBBoCBQECh450GgIFAQKAgUBBqWDls7W98xjUBBoCBQECgI9N4DsoVoCdIdCM8AAAAASUVORK5CYII=> 单骰强化 · " + bd.name, desc: "给你的第 " + (dIdx + 1) + " 颗骰子（" + DIE_TYPES[S.dice[dIdx].type].name + "）装上【" + bd.name + "】：" + bd.desc + "。只强化这一颗，随机出现、随机分配；这颗骰子已有的单骰强化会被覆盖。"});
 }
 }
 var picks;
 if (isTreasure) {
-pool.sort(function(){ return Math.random() - 0.5;});
+pool.sort(function(){ return R() - 0.5;});
 picks = pool.slice(0, 3);
 } else {
 picks = pickRewardPicks(pool);
@@ -4965,7 +4990,7 @@ starts at 2% and grows +1% per enhancement (bought here or in the shop). */
 function renderInflictPanel() {
 var old = document.getElementById("inflict-panel-live");
 if (old) old.remove();
-if (Math.random() >= 0.3 && !S.pendingDebuff) {
+if (R() >= 0.3 && !S.pendingDebuff) {
 var hint = document.createElement("p");
 hint.className = "sub";
 hint.style.marginTop = "12px";
@@ -4987,7 +5012,7 @@ b.type = "button"; b.className = "btn"; b.style.cssText = "font-size:13px;paddin
 b.innerHTML = DEBUFFS[did].icon + " " + ELEMENTS[elem] + "·" + DEBUFFS[did].name;
 b.title = DEBUFFS[did].desc;
 b.addEventListener("click", function() {
-if (Math.random() * 100 < S.inflictChance) {
+if (R() * 100 < S.inflictChance) {
 S.pendingDebuff = did;
 panel.innerHTML = "<h3><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAoElEQVR4nO3VsQ2AIBRFUUawsHUjB9cpbO0cQVeACIGv5yavI4GchpQkSfpN87TckQcIECBAgAZec4jz2EKvGhwgQIAAAfoQUO/v++07AQECBAgQoPzzrb9tQIAAAQIEqB3Qta9FAwQIECBAgMYBqjVAgAABAgSoHVCvAQIECBAgQPkXRxkgQIAAARp41YBK4aKsGgQgQIAAAQoIJEnSMD3GoklO2wu/rAAAAABJRU5ErkJggg==> 诅咒命中！</h3><p class='sub' style='margin:0'>下一个敌人开局就会带着【" + DEBUFFS[did].name + "】：" + DEBUFFS[did].desc + "（选上面的奖励继续上路，诅咒会保留到下一场战斗。）</p>";
 log("元素诅咒命中（" + S.inflictChance + "%）！下一个敌人将带着【" + DEBUFFS[did].name + "】开战。", "strong");
@@ -5040,7 +5065,7 @@ else if (kind === "celem") { S.elemLevel = Math.min(6, (S.elemLevel || 1) + 1); 
 else if (kind === "cmaxhp") { var ma = p.amt || 10; S.maxHp += ma; S.hp = Math.min(S.maxHp, S.hp + ma); log("宝箱奖品：命格精华——生命上限永久 +" + ma + "（现 " + S.maxHp + "），并恢复 " + ma + " 点生命。", "strong"); finishNode();}
 else if (kind === "cguard") { S.maxHp += 6; S.hp = Math.min(S.maxHp, S.hp + 6); S.guardBonus = (S.guardBonus || 0) + 2; log("宝箱奖品：血甲结晶——生命上限 +6 并恢复 6 点，每回合起始护甲永久 +2（现 +" + S.guardBonus + "）。", "strong"); finishNode();}
 else if (kind === "crerollcore") { S.rerollBonus = (S.rerollBonus || 0) + 1; log("宝箱奖品：重摇核心——每回合重摇次数永久 +1（现在基础每回合 " + (2 + (S.rerollBonus || 0)) + " 次）。", "strong"); finishNode();}
-else if (kind === "cmatpack") { var mk2 = randomOf(Object.keys(MATS46)); var mr2 = Math.random() < (p.rareP || 0.3)? (Math.random() < 0.18? "史诗": "稀有"): "普通"; addMat46(mk2, mr2, p.n || 2); log("宝箱奖品：锻造材料【" + MATS46[mk2].name + "】（" + mr2 + "）×" + (p.n || 2) + "，已进背包材料栏。", "strong"); finishNode();}
+else if (kind === "cmatpack") { var mk2 = randomOf(Object.keys(MATS46)); var mr2 = R() < (p.rareP || 0.3)? (R() < 0.18? "史诗": "稀有"): "普通"; addMat46(mk2, mr2, p.n || 2); log("宝箱奖品：锻造材料【" + MATS46[mk2].name + "】（" + mr2 + "）×" + (p.n || 2) + "，已进背包材料栏。", "strong"); finishNode();}
 else if (kind === "ccard") { var vC = (typeof v46 === "function")? v46(): null; if (vC && p.cardId && CARD46[p.cardId]) { vC.cards[p.cardId] = (vC.cards[p.cardId] || 0) + 1; log("宝箱奖品：牌【" + CARD46[p.cardId].name + "】×1，已放入背包手牌栏。", "strong"); } else { S.gold += 15; log("宝箱奖品：一把散碎金币 +15。", "strong"); } finishNode();}
 else if (kind === "citem") { var vI = (typeof v46 === "function")? v46(): null; if (vI && p.itemKind === "spring" && SPRING46[p.itemId]) { vI.springs[p.itemId] = (vI.springs[p.itemId] || 0) + 1; log("宝箱奖品：源泉【" + SPRING46[p.itemId].name + "】×1，已放入背包。", "strong"); } else if (vI && BLESS46[p.itemId]) { vI.bless[p.itemId] = (vI.bless[p.itemId] || 0) + 1; log("宝箱奖品：祝福【" + BLESS46[p.itemId].name + "】×1，已放入背包。", "strong"); } else { S.gold += 15; log("宝箱奖品：一把散碎金币 +15。", "strong"); } finishNode();}
 else if (kind === "ctalisman") { var poolT = unownedTalismans(); if (!poolT.length) { S.gold += 40; log("宝箱奖品：符咒已经集满，箱底的符光折成了 40 金币。", "strong"); } else { var tid = randomOf(poolT); var resT = (typeof grantTalisman46 === "function")? grantTalisman46(tid, "chest"): "normal"; if (resT === "void") log("宝箱奖品：虚符【" + TALISMANS[tid].name + "】！不占符咒栏位，效果照常生效——高级宝箱才有的货。", "strong"); else if (resT === "normal") { log("宝箱奖品：符咒【" + TALISMANS[tid].name + "】（" + TALISMANS[tid].rarity + "），已装入符咒栏。", "strong"); } else { S.gold += 30; log("宝箱奖品：符咒栏已满，符光折成了 30 金币。", "strong"); } } finishNode();}
@@ -5074,7 +5099,7 @@ log(" 重摇核心：每回合重摇次数永久 +1（现在基础每回合 " + 
 finishNode();
 } else if (kind === "matpack") {
 var mk = randomOf(Object.keys(MATS46));
-var mr = Math.random() < 0.3? "稀有": "普通";
+var mr = R() < 0.3? "稀有": "普通";
 addMat46(mk, mr, 2);
 log(" 锻造材料包：材料【" + MATS46[mk].name + "】（" + mr + "）×2 已进背包，去背包里给装备强化升级吧。", "strong");
 finishNode();
@@ -5131,7 +5156,7 @@ that genShopStock46 adds), plus the anchor items 道具「疗伤」 and 符咒�
 which genShopStock46 tops up to 4 in their categories. A category shows fewer
 than 4 only when the game state cannot supply more (e.g. talisman pool empty). */
 function buildShopStockKeys() {
-function shuffled(a) { return a.slice().sort(function(){ return Math.random() - 0.5; }); }
+function shuffled(a) { return a.slice().sort(function(){ return R() - 0.5; }); }
 var picks = [];
 var diceKeys = SHOP_DICE.map(function(p){ return "die-" + p[0]; });
 var diceUnsold = diceKeys.filter(function(k){ return !shopSold[k]; });
@@ -5417,7 +5442,7 @@ renderAll();
 function openSkip(){
 if(!S.enemy||S.busy||S.over) return;
 if(!S.node||S.node.kind!=="battle"){ log("只有普通战斗可以跳过（精英与 Boss 不行）。","bad"); return; }
-var pool=SKIP_TAGS.filter(function(t){ return t.id!=="heal" || S.hp < S.maxHp; }).sort(function(){return Math.random()-0.5;}).slice(0,2);
+var pool=SKIP_TAGS.filter(function(t){ return t.id!=="heal" || S.hp < S.maxHp; }).sort(function(){return R()-0.5;}).slice(0,2);
 var box=$("skip-cards"); box.innerHTML="";
 pool.forEach(function(tag){
 var card=document.createElement("div"); card.className="card";
@@ -5698,7 +5723,7 @@ return '<span class="pcard imgface' + (c.s === 1 || c.s === 2? " red": "") + (cl
 function newDeck() {
 var d = [];
 for (var s = 0; s < 4; s++) for (var r = 2; r <= 14; r++) d.push({ r: r, s: s});
-for (var i = d.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = d[i]; d[i] = d[j]; d[j] = t;}
+for (var i = d.length - 1; i > 0; i--) { var j = Math.floor(R() * (i + 1)); var t = d[i]; d[i] = d[j]; d[j] = t;}
 return d;
 }
 function openGamble() {
@@ -5759,8 +5784,8 @@ if (S.gold < G.bet) { bossSay(randomOf(BOSS_LINES_BROKE)); return;}
 S.gold -= G.bet;
 G.busy = true;
 G.cup = { bet: G.bet, phase: "bossShake", shaking: false,
-boss: [0, 0, 0].map(function(){ return 1 + Math.floor(Math.random() * 6);}),
-mine: [0, 0, 0].map(function(){ return 1 + Math.floor(Math.random() * 6);})};
+boss: [0, 0, 0].map(function(){ return 1 + Math.floor(R() * 6);}),
+mine: [0, 0, 0].map(function(){ return 1 + Math.floor(R() * 6);})};
 bossSay("「看好了——我先摇，我先开。这叫规矩。」");
 gLog("老板扣上骰盅，摇得哗哗响……");
 renderGDice(); gRefresh();
@@ -5779,7 +5804,7 @@ var cup = G.cup;
 if (!cup || cup.phase!== "playerTurn" || G.busy) return;
 G.busy = true;
 cup.shaking = true;
-cup.mine = [0, 0, 0].map(function(){ return 1 + Math.floor(Math.random() * 6);});
+cup.mine = [0, 0, 0].map(function(){ return 1 + Math.floor(R() * 6);});
 gLog("你扣紧盅盖一阵猛摇，骰子在盅里翻江倒海……（点数已定，就看你敢不敢开）");
 renderGDice();
 setTimeout(function() {
@@ -6063,7 +6088,7 @@ if (S.gold < 10) return;
 S.gold -= 10;
 he.pot += 10;
 var bossScore = eval7(he.dealer.concat(he.board));
-var bossCalls = he.board.length < 3? Math.random() < 0.8: (bossScore[0] >= 1 || Math.random() < 0.45);
+var bossCalls = he.board.length < 3? R() < 0.8: (bossScore[0] >= 1 || R() < 0.45);
 if (!bossCalls) {
 S.gold += he.pot;
 he.done = true;
@@ -6122,7 +6147,7 @@ $("upg-btn-cancel2").addEventListener("click", cancelUpgradePicker);
 $("upg-btn-rand").addEventListener("click", function(){
 if (!upgradeState) return;
 var spec = upgradeState.spec;
-var key = spec.kind === "blessing"? randomOf(Object.keys(BLESSINGS)): 1 + Math.floor(Math.random() * 6);
+var key = spec.kind === "blessing"? randomOf(Object.keys(BLESSINGS)): 1 + Math.floor(R() * 6);
 var s = applyUpgradeShare(spec, key, 2);
 log(" 随机强化（+2 份，翻倍）：" + s + "。", "strong");
 closeUpgradePicker("随机强化（+2 份）：" + s);
@@ -6336,8 +6361,8 @@ if (S.actStep >= ACT_STEPS) { S.choices = [{ kind: "boss", enemyId: bossEnemyFor
 var act = ACTS[S.act];
 var bag = ["battle", "battle", "battle", "battle", "shop", "event", "rest"];
 if (S.actStep >= 1) bag.push("elite", "elite", "battle");
-if ((S.treasuresThisAct || 0) < 1 && Math.random() < 0.45) bag.push("treasure");
-bag.sort(function(){ return Math.random() - 0.5;});
+if ((S.treasuresThisAct || 0) < 1 && R() < 0.45) bag.push("treasure");
+bag.sort(function(){ return R() - 0.5;});
 var kinds = [], seen = {};
 for (var i = 0; i < bag.length && kinds.length < 3; i++) {
 if (seen[bag[i]]) continue;
@@ -7945,7 +7970,7 @@ function rarityRoll46(base) {
 var depth = (typeof S !== "undefined" && S && S.depth) || 0;
 var epicP = depth >= 25? Math.min(0.12, 0.02 + depth * 0.0015): 0;
 var rareP = Math.min(0.45, (base || 0.18) + depth * 0.004);
-var r = Math.random();
+var r = R();
 if (r < epicP) return "史诗";
 if (r < epicP + rareP) return "稀有";
 return "普通";
@@ -7960,7 +7985,7 @@ lines.push("装备【" + it.name + "】（" + rarity + " · " + SETS46[it.set].n
 function grantTalisman46(id, source) {
 var v = v46(); if (!v || !TALISMANS[id]) return "gold";
 var voidP = source === "dragonWheel"? 0.35: source === "rareWheel"? 0.2: source === "boss"? 0.25: source === "chest"? 0.2: 0;
-if (voidP > 0 && Math.random() < voidP && v.voidCharms.length < 4) {
+if (voidP > 0 && R() < voidP && v.voidCharms.length < 4) {
 v.voidCharms.push(id);
 return "void";
 }
@@ -8038,7 +8063,7 @@ var v = v46();
 if (v) { v.blessUsed = 0; v.springUsed = 0; v.buffs = {}; v.nextCrit = false; v.nextElem = null; v.phoenixUsed = false; v.bellUsed = false; }
 _sb46(id);
 if (v && hasTalisman("thief46") && S.enemy) {
-var stolen = ENEMIES[id] && ENEMIES[id].isBoss? 6 + Math.floor(Math.random() * 5): 3 + Math.floor(Math.random() * 4);
+var stolen = ENEMIES[id] && ENEMIES[id].isBoss? 6 + Math.floor(R() * 5): 3 + Math.floor(R() * 4);
 S.gold += stolen;
 log(" 摸金符发作：趁 " + ENEMIES[id].name + " 不注意，你从它身上摸走了 " + stolen + " 金币！", "strong");
 }
@@ -8107,14 +8132,14 @@ if (hasTalisman("bossbane46") && S.enemy.isBoss) { a.dmg = Math.floor(a.dmg * 1.
 /* 暴击判定（仅真实出招时） */
 if (inAtk) {
 var critChance = 5 + stats.crit + (a.weaponCritBonus || 0);
-var isCrit = v.nextCrit || Math.random() * 100 < critChance;
+var isCrit = v.nextCrit || R() * 100 < critChance;
 if (isCrit) {
 a.dmg = Math.floor(a.dmg * 1.5);
 window.__crit46 = true;
 notes.push(v.nextCrit? "暴怒源泉：必定暴击 ×1.5！": "暴击！伤害 ×1.5");
 }
 if (v.nextCrit) v.nextCrit = false;
-if (v.buffs.lifesteal && a.dmg > 0 && Math.random() < 0.3) {
+if (v.buffs.lifesteal && a.dmg > 0 && R() < 0.3) {
 var heal = Math.max(1, Math.floor(a.dmg * 0.10));
 S.hp = Math.min(S.maxHp, S.hp + heal);
 notes.push("汲生祝福：回复 " + heal + " 点生命");
@@ -8203,7 +8228,7 @@ var BOSS_RULES46 = [
 { id: "elemBan", name: "元素封印", desc: "本场战斗随机一种元素被封印：该元素骰子不触发克制，且你的总伤害 -10%。提前换一套骰子更稳。" },
 { id: "rerollDown", name: "重摇限制", desc: "本场战斗每回合重摇次数 -1。提前囤疾风源泉、带重摇类符咒。" }
 ];
-function rollBossRule46() { return BOSS_RULES46[Math.floor(Math.random() * BOSS_RULES46.length)]; }
+function rollBossRule46() { return BOSS_RULES46[Math.floor(R() * BOSS_RULES46.length)]; }
 var _gc46 = genChoices;
 genChoices = function() {
 _gc46();
@@ -8281,9 +8306,9 @@ var _st46b = startTurn;
 startTurn = function(first) {
 var v = v46();
 if (v) {
-v.luckRoll = Math.floor(Math.random() * 4);
-v.destinyRoll = Math.floor(Math.random() * 9);
-var fr = Math.random(); v.fateRoll = fr < 0.4? 1: fr < 0.7? 1.5: fr < 0.9? 2: 3;
+v.luckRoll = Math.floor(R() * 4);
+v.destinyRoll = Math.floor(R() * 9);
+var fr = R(); v.fateRoll = fr < 0.4? 1: fr < 0.7? 1.5: fr < 0.9? 2: 3;
 }
 _st46b(first);
 if (v && v.bossRule === "rerollDown" && typeof S !== "undefined" && S && S.enemy) { S.rerollsLeft = Math.max(0, S.rerollsLeft - 1); renderAll(); }
@@ -8302,9 +8327,9 @@ var _da46b = doAttack;
 doAttack = function() {
 _da46b();
 if (typeof S === "undefined" || !S) return;
-if (hasTalisman("banana46") && Math.random() < 0.2) breakCharm46("banana46", "熟透了");
-if (hasTalisman("kingbanana46") && Math.random() < 0.25) breakCharm46("kingbanana46", "烂掉了");
-if (hasTalisman("fragile46") && Math.random() < 1 / 6) breakCharm46("fragile46", "碎裂了");
+if (hasTalisman("banana46") && R() < 0.2) breakCharm46("banana46", "熟透了");
+if (hasTalisman("kingbanana46") && R() < 0.25) breakCharm46("kingbanana46", "烂掉了");
+if (hasTalisman("fragile46") && R() < 1 / 6) breakCharm46("fragile46", "碎裂了");
 };
 /* ---------- 掉落 / 成长 / 利息 / 任务进度 ---------- */
 function rollDrops46(eid, kind, lines) {
@@ -8313,34 +8338,34 @@ var t = DROP_TABLE46[eid]; if (!t) return;
 var isBoss = kind === "boss", isElite = kind === "elite";
 var forage = hasTalisman("forage46");
 var eqChance = isBoss? 1: isElite? 0.35: forage? 0.3: 0.18;
-if (Math.random() < eqChance) grantItem46(lines, t.equip, isBoss? rarityRoll46(0.3): rarityRoll46(0.12));
+if (R() < eqChance) grantItem46(lines, t.equip, isBoss? rarityRoll46(0.3): rarityRoll46(0.12));
 t.mats.forEach(function(m) {
-if (Math.random() < 0.62) {
-var n = 1 + (Math.random() < (forage? 0.45: 0.25)? 1: 0) + (isBoss? 1: 0);
+if (R() < 0.62) {
+var n = 1 + (R() < (forage? 0.45: 0.25)? 1: 0) + (isBoss? 1: 0);
 var rar = rarityRoll46(0.1);
 addMat46(m, rar, n);
 lines.push("材料【" + MATS46[m].name + "】（" + rar + "）×" + n);
 }
 });
-if (Math.random() < 0.26) {
-var pool = Math.random() < 0.5? Object.keys(BLESS46): Object.keys(SPRING46);
+if (R() < 0.26) {
+var pool = R() < 0.5? Object.keys(BLESS46): Object.keys(SPRING46);
 var pid = randomOf(pool);
 if (pool === Object.keys(BLESS46)) { v.bless[pid] = (v.bless[pid] || 0) + 1; lines.push("祝福【" + BLESS46[pid].name + "】×1（已放入背包）"); }
 else { v.springs[pid] = (v.springs[pid] || 0) + 1; lines.push("源泉【" + SPRING46[pid].name + "】×1（已放入背包）"); }
 }
-if (Math.random() < 0.1) {
+if (R() < 0.1) {
 var cid = randomOf(["dl_add", "dl_remove", "dl_convert", "mg_fate", "mg_hp", "mg_gold", "mg_elem", "dl_risk_swap", "dl_risk_elem"]);
 v.cards[cid] = (v.cards[cid] || 0) + 1;
 lines.push("牌【" + CARD46[cid].name + "】×1（已放入背包）");
 }
-if (isBoss && Math.random() < 0.3) {
+if (isBoss && R() < 0.3) {
 var tid = randomOf(unownedTalismans().length? unownedTalismans(): Object.keys(TALISMANS));
 var res = grantTalisman46(tid, "boss");
 if (res === "void") lines.push("虚符【" + TALISMANS[tid].name + "】！不占符咒栏位，效果照常生效（已放入背包）");
 else if (res === "normal") lines.push("符咒【" + TALISMANS[tid].name + "】（" + TALISMANS[tid].rarity + "）");
 else { S.gold += 20; lines.push("符咒栏已满，Boss 的符咒折成了 20 金币"); }
 }
-if (isBoss && hasTalisman("dragonheart46") && Math.random() < 0.3) { v.shards++; lines.push("龙心符共鸣：龙牙碎片 +1（现有 " + v.shards + "）"); }
+if (isBoss && hasTalisman("dragonheart46") && R() < 0.3) { v.shards++; lines.push("龙心符共鸣：龙牙碎片 +1（现有 " + v.shards + "）"); }
 }
 var _wc46 = winCombat;
 winCombat = function() {
@@ -8402,11 +8427,11 @@ var gold = Math.round(15 + depth * 1.6);
 var types = ["hunt", "collect", "escort", "guard", "bounty", "seek"];
 var type = randomOf(types);
 var name = randomOf(VILLAGER_NAMES46);
-var q = { type: type, from: name, got: 0, rewardGold: gold, rewardMats: [randomOf(Object.keys(MATS46))], rewardItem: Math.random() < 0.4? randomOf(["bless", "spring"]): null };
+var q = { type: type, from: name, got: 0, rewardGold: gold, rewardMats: [randomOf(Object.keys(MATS46))], rewardItem: R() < 0.4? randomOf(["bless", "spring"]): null };
 if (type === "hunt") {
 var pool = ACTS[S.act].normals;
 q.targetId = randomOf(pool);
-q.need = 2 + (Math.random() < 0.5? 1: 0);
+q.need = 2 + (R() < 0.5? 1: 0);
 q.title = "讨伐 · " + ENEMIES[q.targetId].name;
 q.desc = name + " 说：" + ENEMIES[q.targetId].name + " 最近总在村口转悠，吓得娃娃不敢出门。帮我们打掉 " + q.need + " 只，村里凑了份谢礼。";
 }
@@ -8419,7 +8444,7 @@ q.desc = name + " 说：家里老人等着 " + MATS46[q.targetId].name + " 入�
 }
 if (type === "escort") { q.need = 1; q.title = "护送 · 平安抵达"; q.desc = name + " 说：我要去下一站投亲，路上不太平。你接下来赢下一场战斗，就算护我走完了最险的一段。"; }
 if (type === "guard") { q.need = 2; q.title = "守村 · 连退两波"; q.desc = name + " 说：夜里总有东西在村墙外挠门。帮我们连着打退 2 场战斗，村里人就敢睡个整觉了。"; }
-if (type === "bounty") { q.need = 1; q.rewardGold = Math.round(gold * 1.6); if (Math.random() < 0.35) q.rewardItem = "equip"; q.title = "悬赏 · 狩猎大物"; q.desc = name + " 说：村里贴了悬赏——击败任意 1 个精英或 Boss，赏金翻倍，还有压箱底的好东西。"; }
+if (type === "bounty") { q.need = 1; q.rewardGold = Math.round(gold * 1.6); if (R() < 0.35) q.rewardItem = "equip"; q.title = "悬赏 · 狩猎大物"; q.desc = name + " 说：村里贴了悬赏——击败任意 1 个精英或 Boss，赏金翻倍，还有压箱底的好东西。"; }
 if (type === "seek") { q.need = 1; q.title = "寻物 · 丢失的念珠"; q.desc = name + " 说：我奶奶的念珠掉在塔里的宝箱附近了。你下次打开宝箱（宝箱节点）时帮我留意，找回来必有重谢。"; }
 return q;
 }
@@ -8433,7 +8458,7 @@ _fn46();
 var v = v46(); if (!v || !node) return;
 v.nodesSinceQuest++;
 if (node.kind === "treasure") {
-if (Math.random() < 0.4) {
+if (R() < 0.4) {
 var cid = randomOf(["dl_add", "dl_convert", "mg_fate", "mg_gold", "mg_elem", "pack_dl", "pack_mg", "dl_risk_copy", "dl_risk_double"]);
 v.cards[cid] = (v.cards[cid] || 0) + 1;
 v.pendingLoot.push("宝箱深处还有一张牌【" + CARD46[cid].name + "】（已放入背包）");
@@ -8444,7 +8469,7 @@ if (node.kind === "boss") {
 if (prevRegion === "tower") {
 v.shards++;
 v.pendingLoot.push("打完一层：龙牙碎片 +1（现有 " + v.shards + " 枚，3 枚可在背包合成龙牙）");
-if (hasTalisman("dragontooth46") && Math.random() < 0.35) { v.shards++; v.pendingLoot.push("龙牙符共鸣：额外龙牙碎片 +1（现有 " + v.shards + "）"); }
+if (hasTalisman("dragontooth46") && R() < 0.35) { v.shards++; v.pendingLoot.push("龙牙符共鸣：额外龙牙碎片 +1（现有 " + v.shards + "）"); }
 }
 if (prevRegion === "village" && (S.village > prevVillage || S.region !== "village")) {
 v.teeth++;
@@ -8639,7 +8664,7 @@ var v = (typeof S !== "undefined" && S && S.v46)? S.v46: null;
 if (v && v.vouchers && v.vouchers.stall) {
 /* 扩摊：骰子分类多刷 1 件（装备分类的 +1 在 genShopStock46 里） */
 var diceKeys = SHOP_DICE.map(function(p){ return "die-" + p[0]; }).filter(function(k){ return picks.indexOf(k) < 0; });
-if (diceKeys.length) picks.push(diceKeys[Math.floor(Math.random() * diceKeys.length)]);
+if (diceKeys.length) picks.push(diceKeys[Math.floor(R() * diceKeys.length)]);
 }
 return picks;
 };
@@ -8653,15 +8678,15 @@ if (res === "normal" && v) {
 syncCharmMeta46();
 var slot = S.talismans.length - 1;
 var meta = v.charmMeta[slot] || (v.charmMeta[slot] = {});
-if (Math.random() < 0.1) meta.edition = randomOf(["gold", "gold", "holo", "holo", "rainbow"]);
-if (Math.random() < 0.12) { meta.sticker = randomOf(["eternal", "rental", "perish"]); if (meta.sticker === "perish") meta.left = 5; }
+if (R() < 0.1) meta.edition = randomOf(["gold", "gold", "holo", "holo", "rainbow"]);
+if (R() < 0.12) { meta.sticker = randomOf(["eternal", "rental", "perish"]); if (meta.sticker === "perish") meta.left = 5; }
 }
 return res;
 };
 var _me46 = makeEquip46;
 makeEquip46 = function(defId, rarity) {
 var it = _me46(defId, rarity);
-if (it && Math.random() < (rarity === "史诗"? 0.12: rarity === "稀有"? 0.06: 0)) {
+if (it && R() < (rarity === "史诗"? 0.12: rarity === "稀有"? 0.06: 0)) {
 it.edition = randomOf(["gold", "gold", "holo", "holo", "rainbow"]);
 it.name += "·" + EDITION46[it.edition].name;
 }
@@ -8732,8 +8757,8 @@ if (typeof S !== "undefined" && S && S.dice) S.dice.forEach(function(d){ if (d.s
 _da46c();
 var v = v46(); if (!v) return;
 if (goldSeals > 0) { var v9 = v46(); var gain = Math.min(2 * goldSeals, Math.max(0, 10 - ((v9 && v9.sealGoldBattle) || 0))); if (gain > 0) { S.gold += gain; if (v9) v9.sealGoldBattle = (v9.sealGoldBattle || 0) + gain; log(" 金印发作：出招得金 +" + gain + " 金币（每场上限 10）。", "strong"); } }
-if (!v.sealCardUsed && hasBlue && Math.random() < 0.2) { var mc = randomOf(["mg_fate", "mg_hp", "mg_gold", "mg_elem"]); v.cards[mc] = (v.cards[mc] || 0) + 1; v.sealCardUsed = true; log(" 命印发作：你得到一张【" + CARD46[mc].name + "】（背包里查看）。", "strong"); }
-if (!v.sealCardUsed && hasPurple && Math.random() < 0.2) { var dc = randomOf(["dl_add", "dl_remove", "dl_convert", "dl_seal"]); v.cards[dc] = (v.cards[dc] || 0) + 1; v.sealCardUsed = true; log(" 灵印发作：你得到一张【" + CARD46[dc].name + "】（背包里查看）。", "strong"); }
+if (!v.sealCardUsed && hasBlue && R() < 0.2) { var mc = randomOf(["mg_fate", "mg_hp", "mg_gold", "mg_elem"]); v.cards[mc] = (v.cards[mc] || 0) + 1; v.sealCardUsed = true; log(" 命印发作：你得到一张【" + CARD46[mc].name + "】（背包里查看）。", "strong"); }
+if (!v.sealCardUsed && hasPurple && R() < 0.2) { var dc = randomOf(["dl_add", "dl_remove", "dl_convert", "dl_seal"]); v.cards[dc] = (v.cards[dc] || 0) + 1; v.sealCardUsed = true; log(" 灵印发作：你得到一张【" + CARD46[dc].name + "】（背包里查看）。", "strong"); }
 renderAll();
 };
 var _sb46c = startBattle;
@@ -8950,7 +8975,7 @@ function openBuildPack46(packId) {
 var v = v46(); var def = BUILD_PACKS46[packId]; if (!def) return [];
 var got = [];
 for (var i = 0; i < 2; i++) {
-var roll = Math.random();
+var roll = R();
 if (roll < 0.45) {
 var pool = def.talismans.filter(function(t) { return TALISMANS[t] && S.talismans.indexOf(t) < 0; });
 if (pool.length) { var t = randomOf(pool); var res = grantTalisman46(t, "pack"); got.push(res === "void"? "虚符【" + TALISMANS[t].name + "】": "符咒【" + TALISMANS[t].name + "】"); continue; }
@@ -8996,7 +9021,7 @@ if (window.__inAttack46 && a.dmg > 0) {
 if (!window.__crit46) {
 var chance = (hasTalisman("critmaster46")? 20: 0);
 S.dice.forEach(function(d) { chance += d.crit || 0; });
-if (chance > 0 && Math.random() * 100 < chance) {
+if (chance > 0 && R() * 100 < chance) {
 a.dmg = Math.floor(a.dmg * (hasTalisman("lethal46")? 2: 1.5));
 window.__crit46 = true;
 notes.push(hasTalisman("lethal46")? "致命一击！暴击 ×2": "暴击大师！暴击 ×1.5");
@@ -9192,9 +9217,9 @@ renderPack46(); renderAll();
 /* ---------- 抽奖转盘 ---------- */
 var wheel46 = { kind: "normal", prizes: [], spinning: false, rot: 0 };
 function goldPrize46(n) { return { label: "金币 +" + n, w: 1, grant: function() { S.gold += n; return "金币 +" + n; } }; }
-function matPrize46() { var m = randomOf(Object.keys(MATS46)); var r = Math.random() < 0.3? "稀有": "普通"; return { label: MATS46[m].name + "（" + r + "）", w: 1, grant: function() { addMat46(m, r, 2); return "材料【" + MATS46[m].name + "】（" + r + "）×2"; } }; }
+function matPrize46() { var m = randomOf(Object.keys(MATS46)); var r = R() < 0.3? "稀有": "普通"; return { label: MATS46[m].name + "（" + r + "）", w: 1, grant: function() { addMat46(m, r, 2); return "材料【" + MATS46[m].name + "】（" + r + "）×2"; } }; }
 function equipPrize46(rarity, dragonOnly) { var pool = EQ_DEFS.filter(function(d) { return dragonOnly? d.set === "dragon": d.set !== "dragon"; }); var def = randomOf(pool); return { label: def.name + "（" + rarity + "）", w: rarity === "史诗"? 0.45: 1, grant: function() { var lines = []; grantItem46(lines, def.id, rarity); return lines[0]; } }; }
-function consumPrize46() { var isB = Math.random() < 0.5; var id = isB? randomOf(Object.keys(BLESS46)): randomOf(Object.keys(SPRING46)); return { label: (isB? "祝福 · ": "源泉 · ") + (isB? BLESS46[id].name: SPRING46[id].name), w: 1, grant: function() { var v = v46(); if (isB) v.bless[id] = (v.bless[id] || 0) + 1; else v.springs[id] = (v.springs[id] || 0) + 1; return "【" + (isB? BLESS46[id].name: SPRING46[id].name) + "】已放入背包"; } }; }
+function consumPrize46() { var isB = R() < 0.5; var id = isB? randomOf(Object.keys(BLESS46)): randomOf(Object.keys(SPRING46)); return { label: (isB? "祝福 · ": "源泉 · ") + (isB? BLESS46[id].name: SPRING46[id].name), w: 1, grant: function() { var v = v46(); if (isB) v.bless[id] = (v.bless[id] || 0) + 1; else v.springs[id] = (v.springs[id] || 0) + 1; return "【" + (isB? BLESS46[id].name: SPRING46[id].name) + "】已放入背包"; } }; }
 function talismanPrize46(source) { return { label: "随机符咒", w: 0.8, grant: function() { var pool = unownedTalismans(); if (!pool.length) { S.gold += 15; return "符咒已集满，折成 15 金币"; } var id = randomOf(pool); var res = grantTalisman46(id, source); if (res === "void") return "虚符【" + TALISMANS[id].name + "】！不占符咒栏位"; if (res === "normal") return "符咒【" + TALISMANS[id].name + "】（" + TALISMANS[id].rarity + "）"; S.gold += 20; return "符咒栏已满，折成 20 金币"; } }; }
 function packPrize46(n) { return { label: "强化包 +" + n, w: n >= 5? 0.5: 0.8, grant: function() { openPackPicker46(n); return "强化包 +" + n + "：选一个牌型或元素升级"; } }; }
 function cardPrize46() { var id = randomOf(["dl_add", "dl_convert", "dl_seal", "dl_steel", "mg_fate", "mg_gold", "pack_dl", "pack_mg", "pack_crit", "pack_thorn", "pack_poison", "pack_chain", "dl_risk_elem", "dl_risk_copy"]); return { label: CARD46[id].name, w: 0.9, grant: function() { var v = v46(); v.cards[id] = (v.cards[id] || 0) + 1; return "牌【" + CARD46[id].name + "】已放入背包手牌栏"; } }; }
@@ -9270,7 +9295,7 @@ else if (wheel46.kind === "rare") { if (S.gold < 30) { $("lottery-result").textC
 else { if (v.teeth < 1) { $("lottery-result").textContent = "没有龙牙（打完一村得 1 颗，或 3 枚碎片在背包合成）。"; return; } v.teeth--; }
 wheel46.spinning = true;
 var total = 0; wheel46.prizes.forEach(function(p) { total += p.w || 1; });
-var r = Math.random() * total, idx = 0;
+var r = R() * total, idx = 0;
 for (var i = 0; i < wheel46.prizes.length; i++) { r -= wheel46.prizes[i].w || 1; if (r <= 0) { idx = i; break; } }
 var target = 360 - (idx * 18 + 9);
 var delta = (target - (wheel46.rot % 360) + 360) % 360;
@@ -9304,19 +9329,19 @@ var v = v46(); if (!v) return [];
 var stock = [];
 var equipN = 4 + (v.vouchers && v.vouchers.stall? 1: 0);
 for (var i = 0; i < equipN; i++) {
-var rar = Math.random() < 0.55? "普通": "稀有";
-var def = randomOf(EQ_DEFS.filter(function(d) { return d.set !== "dragon"; }));
+var rar = R() < 0.55? "普通": "稀有";
+var def = randomOf(EQ_DEFS.filter(function(d) { return (typeof CHEAT56 !== "undefined" && CHEAT56.on) || d.set !== "dragon"; }));
 var it = makeEquip46(def.id, rar);
-stock.push({ kind: "equip", item: it, price: shopPrice(rar === "普通"? 20 + Math.floor(Math.random() * 8): 46 + Math.floor(Math.random() * 16)), sold: false });
+stock.push({ kind: "equip", item: it, price: shopPrice(rar === "普通"? 20 + Math.floor(R() * 8): 46 + Math.floor(R() * 16)), sold: false });
 }
 var itemTarget = (typeof S !== "undefined" && S && S.hp < S.maxHp)? 3: 4;
 for (var j = 0; j < itemTarget; j++) {
-var roll2 = Math.random();
+var roll2 = R();
 if (roll2 < 0.4) { var bid = randomOf(Object.keys(BLESS46)); stock.push({ kind: "bless", id: bid, price: shopPrice(12), sold: false }); }
 else if (roll2 < 0.7) { var sid = randomOf(Object.keys(SPRING46)); stock.push({ kind: "spring", id: sid, price: shopPrice(12), sold: false }); }
 else { var cid = randomOf(["dl_add", "dl_convert", "dl_seal", "dl_steel", "mg_gold", "mg_elem", "pack_dl", "pack_mg", "pack_crit", "pack_thorn", "pack_poison", "pack_chain", "pack_steel", "pack_econ"]); stock.push({ kind: "card", id: cid, price: shopPrice(15), sold: false }); }
 }
-var talPool = unownedTalismans().slice().sort(function(){ return Math.random() - 0.5; });
+var talPool = unownedTalismans().slice().sort(function(){ return R() - 0.5; });
 for (var k = 0; k < 3 && k < talPool.length; k++) {
 var tid = talPool[k];
 var tp = TALISMANS[tid].rarity === "史诗"? 40: TALISMANS[tid].rarity === "稀有"? 26: 16;
@@ -9596,7 +9621,7 @@ pend.debuffs = ["burn", "venom", "sunder", "slow", "heavy"];
 notes.push("五灵根 · 五行大阵：伤害 ×2，并附加灼烧/缠毒/破甲/迟缓/重压！");
 }
 /* 共鸣·光：暴击补判定 */
-if (inAtk && !window.__crit46 && counts.light >= 2 && Math.random() * 100 < 10) {
+if (inAtk && !window.__crit46 && counts.light >= 2 && R() * 100 < 10) {
 a.dmg = Math.floor(a.dmg * 1.5);
 window.__crit46 = true;
 notes.push("共鸣·光：暴击！伤害 ×1.5");
@@ -9614,7 +9639,7 @@ if (S.enemy && S.enemy.hp > 0) {
 if (p.debuffs) p.debuffs.forEach(function(id) { if (S.enemyDebuffs.indexOf(id) < 0) { addDebuff("enemy", id); log(" 元素效果：敌人被附加【" + DEBUFFS[id].name + "】！", "strong"); } });
 if (p.armorCut && S.enemy.armor > 0) { var cut = Math.ceil(S.enemy.armor / 2); S.enemy.armor -= cut; log(" 破甲反应：削去敌人 " + cut + " 点护甲。", "strong"); }
 if (p.chaos) {
-var roll = Math.random();
+var roll = R();
 if (roll < 0.3) { var cd = Math.floor(S.enemy.hp * 0.15); S.enemy.hp -= cd; log(" 混沌反应：虚空撕裂，敌人受到 " + cd + " 点伤害！", "strong"); if (S.enemy.hp <= 0) { S.busy = false; renderAll(); winCombat(); return; } }
 else if (roll < 0.55) { S.hp = Math.min(S.maxHp, S.hp + 15); log(" 混沌反应：光暗交织，你回复 15 点生命。", "strong"); }
 else if (roll < 0.8) { S.enemy.poison = (S.enemy.poison || 0) + 3; log(" 混沌反应：敌人中毒 +3 层。", "strong"); }
@@ -10149,7 +10174,7 @@ if (it && it.t.indexOf("atk") === 0) { var add = Math.floor(it.v * 0.8); if (add
 }
 }
 if (S.classId === "desperate" && inAtk && v.gambleArmed) {
-if (!v.gambleState) v.gambleState = Math.random() < 0.5? "triple": "self";
+if (!v.gambleState) v.gambleState = R() < 0.5? "triple": "self";
 if (v.gambleState === "triple") { a.dmg *= 3; notes.push("赌命命中：三倍伤害！"); }
 else notes.push("赌命落空：这一击过后反噬自伤 10");
 }
@@ -10158,7 +10183,7 @@ if (!window.__crit46) {
 var chance = 0;
 if (S.classId === "shadow") chance += 10;
 if (S.classId === "berserker" && S.hp < S.maxHp * 0.5) chance += 20;
-if (chance > 0 && Math.random() * 100 < chance) {
+if (chance > 0 && R() * 100 < chance) {
 a.dmg = Math.floor(a.dmg * 1.5);
 window.__crit46 = true;
 notes.push("角色暴击！伤害 ×1.5");
@@ -10200,7 +10225,7 @@ var v = v46();
 if (!v || typeof S === "undefined" || !S || !S.enemy || S.hp <= 0) return;
 var taken = hpBefore - S.hp;
 if (taken <= 0) return;
-if (S.classId === "shadow" && Math.random() < 0.15) {
+if (S.classId === "shadow" && R() < 0.15) {
 S.hp = Math.min(S.maxHp, S.hp + taken);
 log(" 【影刺·影遁】你化作残影，完全闪避了这一轮 " + taken + " 点伤害！", "strong");
 fxFloat("闪避！", $("player-figure"), "heal");
@@ -10324,7 +10349,7 @@ var spent = 0;
 Object.keys(MATS46).forEach(function(mid) { if (spent < 2 && matCount46(mid) > 0) { var take = Math.min(2 - spent, matCount46(mid)); if (spendMat46(mid, take)) spent += take; } });
 if (spent < 2) return;
 var nid = randomOf(Object.keys(MATS46));
-var rr = Math.random();
+var rr = R();
 var rar = rr < 0.05? "史诗": rr < 0.3? "稀有": "普通";
 addMat46(nid, rar, 1);
 log(" 【炼金术士】合成成功：2 个材料炼成了【" + MATS46[nid].name + "】（" + rar + "）×1。", "strong");
@@ -10385,7 +10410,7 @@ var CHEST_TIERS53 = [
 { name: "龙纹宝箱", color: "#E5534B", costMul: 3.8 }
 ];
 var CHEST53 = { costType: "", costValue: 0, unlucky: false };
-function rollChestTier53() { var r = Math.random(); return r < 0.62? 0: r < 0.86? 1: r < 0.96? 2: 3; }
+function rollChestTier53() { var r = R(); return r < 0.62? 0: r < 0.86? 1: r < 0.96? 2: 3; }
 function chestTierIdx53() { return (typeof S !== "undefined" && S && S.node && S.node.chestTier != null)? S.node.chestTier: 0; }
 function chestTierName53() { return CHEST_TIERS53[chestTierIdx53()].name; }
 function chestIntroText53() { return "转角处静静放着一只【" + CHEST_TIERS53[chestTierIdx53()].name + "】，锁扣上还沾着塔灰。塔里的规矩：开箱先付一份随机代价——可能扣生命、扣金币、没收一件道具，或者削弱一项牌型强化，随机一样。代价越重，里面的东西越值：多半回本甚至大赚，只有小概率不回本。"; }
@@ -10426,12 +10451,12 @@ var res = { hpDmg: 0, text: "", short: "" };
 CHEST53.unlucky = !!(typeof S !== "undefined" && S && S.node && S.node.chestUnlucky);
 if (pick === "hp") {
 var base = [4, 6, 9, 13][t];
-var dmg = Math.max(0, Math.min(S.hp - 1, Math.round(base * (0.8 + Math.random() * 0.5))));
+var dmg = Math.max(0, Math.min(S.hp - 1, Math.round(base * (0.8 + R() * 0.5))));
 res.hpDmg = dmg; CHEST53.costValue = dmg * 2;
 res.text = "宝箱的代价（先付再拿）：锁孔里的细针和倒刺一起招呼了你——生命 −" + dmg + "。";
 } else if (pick === "gold") {
 var baseG = [10, 22, 38, 60][t];
-var amt = Math.max(3, Math.min(S.gold, Math.round(baseG * (0.8 + Math.random() * 0.5))));
+var amt = Math.max(3, Math.min(S.gold, Math.round(baseG * (0.8 + R() * 0.5))));
 S.gold -= amt; CHEST53.costValue = amt;
 res.text = "宝箱的代价（先付再拿）：箱盖内侧伸出一只机关手，把你的钱袋掏走了 " + amt + " 金币。";
 res.short = "−" + amt + " 金币";
@@ -10461,7 +10486,7 @@ return [
 { kind: "treroll", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAA1klEQVR4nO3ZsQ3CQBBEUZdAQEpLNEBHNA0dsBy+hTnzvuTMkmdf6m1r7ny6PDqf7v3tASoCVASoCFDR3wGNHnC7X1ufODhAgAABAhQANOvg0QO6oaeBAgIECBCgAwFN+3AzHCBAgAABOhJQGsRo7fsBAQIE6EWAigAVje4BBOi9/bPeBwRo3/uAPt2fBpe2J25Q2p64QWl74gal7YkblLYnblDanuV/HAICBCjqu4AAfRlo9IBZhy0DAQgQIECAFgQabRR09Pn1fbsDVASoCFARoKLVgZ74DWabJcOMxwAAAABJRU5ErkJggg==> 备用骰筒", desc: "下一场战斗每回合重摇 +1 次；只对下一场有效，打完就失效。"}
 ];
 }
-function ri(n) { return Math.floor(Math.random() * n); }
+function ri(n) { return Math.floor(R() * n); }
 var pool = [], cid;
 if (t === 0) {
 var g0 = 11 + ri(7);
@@ -10472,8 +10497,8 @@ pool.push({ kind: "tface", title: "<img class=pxi src=data:image/png;base64,iVBO
 pool.push({ kind: "treroll", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAA1klEQVR4nO3ZsQ3CQBBEUZdAQEpLNEBHNA0dsBy+hTnzvuTMkmdf6m1r7ny6PDqf7v3tASoCVASoCFDR3wGNHnC7X1ufODhAgAABAhQANOvg0QO6oaeBAgIECBCgAwFN+3AzHCBAgAABOhJQGsRo7fsBAQIE6EWAigAVje4BBOi9/bPeBwRo3/uAPt2fBpe2J25Q2p64QWl74gal7YkblLYnblDanuV/HAICBCjqu4AAfRlo9IBZhy0DAQgQIECAFgQabRR09Pn1fbsDVASoCFARoKLVgZ74DWabJcOMxwAAAABJRU5ErkJggg==> 备用骰筒", desc: "下一场战斗每回合重摇 +1 次；只对下一场有效。" });
 cid = chestCard53(["mg_gold", "mg_hp", "dl_convert", "pack_dl", "pack_mg"]);
 if (cid) pool.push({ kind: "ccard", cardId: cid, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAnUlEQVR4nO3QsQ2AMAxFQUagoKVmABZnDLagZQuYIEWURLbgnvRbS75p6tQyr0+m9fqrW9EggAABApRp6SDu60y1MDhAgAABAvQDoGPfqgYIECBAgAABAgQIECBAgNqBRg8QIECAAAEaB1S6M/o+IECAAAEC1P7A6AECBAgQIECAAAECBAjQl4Bq4aIWBlEqGgQQIECAMi3aQ5Kk+F7bKBFZ/4XfkQAAAABJRU5ErkJggg==> 牌 · " + CARD46[cid].name, desc: CARD46[cid].desc + "（直接放入背包手牌栏）" });
-if (Math.random() < 0.6) pool.push({ kind: "crerollcore", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAA1klEQVR4nO3ZsQ3CQBBEUZdAQEpLNEBHNA0dsBy+hTnzvuTMkmdf6m1r7ny6PDqf7v3tASoCVASoCFDR3wGNHnC7X1ufODhAgAABAhQANOvg0QO6oaeBAgIECBCgAwFN+3AzHCBAgAABOhJQGsRo7fsBAQIE6EWAigAVje4BBOi9/bPeBwRo3/uAPt2fBpe2J25Q2p64QWl74gal7YkblLYnblDanuV/HAICBCjqu4AAfRlo9IBZhy0DAQgQIECAFgQabRR09Pn1fbsDVASoCFARoKLVgZ74DWabJcOMxwAAAABJRU5ErkJggg==> 重摇核心（每回合重摇 +1）", desc: "永久：之后每回合多 1 次重摇机会。和三选一里的重摇核心同款。" });
-if (Math.random() < 0.5) { var isB = Math.random() < 0.5; var iid = isB? randomOf(Object.keys(BLESS46)): randomOf(Object.keys(SPRING46)); pool.push({ kind: "citem", itemKind: isB? "bless": "spring", itemId: iid, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAsklEQVR4nO3VsQ3CMBRF0YxAQZuVWICNmCxb0GYLaFKCnixFfNucK73Wsk/jZSnqellfLau6Z1mAQoBCgEKAQoCOvj34/rg1bVo4QCFAIUAhQCFAobMeBuhH53QXoBCgEKAQoKOzvvNpv39AIUAhQCFAIUDFEMPAAQIECBCgiYD25/ZxgAABAgQIUP9AVQMECBAgQP8MNApEGRwgQIAAARoQaNYBAgQIEKCO1wwkSVL3vQEgRqTDoZlSywAAAABJRU5ErkJggg==> " + (isB? "祝福": "源泉") + " · " + (isB? BLESS46[iid].name: SPRING46[iid].name), desc: (isB? BLESS46[iid].desc: SPRING46[iid].desc) + "（直接放入背包）" }); }
+if (R() < 0.6) pool.push({ kind: "crerollcore", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAA1klEQVR4nO3ZsQ3CQBBEUZdAQEpLNEBHNA0dsBy+hTnzvuTMkmdf6m1r7ny6PDqf7v3tASoCVASoCFDR3wGNHnC7X1ufODhAgAABAhQANOvg0QO6oaeBAgIECBCgAwFN+3AzHCBAgAABOhJQGsRo7fsBAQIE6EWAigAVje4BBOi9/bPeBwRo3/uAPt2fBpe2J25Q2p64QWl74gal7YkblLYnblDanuV/HAICBCjqu4AAfRlo9IBZhy0DAQgQIECAFgQabRR09Pn1fbsDVASoCFARoKLVgZ74DWabJcOMxwAAAABJRU5ErkJggg==> 重摇核心（每回合重摇 +1）", desc: "永久：之后每回合多 1 次重摇机会。和三选一里的重摇核心同款。" });
+if (R() < 0.5) { var isB = R() < 0.5; var iid = isB? randomOf(Object.keys(BLESS46)): randomOf(Object.keys(SPRING46)); pool.push({ kind: "citem", itemKind: isB? "bless": "spring", itemId: iid, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAsklEQVR4nO3VsQ3CMBRF0YxAQZuVWICNmCxb0GYLaFKCnixFfNucK73Wsk/jZSnqellfLau6Z1mAQoBCgEKAQoCOvj34/rg1bVo4QCFAIUAhQCFAobMeBuhH53QXoBCgEKAQoKOzvvNpv39AIUAhQCFAIUDFEMPAAQIECBCgiYD25/ZxgAABAgQIUP9AVQMECBAgQP8MNApEGRwgQIAAARoQaNYBAgQIEKCO1wwkSVL3vQEgRqTDoZlSywAAAABJRU5ErkJggg==> " + (isB? "祝福": "源泉") + " · " + (isB? BLESS46[iid].name: SPRING46[iid].name), desc: (isB? BLESS46[iid].desc: SPRING46[iid].desc) + "（直接放入背包）" }); }
 }
 if (t === 1) {
 var g1 = 24 + ri(13);
@@ -10495,7 +10520,7 @@ pool.push({ kind: "cequip", rarity: "稀有", title: "<img class=pxi src=data:im
 pool.push({ kind: "cmaxhp", amt: 14, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAy0lEQVR4nO3VsQ3CMBRF0YxAQUvNACzOGGxByxawANaXI0d5ts6Vfhs9nybbJknScl0vt++IW3VP3KC0PXGD0vbEDUrbEzcobU/coNP2tD70fNyHXO/QtD1xg9L2xA1K2xM3KG1P3KC0PXGD0vZ0D/q8X39v1AOOPkCAAAECFHxxv/m0AwQIECBAwdcNtCrcMAhAgAABAjQh0Cxwp0EAAgQIEKAJgVodDTcNRCtARYCKABUBKgK0s164ZSFaASoCVASoCFARIEmSzuoH7WOINhhaLlQAAAAASUVORK5CYII=> 命格精华（生命上限 +14）", desc: "生命上限永久 +14 并恢复 14 点。" });
 pool.push({ kind: "cblessing", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 祝福（牌型强化 · 可自选）", desc: "自选一个牌型永久升 1 级，或随机一个牌型升 2 级。" });
 if ((S.elemLevel || 1) < 6) pool.push({ kind: "celem", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==> 元素精华", desc: "元素强化等级 +1（当前 Lv." + (S.elemLevel || 1) + "）。" });
-var dI2 = Math.floor(Math.random() * S.dice.length); var bd2 = randomOf(DIE_BUFFS);
+var dI2 = Math.floor(R() * S.dice.length); var bd2 = randomOf(DIE_BUFFS);
 pool.push({ kind: "cdiebuff", dieIdx: dI2, buffKind: bd2.kind, buffName: bd2.name, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA0UlEQVR4nO3VMQoCQRAAQZ9gYGDiswSfYOT/M002ETybE5dDrILJZzqZ3W6yw/50nzmz959OoCBQECgIFAQalg64XS9T52fCCRQECgIFgYJAYW2gv3v/AgWBgkBBoCBQ+Fagre+YRqAgUBAoCBQE+pAQQaAgUBAoCBQEGhbf/Pn4cv4unEBBoCBQECgINKwNIZBAzwQKAgWBgkDBOw8CBYGCQEGgINDgnQeBgkBBoCBQECh450GgIFAQKAgUBBqWDls7W98xjUBBoCBQECgI9N4DsoVoCdIdCM8AAAAASUVORK5CYII=> 单骰强化 · " + bd2.name, desc: "给你的第 " + (dI2 + 1) + " 颗骰子装上【" + bd2.name + "】：" + bd2.desc });
 pool.push({ kind: "cgold", amt: g2, title: "一大袋金币", desc: "立刻获得 " + g2 + " 金币。" });
 cid = chestCard53(["dl_risk_copy", "dl_risk_double", "pack_dl", "pack_mg", "dl_add"]);
@@ -10509,7 +10534,7 @@ pool.push({ kind: "cequip", rarity: "史诗", title: "<img class=pxi src=data:im
 pool.push({ kind: "cshard", n: 2, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAoklEQVR4nO3QwQ2DQBAEQULww1/HSFpOxVHhCGAEYsUeVEvzPd3WNBX3fn2WylX/vzxAIUAhQCFAoccB7T1g/v5K1w4UECBAgAA1ADrr4FHeAQQIECBAjd+5DKjbAAECBAhQ450GNDpcOQQgQIAAARoQqBtcO4i1AIUAhQCFAIUAHawaDhAgQIC2AhQCdLC1w2578N4AhQCFAIUAhQBJklTdHz5mYxUfmveVAAAAAElFTkSuQmCC> 龙牙碎片 ×2", desc: "龙牙碎片 +2（3 枚可在背包合成 1 颗龙牙，去抽龙牙转盘）。" });
 pool.push({ kind: "cmaxhp", amt: 18, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAy0lEQVR4nO3VsQ3CMBRF0YxAQUvNACzOGGxByxawANaXI0d5ts6Vfhs9nybbJknScl0vt++IW3VP3KC0PXGD0vbEDUrbEzcobU/coNP2tD70fNyHXO/QtD1xg9L2xA1K2xM3KG1P3KC0PXGD0vZ0D/q8X39v1AOOPkCAAAECFHxxv/m0AwQIECBAwdcNtCrcMAhAgAABAjQh0Cxwp0EAAgQIEKAJgVodDTcNRCtARYCKABUBKgK0s164ZSFaASoCVASoCFARIEmSzuoH7WOINhhaLlQAAAAASUVORK5CYII=> 命格精华（生命上限 +18）", desc: "生命上限永久 +18 并恢复 18 点。" });
 pool.push({ kind: "cgold", amt: g3, title: "龙穴金币", desc: "立刻获得 " + g3 + " 金币。" });
-var dI3 = Math.floor(Math.random() * S.dice.length); var bd3 = randomOf(DIE_BUFFS);
+var dI3 = Math.floor(R() * S.dice.length); var bd3 = randomOf(DIE_BUFFS);
 pool.push({ kind: "cdiebuff", dieIdx: dI3, buffKind: bd3.kind, buffName: bd3.name, title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA0UlEQVR4nO3VMQoCQRAAQZ9gYGDiswSfYOT/M002ETybE5dDrILJZzqZ3W6yw/50nzmz959OoCBQECgIFAQalg64XS9T52fCCRQECgIFgYJAYW2gv3v/AgWBgkBBoCBQ+Fagre+YRqAgUBAoCBQE+pAQQaAgUBAoCBQEGhbf/Pn4cv4unEBBoCBQECgINKwNIZBAzwQKAgWBgkDBOw8CBYGCQEGgINDgnQeBgkBBoCBQECh450GgIFAQKAgUBBqWDls7W98xjUBBoCBQECgI9N4DsoVoCdIdCM8AAAAASUVORK5CYII=> 单骰强化 · " + bd3.name, desc: "给你的第 " + (dI3 + 1) + " 颗骰子装上【" + bd3.name + "】：" + bd3.desc });
 if ((S.elemLevel || 1) < 6) pool.push({ kind: "celem", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==> 元素精华", desc: "元素强化等级 +1（当前 Lv." + (S.elemLevel || 1) + "）。" });
 pool.push({ kind: "cblessing", title: "<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAzklEQVR4nO3VsQ3CMBBAUUagoGUjFmcaRghNSqIvSzGJovelq+17Lny7HdTj/lxG5qh7HhagCFAEKAIUAYo+79fyawCtAYoARYAiQBGgCFAEKAIUAYoARZcF2muB2UCHQQP608GAIkARoOiyQKMX2oIYndMtPBqgCFAEKAIUXRZo6+DZC8+e0b02HwAQIECAAJ0YaPZvOHvh3RaYHaAIUAQoAhQB2jkQEaAIUAQoAhQBigBFgCJAEaAIUAQo2oIAtAYoAhQBigBFgCRJmt0XphMkPumMyTMAAAAASUVORK5CYII=> 祝福（牌型强化 · 可自选）", desc: "自选一个牌型永久升 1 级，或随机一个牌型升 2 级。" });
@@ -10547,7 +10572,7 @@ mat_feather: ["..........KK..",".........KCCK.","........KCCCCK",".......KCCBCCK
 });
 /* ---------- 地图：宝箱等级标注 ---------- */
 var _gc53 = genChoices;
-genChoices = function() { _gc53(); if (typeof S !== "undefined" && S && S.choices) S.choices.forEach(function(n) { if (n.kind === "treasure" && n.chestTier == null) { n.chestTier = rollChestTier53(); n.chestUnlucky = Math.random() < 0.15; } }); };
+genChoices = function() { _gc53(); if (typeof S !== "undefined" && S && S.choices) S.choices.forEach(function(n) { if (n.kind === "treasure" && n.chestTier == null) { n.chestTier = rollChestTier53(); n.chestUnlucky = R() < 0.15; } }); };
 var _rm53 = renderMap;
 renderMap = function() {
 _rm53();
@@ -10796,6 +10821,117 @@ else { hudHandSel54 = ""; var d3 = $("hud-hand-detail"); if (d3) d3.hidden = tru
 var _ra54 = renderAll;
 renderAll = function() { _ra54(); renderHandBar54(); renderHudHand54(); };
 renderHandBar54(); renderHudHand54();
+
+/* ================= v56 补丁：种子局不计主线 + 金手指生效 =================
+种子局（在选人界面输入了种子码开的局，故事 / 无尽都一样）只供娱乐：
+开局前快照 META，局内 saveMeta 只回写快照，离局时把内存里的 META
+也还原——进度、解锁、飞升都不会被种子局推动。种子标记 seeded56
+写在 S 里，会跟着存档走：读种子局的存档、无尽继承种子局的构筑，
+仍然按种子局处理。金手指码与种子码共用同一个输入框：输对指定
+代码即激活金手指（代码本身不出现在任何界面文案里）。 */
+var RUN56 = { seeded: false, snap: null };
+function restoreMeta56() { if (!RUN56.snap) return; var s = RUN56.snap; META.runs = s.runs; META.kills = s.kills; META.bosses = s.bosses; META.bestDepth = s.bestDepth; META.maxAct = s.maxAct; META.reachedAct2 = s.reachedAct2; META.clearedAsc = s.clearedAsc; }
+var _sm56 = saveMeta;
+saveMeta = function() {
+if (RUN56.seeded && RUN56.snap) { try { localStorage.setItem(META_KEY, JSON.stringify(RUN56.snap)); } catch (e) {} return; }
+_sm56();
+};
+function cheatBoostState56(s) {
+if (!s) return;
+s.gold = 99999;
+if (s.comboLevels) Object.keys(s.comboLevels).forEach(function(k) { s.comboLevels[k] = 10; });
+s.elemLevel = 10;
+if (s.faceBonus) [1, 2, 3, 4, 5, 6].forEach(function(f) { s.faceBonus[f] = 10; });
+var v = (typeof ensureV46 === "function")? ensureV46(s): null;
+if (!v) return;
+v.shards = 999; v.teeth = 999;
+if (!v.vouchers) v.vouchers = {};
+Object.keys(VOUCHERS46).forEach(function(k) { v.vouchers[k] = true; });
+Object.keys(BLESS46).forEach(function(k) { v.bless[k] = Math.max(v.bless[k] || 0, 9); });
+Object.keys(SPRING46).forEach(function(k) { v.springs[k] = Math.max(v.springs[k] || 0, 9); });
+Object.keys(CARD46).forEach(function(k) { v.cards[k] = Math.max(v.cards[k] || 0, 3); });
+Object.keys(MATS46).forEach(function(m) { ["普通", "稀有", "史诗"].forEach(function(r) { var key = m + "|" + r; v.mats[key] = Math.max(v.mats[key] || 0, 9); }); });
+EQ_DEFS.filter(function(d) { return d.set === "dragon"; }).forEach(function(d) {
+var has = v.bag.some(function(it) { return it && it.def === d.id; });
+if (!has && v.equip) Object.keys(v.equip).forEach(function(sl) { if (v.equip[sl] && v.equip[sl].def === d.id) has = true; });
+if (!has && typeof makeEquip46 === "function") { var it = makeEquip46(d.id, "史诗"); if (it) v.bag.push(it); }
+});
+if (typeof syncCharmMeta46 === "function") { try { syncCharmMeta46(); } catch (e) {} }
+}
+function activateCheat56() {
+CHEAT56.on = true;
+try { localStorage.setItem("dice-spire-cheat-v1", "1"); } catch (e) {}
+META.runs = Math.max(META.runs, 999);
+META.kills = Math.max(META.kills, 999);
+META.bosses = Math.max(META.bosses, 99);
+META.bestDepth = Math.max(META.bestDepth, 99);
+META.maxAct = 3; META.reachedAct2 = true;
+META.clearedAsc = Math.max(META.clearedAsc, 5);
+saveMeta();
+var st = $("cheat-state-56");
+if (st) st.textContent = "金手指已激活：16 位角色与全部符咒解锁；开局金币 99999、牌型全 Lv.10、元素 Lv.10、点数全 +10；龙牙与碎片各 999，龙牙抽奖随便转；背包塞满祝福 / 源泉 / 牌 / 材料与龙系史诗装备，商会令全开，商店也刷龙系装备。";
+}
+function refreshCheatState56() { var st = $("cheat-state-56"); if (st && CHEAT56.on && !st.textContent) st.textContent = "金手指已激活（全解锁生效中，进局即拉满）。"; }
+function syncSeedUi56() {
+if (typeof S !== "undefined" && S && S.seeded56 && !RUN56.seeded) { RUN56.seeded = true; if (!RUN56.snap) RUN56.snap = metaSnapshot(); }
+var el = $("menu-seed-code");
+if (el) el.textContent = (typeof S !== "undefined" && S && S.seedCode)? S.seedCode + (S.seeded56? "（种子局）": ""): "—";
+}
+var _fs56 = freshState;
+freshState = function(c, a) { var s = _fs56(c, a); if (CHEAT56.on) cheatBoostState56(s); return s; };
+var _sr56 = startRun;
+startRun = function(classId) {
+restoreMeta56(); RUN56.seeded = false; RUN56.snap = null;
+var inp = $("seed-input-56");
+var raw = inp? inp.value.trim(): "";
+if (raw && cheatNormalize56(raw) === CHEAT56_CODE) { activateCheat56(); if (inp) inp.value = ""; raw = ""; }
+var seeded = !!raw;
+var code = seeded? seedCanonical56(raw): makeSeedCode56();
+if (seeded) { RUN56.snap = metaSnapshot(); RUN56.seeded = true; }
+seedStart56(code);
+_sr56(classId);
+if (typeof S !== "undefined" && S) {
+S.seedCode = code; S.seeded56 = seeded;
+if (seeded) log("种子局 · " + code + "：这一局只供娱乐，不计入主线进度与解锁。", "strong");
+else log("本局种子：" + code + "（在菜单里可以复制；朋友在选人界面输入同一种子就能开出同一局，种子局不计主线）。", "strong");
+}
+syncSeedUi56();
+};
+var _lg56 = loadGameFrom;
+loadGameFrom = function(i) {
+restoreMeta56(); RUN56.seeded = false; RUN56.snap = null;
+var arr = loadSavesData(); var slot = arr && arr[i];
+var isSeeded = !!(slot && slot.state && slot.state.seeded56);
+if (isSeeded) { RUN56.snap = metaSnapshot(); RUN56.seeded = true; }
+_lg56(i);
+if (typeof S !== "undefined" && S) S.seeded56 = isSeeded;
+syncSeedUi56();
+};
+var _sei56 = startEndlessInherit;
+startEndlessInherit = function() {
+restoreMeta56(); RUN56.seeded = false; RUN56.snap = null;
+var src = (typeof findInheritSource === "function")? findInheritSource(): null;
+var isSeeded = !!(src && src.seeded56);
+if (isSeeded) { RUN56.snap = metaSnapshot(); RUN56.seeded = true; }
+_sei56();
+if (typeof S !== "undefined" && S && isSeeded) { S.seeded56 = true; if (src.seedCode) S.seedCode = src.seedCode; }
+syncSeedUi56();
+};
+var _scs56 = showClassSelect;
+showClassSelect = function() { restoreMeta56(); RUN56.seeded = false; RUN56.snap = null; _scs56(); refreshCheatState56(); };
+var _sh56 = showHome;
+showHome = function() { restoreMeta56(); RUN56.seeded = false; RUN56.snap = null; _sh56(); };
+var _ra56 = renderAll;
+renderAll = function() { _ra56(); syncSeedUi56(); };
+var _cb56 = $("btn-copy-seed-56");
+if (_cb56) _cb56.addEventListener("click", function() {
+var code = (typeof S !== "undefined" && S && S.seedCode)? S.seedCode: "";
+if (!code) { _cb56.textContent = "暂无种子"; setTimeout(function(){ _cb56.textContent = "复制"; }, 1200); return; }
+function done56() { _cb56.textContent = "已复制"; setTimeout(function(){ _cb56.textContent = "复制"; }, 1200); }
+function fb56() { var ta = document.createElement("textarea"); ta.value = code; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done56(); } catch (e) { _cb56.textContent = code; } ta.remove(); }
+if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done56, fb56); else fb56();
+});
+refreshCheatState56();
 </script>
 </body>
 </html>
