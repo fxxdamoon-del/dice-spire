@@ -2108,6 +2108,7 @@ body{overscroll-behavior:none}
 <div class="home-spacer"></div>
 <button class="btn-tut-level" id="btn-tut-level" type="button"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAnklEQVR4nO3VsQ2DMBCGUY9AkZaaATJCxmCbTJQx2II2W8AEFCc55A7eJ/215efCrQV7DONWedH7hvv3BQEBApR6gM4COjpgfr1LrxscIECAAAG6ENB3XX66Xg8GCBAgQIAAAQIECBAgQHcG+jyn0AABAgQIEKA8QL55QIAAAQKUB6jKAAECBAhQ4nUDisJVWTcIQIAAAQJUEEiSpDTtgviNZLZ42NsAAAAASUVORK5CYII=> 教程关卡 · 先练一局</button>
 <button class="btn-start-big" id="btn-start" type="button">START GAME</button>
+<button class="btn-resume-run hidden" id="btn-resume-run" type="button" style="display:none">继续本局</button>
 <div class="home-continue hidden" id="home-continue"><h3>继续游戏</h3><div id="home-saves"></div></div>
 <p class="home-hint"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAnklEQVR4nO3VsQ2DMBCGUY9AkZaaATJCxmCbTJQx2II2W8AEFCc55A7eJ/215efCrQV7DONWedH7hvv3BQEBApR6gM4COjpgfr1LrxscIECAAAG6ENB3XX66Xg8GCBAgQIAAAQIECBAgQHcG+jyn0AABAgQIEKA8QL55QIAAAQKUB6jKAAECBAhQ4nUDisJVWTcIQIAAAQJUEEiSpDTtgviNZLZ42NsAAAAASUVORK5CYII=> 在角落：长按速览规则，点开看完整版 · <img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAjElEQVR4nO3VsQ2AMAxFQUagoGUjFmcaRoAJUlgyijH3pddFUXRNlmWwbd3vPzVyGG72gwEVCxAgQN8Aus4jpVn3hyEAAQIECFAjoK4BAgQIEKDCpQFlfcNvlwYBCBAgQIAaAXUNECBAgAAVLg0o+q1WOx+GAAQIECBAjYC6BggQIECAChcGMjMzK78HULf+DhjJd00AAAAASUVORK5CYII=> 菜单里有局外进度与 5 个存档位</p>
 </div>
@@ -6074,8 +6075,9 @@ dealt++;
 renderGHE();
 if (dealt < n) setTimeout(dealOne, REDUCED_MOTION? 60: 330);
 else {
-he.lastDealt = 0;
 G.busy = false;
+renderGHE();
+he.lastDealt = 0;
 gLog("公共牌亮出 " + he.board.length + " 张了。继续跟进、加注，还是弃牌？");
 gRefresh();
 }
@@ -8904,7 +8906,7 @@ return { label: DIE_TYPES[k].name + (DIE_TYPES[k].element? "【" + ELEMENTS[DIE_
 function useCard46(id) {
 var v = v46(); if (!v || !CARD46[id]) return;
 var inBattle = !!(typeof S !== "undefined" && S && S.enemy);
-function done(msg) { consumeCard46(id); if (msg) log(" " + msg, "strong"); renderPack46(); renderAll(); if (typeof autoSaveGame === "function") autoSaveGame(); }
+function done(msg) { consumeCard46(id); if (msg) log(" " + msg, "strong"); try { renderPack46(); } catch (e) {} renderAll(); if (typeof autoSaveGame === "function") autoSaveGame(); }
 if (id === "mg_fate") { var ck = randomOf(Object.keys(COMBOS)); applyBlessing(ck, 2); done("命格牌 · 改命：牌型「" + COMBOS[ck].name + "」+2 级。"); return; }
 if (id === "mg_hp") { S.maxHp += 8; S.hp = Math.min(S.maxHp, S.hp + 8); done("命格牌 · 延寿：生命上限 +8。"); return; }
 if (id === "mg_gold") { S.gold += 25; done("命格牌 · 点金：+25 金币。"); return; }
@@ -9113,13 +9115,13 @@ return parts.join(" · ") || "无面板";
 function equipCardHTML46(it, mode) {
 var rarCls = it.rarity === "史诗"? "rar2": it.rarity === "稀有"? "rar1": "rar0";
 var html = '<div class="eq-card' + (mode === "equipped"? " equipped": "") + '">' + equipIconHTML46(it) +
-"<h4>" + it.name + (it.lvl? " <span class=rar3>+" + it.lvl + "</span>": "") + '</h4><p><span class="' + rarCls + '">' + it.rarity + "</span> · " + SLOT_NAMES46[it.slot] + " · " + SETS46[it.set].name + " · 属性【" + ELEMENTS[it.elem] + "】</p><p>" + equipStatsLine46(it) + "</p>";
-var matId = SETS46[it.set].mat;
+"<h4>" + it.name + (it.lvl? " <span class=rar3>+" + it.lvl + "</span>": "") + '</h4><p><span class="' + rarCls + '">' + it.rarity + "</span> · " + (SLOT_NAMES46[it.slot] || "装备") + " · " + ((SETS46[it.set] || {}).name || "散件") + " · 属性【" + (ELEMENTS[it.elem] || "无") + "】</p><p>" + equipStatsLine46(it) + "</p>";
+var matId = (SETS46[it.set] || {}).mat;
 var need = Math.max(1, (hasTalisman("smith46")? 2: 3));
 html += '<div class="ops">';
 if (mode === "bag") html += '<button class="btn primary" data-act="equip" data-uid="' + it.uid + '" type="button">穿戴</button>';
 if (mode === "equipped") html += '<button class="btn" data-act="unequip" data-slot="' + it.slot + '" type="button">卸下</button>';
-html += '<button class="btn" data-act="enhance" data-uid="' + it.uid + '" type="button" ' + (it.lvl >= 5 || matCount46(matId) < need? "disabled": "") + ">强化（" + MATS46[matId].name + "×" + need + (it.lvl >= 5? "，已满级": "") + "）</button>";
+html += '<button class="btn" data-act="enhance" data-uid="' + it.uid + '" type="button" ' + (it.lvl >= 5 || !matId || matCount46(matId) < need? "disabled": "") + ">强化（" + ((matId && MATS46[matId])? MATS46[matId].name: "材料") + "×" + need + (it.lvl >= 5? "，已满级": "") + "）</button>";
 if (mode === "bag") html += '<button class="btn" data-act="selleq" data-uid="' + it.uid + '" type="button">出售 ' + equipSellPrice46(it) + " 金</button>";
 html += "</div></div>";
 return html;
@@ -9175,13 +9177,13 @@ h += "</div><h3 class='v46-sec'>源泉（战斗中即时用 · 每场最多 2 �
 var springKeys = Object.keys(v.springs).filter(function(k) { return v.springs[k] > 0; });
 h += springKeys.length? springKeys.map(function(k) { return "<span class='mat-chip'>" + SPRING46[k].name + " ×" + v.springs[k] + (k === "spring_heal"? " <button class='btn' data-act='usespring' data-id='spring_heal' type='button'>喝下（回复 20%）</button>": "") + "</span>"; }).join(""): "<span class='sub'>暂无源泉。</span>";
 h += "</div><h3 class='v46-sec'>手牌栏（命格牌 / 骰灵牌 / 卡牌包 · 战斗中在符咒栏上方、顶栏音乐旁也能直接用）</h3>";
-var cardKeys = Object.keys(v.cards).filter(function(k) { return v.cards[k] > 0; });
+var cardKeys = Object.keys(v.cards).filter(function(k) { return v.cards[k] > 0 && CARD46[k]; });
 h += cardKeys.length? "<div class='v46-grid'>" + cardKeys.map(function(k) { return "<div class='eq-card'><h4>" + CARD46[k].name + " ×" + v.cards[k] + "</h4><p class='clamp3'>" + CARD46[k].desc + "</p>" + detailBtn46(CARD46[k].name, "<p>" + CARD46[k].desc + "</p>", "corner") + "<div class='ops'><button class='btn primary' data-act='usecard' data-id='" + k + "' type='button'>" + (k.indexOf("pack_") === 0? "打开": "使用") + "</button></div></div>"; }).join("") + "</div>": "<p class='sub'>暂无牌。骰灵包/命格包/流派包、宝箱、抽奖、商店都能开出或买到。</p>";
 h += "<h3 class='v46-sec'>材料栏（强化装备的消耗品，也能卖钱——但留着强化更值）</h3><div>";
 var matKeys = Object.keys(v.mats).filter(function(k) { return v.mats[k] > 0; });
 h += matKeys.length? matKeys.map(function(k) { var p = k.split("|"); return "<span class='mat-chip'>" + MATS46[p[0]].name + "（" + p[1] + "）×" + v.mats[k] + " <button class='btn' data-act='sellmat' data-key='" + k + "' type='button'>卖 1 个 +" + Math.round(MATS46[p[0]].sell * (p[1] === "史诗"? 6: p[1] === "稀有"? 2.5: 1)) + " 金</button></span>"; }).join(""): "<span class='sub'>暂无材料。击杀怪物会掉落它们的材料（如骷髅兵掉骷髅骨、骷髅牙）。</span>";
 h += "</div>";
-if (v.voidCharms.length) h += "<h3 class='v46-sec'>虚符（不占符咒栏位）</h3><p class='sub'>" + v.voidCharms.map(function(id) { return "【" + TALISMANS[id].name + "】"; }).join("、") + "——虚符只从稀有/龙牙抽奖、Boss 掉落、高级宝箱里出。</p>";
+if (v.voidCharms.length) h += "<h3 class='v46-sec'>虚符（不占符咒栏位）</h3><p class='sub'>" + v.voidCharms.map(function(id) { return "【" + ((TALISMANS[id] || {}).name || "虚符") + "】"; }).join("、") + "——虚符只从稀有/龙牙抽奖、Boss 掉落、高级宝箱里出。</p>";
 h += "<h3 class='v46-sec'>符咒状态（版本 / 贴纸）</h3><p class='sub'>" + (S.talismans.length? S.talismans.map(function(id, i) { var m = v.charmMeta[i] || {}; var tags = []; if (m.edition) tags.push("版本·" + EDITION46[m.edition].name); if (m.sticker === "eternal") tags.push("贴纸·永恒"); if (m.sticker === "rental") tags.push("贴纸·租赁（每站 3 金）"); if (m.sticker === "perish") tags.push("贴纸·易逝（剩 " + (m.left || 5) + " 站）"); return TALISMANS[id].name + (tags.length? "（" + tags.join("、") + "）": ""); }).join("、") : "暂无符咒。") + "</p>";
 if (v.tags && v.tags.length) h += "<h3 class='v46-sec'>持有的标签</h3><p class='sub'>" + v.tags.map(function(t) { return "【" + TAG46[t].name + "】" + TAG46[t].desc; }).join("<br>") + "</p>";
 h += "<h3 class='v46-sec'>商会令（商店永久升级）</h3><p class='sub'>" + Object.keys(VOUCHERS46).map(function(k) { return (v.vouchers[k]? "已购 ✔ ": "未购 · ") + VOUCHERS46[k].name; }).join("　") + "<br>在商店的「强化」分类里买，买了整局有效。</p>";
@@ -9195,7 +9197,7 @@ h += "</p>";
 h += "<h3 class='v46-sec'>流派倾向</h3><p class='sub'>" + buildHints46() + "</p>";
 body.innerHTML = h;
 }
-function openPack46() { renderPack46(); $("pack-overlay").classList.add("show"); }
+function openPack46() { $("pack-overlay").classList.add("show"); try { renderPack46(); } catch (e) { var pb = $("pack-body"); if (pb && !pb.innerHTML) pb.innerHTML = "<p class='sub'>背包读取出了点问题，关掉重开一次就好。</p>"; } }
 document.addEventListener("DOMContentLoaded", function() {});
 $("pack-body").addEventListener("click", function(ev) {
 var btn = ev.target.closest("[data-act]"); if (!btn || btn.disabled) return;
@@ -9212,7 +9214,7 @@ if (act === "usespring") { if (v.springs.spring_heal > 0) { v.springs.spring_hea
 if (act === "usecard") { useCard46(btn.dataset.id); return; }
 if (act === "invest") { if (S.gold >= 30 && !v.invest) { S.gold -= 30; v.invest = { amount: 30, ret: 45, left: 3 }; } }
 if (act === "borrow") { if (!v.debt) { S.gold += 40; v.debt = 52; } }
-renderPack46(); renderAll();
+try { renderPack46(); } catch (e) {} renderAll();
 });
 /* ---------- 抽奖转盘 ---------- */
 var wheel46 = { kind: "normal", prizes: [], spinning: false, rot: 0 };
@@ -10750,7 +10752,7 @@ d.innerHTML = "<b>" + c.name + " ×" + (v.cards[id] || 0) + "</b> · " + handKin
 var btn = document.createElement("button");
 btn.type = "button"; btn.className = "btn primary hand-use-btn";
 btn.textContent = id.indexOf("pack_") === 0? "打开": "使用";
-btn.addEventListener("click", function(ev) { ev.stopPropagation(); useCard46(id); });
+btn.addEventListener("click", function(ev) { ev.stopPropagation(); try { useCard46(id); } catch (e) { try { renderAll(); } catch (e2) {} } });
 d.appendChild(btn);
 }
 function renderHandBar54() {
@@ -10932,6 +10934,413 @@ function fb56() { var ta = document.createElement("textarea"); ta.value = code; 
 if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done56, fb56); else fb56();
 });
 refreshCheatState56();
+</script>
+<style>
+#btn-resume-run{align-self:center;margin-top:12px;padding:13px 30px;font-family:inherit;font-size:16px;font-weight:900;letter-spacing:2px;color:#171126;background:linear-gradient(180deg,#F3D27A,#C9A227);border:3px solid #14101D;box-shadow:0 0 0 2px #C9A227,0 6px 0 rgba(11,9,16,.55);cursor:pointer}
+#btn-resume-run.hidden{display:none!important}
+</style>
+<script>
+"use strict";
+/* ================= v57：主菜单防误触 + 旧绑定修复 =================
+问题 1：顶栏「主菜单」按钮（btn-restart-top）和结算屏「btn-again」是在
+restartGame 被重新赋值之前绑定的，addEventListener 抓的是旧函数——点
+「主菜单」会直接跳到选人界面，这一局就没了。这里把两个按钮克隆重绑，
+让它们调用当前 restartGame（回主菜单 / 按结算类型处理）。
+问题 2：回主菜单后没有回本局的路。这里记一个 runLive57 标记：开局 /
+读档 / 无尽继承时置真；主界面在有进行中的对局时显示金色「继续本局」
+按钮，点了直接回到离开前的界面（地图 / 战斗原样保留），误触不怕。 */
+var runLive57 = false;
+function runIsLive57() { return runLive57 && typeof S !== "undefined" && S && !S.over && !S.dead && !S.tutorial; }
+function refreshResume57() {
+var b = $("btn-resume-run"); if (!b) return;
+var live = runIsLive57();
+b.classList.toggle("hidden", !live);
+b.style.display = live? "": "none";
+if (live) { try { b.textContent = "继续本局 · " + ((CLASSES[S.classId] || {}).name || "") + "（误触也能回来）"; } catch (e) { b.textContent = "继续本局"; } }
+}
+var _sr57 = startRun;
+startRun = function(c) { runLive57 = true; var r = _sr57(c); refreshResume57(); return r; };
+var _lg57 = loadGameFrom;
+loadGameFrom = function(i) { runLive57 = true; _lg57(i); refreshResume57(); };
+if (typeof startEndlessInherit === "function") { var _sei57 = startEndlessInherit; startEndlessInherit = function() { runLive57 = true; _sei57(); refreshResume57(); }; }
+var _sh57 = showHome;
+showHome = function() { _sh57(); refreshResume57(); };
+var _rb57 = $("btn-resume-run");
+if (_rb57) _rb57.addEventListener("click", function() { hideMenus(); try { renderAll(); } catch (e) {} refreshResume57(); });
+var _dh57 = $("btn-death-home");
+if (_dh57) _dh57.addEventListener("click", function() { runLive57 = false; refreshResume57(); });
+function rebindRestart57(id) {
+var el = $(id); if (!el || !el.parentNode) return;
+var nb = el.cloneNode(true);
+el.parentNode.replaceChild(nb, el);
+nb.addEventListener("click", function() { restartGame(); });
+}
+rebindRestart57("btn-again");
+rebindRestart57("btn-restart-top");
+refreshResume57();
+</script>
+<script>
+"use strict";
+/* ================= v58：Boss 战随机项锁定（伤害 0 + 读档后女王异能变了） =================
+问题 1（伤害 0）：寒冰女王这类 Boss 若抽到 Boss 限制「指定牌型」
+（comboOnly），只有指定牌型能造成伤害，其余牌型一律 0——筹码 × 乘数
+再大也打不动。但这条规矩在战斗里几乎看不见：敌人名牌只显示 Boss
+异能（破甲之咒 / 封印之环），不显示 Boss 限制；开战日志只写了不带
+牌型名的通用描述；预览面板里那句解释又被追加在符咒说明的最后，
+被「· …」截断掉了。玩家摇出四条 / 五条，看到的只有「伤害 0」。
+问题 2（读档后异能变了）：Boss 异能（S.bossEffect）是在每次
+startBattle 进场时现掷的，没有提前锁定、也没有跟着存档走：存档
+在 Boss 前存、进场看一眼、读档重进同一场，异能就会换一个
+（封印之环 → 破甲之咒），夺咒 / 碎骰 / 夺金这类开场惩罚还会
+再吃一遍。同一类毛病的还有指定牌型：genChoices 每被调用一次，
+指定牌型就被重掷一次，地图卡片上的描述还会叠出自相矛盾的后缀。
+修法：Boss 节点在地图上出现的同一刻，就把「限制 + 指定牌型 +
+异能」一次掷定，存进 S.v46（跟着存档走），并用站点关键字段
+（模式 / 村 / 档位 / 塔层 / 幕 / 深度 / 敌人）标识是哪一场：
+- genChoices 后处理：无 Boss 时清掉待定项；有 Boss 时恢复被
+  内层重掷的指定牌型并重写描述（只留一个后缀），异能只掷一次。
+- applyBossEffect：优先用预掷的异能（借原函数掷出指定的那一个，
+  惩罚逻辑仍走原代码）；同一场已生效过时只恢复异能本身，不再
+  重掷、不再重复开场惩罚。
+- 战斗内公示：敌人名牌加 Boss 限制徽章、长按敌人的提示带上
+  指定牌型、开战日志补一行带牌型名的规矩、伤害为 0 的解释
+  被移到预览说明的第一条，不再被截断。
+- 地图 Boss 卡片公示已锁定的异能（和限制一样，进场前就能看到）。
+- Boss 打完（finishNode）清掉本场激活记录，下一场重新掷定。 */
+function bossKey58(enemyId) {
+if (typeof S === "undefined" || !S) return "";
+return [S.mode || "story", S.region || "", S.village || 0, S.tier || 0, S.towerFloor || 0, S.endlessWave || 0, S.act || 0, S.actCycle || 1, S.depth || 0, enemyId || ""].join("|");
+}
+function bossEffectPool58() {
+var pool = ["armorBreak", "nullify", "stripBlessing", "goldSteal"];
+if (typeof S !== "undefined" && S && S.talismans && S.talismans.length > 0) pool.push("stealCharms");
+if (typeof S !== "undefined" && S && S.dice && S.dice.length > 4) pool.push("destroyDie");
+return pool;
+}
+var _gc58 = genChoices;
+genChoices = function() {
+_gc58();
+var v = v46(); if (!v || typeof S === "undefined" || !S) return;
+var bossNode = null;
+(S.choices || []).forEach(function(c){ if (c.kind === "boss") bossNode = c; });
+if (!bossNode) {
+v.nextBossEffect = null; v.nextBossEffectKey = null;
+v.bossComboLock58 = null; v.bossComboKey58 = null;
+v.bossActiveKey = null; v.bossActiveEffect = null; v.bossPenaltyKey58 = null;
+return;
+}
+var key = bossKey58(bossNode.enemyId);
+/* 指定牌型：锁定第一次掷定的那一个，之后 genChoices 再被调用也不许换，
+   描述从规矩原文重写，只留一个「指定牌型」后缀，不再层层叠加。 */
+if (v.nextBossRule && v.nextBossRule.id === "comboOnly" && v.nextBossRule.combo) {
+if (v.bossComboLock58 && v.bossComboKey58 === key) {
+var base58 = BOSS_RULES46.filter(function(r){ return r.id === "comboOnly"; })[0];
+var c58 = Object.assign({}, v.nextBossRule);
+c58.combo = v.bossComboLock58;
+c58.desc = (base58? base58.desc: String(c58.desc || "").replace(/（本场指定牌型：【[^】]*】）/g, "")) + "（本场指定牌型：【" + COMBOS[c58.combo].name + "】）";
+v.nextBossRule = c58;
+} else {
+v.bossComboLock58 = v.nextBossRule.combo; v.bossComboKey58 = key;
+}
+}
+/* Boss 异能：和限制同一刻掷定，存进 v46 跟着存档走。 */
+if (v.nextBossEffectKey !== key || !v.nextBossEffect) {
+var pool58 = bossEffectPool58();
+v.nextBossEffect = pool58[Math.floor(R() * pool58.length)];
+v.nextBossEffectKey = key;
+}
+};
+var _ab58 = applyBossEffect;
+applyBossEffect = function() {
+var v = v46();
+var key = (typeof S !== "undefined" && S && S.node)? bossKey58(S.node.enemyId || ""): "";
+var pre = null;
+if (v && key) {
+if (v.bossActiveKey === key && v.bossActiveEffect) pre = v.bossActiveEffect;
+else if (v.nextBossEffectKey === key && v.nextBossEffect) pre = v.nextBossEffect;
+}
+if (!pre) {
+_ab58();
+if (v && key && typeof S !== "undefined" && S && S.bossEffect) { v.bossActiveKey = key; v.bossActiveEffect = S.bossEffect; v.bossPenaltyKey58 = key; }
+return;
+}
+if (v && v.bossPenaltyKey58 === key && v.bossActiveKey === key) {
+/* 读档重进同一场：只恢复异能本身，不重掷、不重复开场惩罚。 */
+S.bossEffect = pre;
+var fx0 = BOSS_EFFECTS[pre];
+if (fx0) log(" Boss 异能（已锁定）：「" + fx0.name + "」——" + fx0.desc + "（读档重进不会重新随机，开场效果也不会重复生效。）", "bad");
+return;
+}
+/* 本场第一次进：让原函数掷出预定的那一个——临时把 R() 的第一次
+   调用指向目标下标，夺咒 / 碎骰选目标等后续随机仍走原来的 R()，
+   惩罚逻辑一行不改、只走原函数。 */
+var pool = bossEffectPool58();
+var idx = pool.indexOf(pre);
+if (idx >= 0) {
+var _R58 = R, calls58 = 0;
+R = function(){ calls58++; if (calls58 === 1) return (idx + 0.01) / pool.length; return _R58(); };
+try { _ab58(); } finally { R = _R58; }
+} else {
+S.bossEffect = pre;
+var fx = BOSS_EFFECTS[pre];
+if (fx) log(" Boss 异能发动：「" + fx.name + "」——" + fx.desc + "！", "bad");
+if (pre === "stripBlessing") stripOneBlessing();
+if (pre === "goldSteal") { var st58 = Math.min(S.gold, 12 + S.floor * 4); S.gold -= st58; log("Boss 抢走了你 " + st58 + " 金币！", "bad"); }
+}
+if (v && typeof S !== "undefined" && S && S.bossEffect) {
+v.bossActiveKey = key; v.bossActiveEffect = S.bossEffect; v.bossPenaltyKey58 = key;
+v.nextBossEffect = null; v.nextBossEffectKey = null;
+}
+};
+var _sb58 = startBattle;
+startBattle = function(id) {
+_sb58(id);
+var v = v46(); if (!v || typeof S === "undefined" || !S || !S.enemy) return;
+if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) {
+log(" 【指定牌型 · 本场规矩】只有打出【" + COMBOS[v.bossCombo].name + "】才能造成伤害，其他牌型伤害为 0。注意：骰子按最高分牌型结算——摇出比指定牌型更大的牌型也会按大牌型算（一样是 0），要靠锁骰 / 重摇把牌型凑成【" + COMBOS[v.bossCombo].name + "】。", "bad");
+}
+};
+var _ca58 = computeAttack;
+computeAttack = function() {
+var a = _ca58();
+if (a && a.notes && a.notes.length > 1) {
+for (var i = 0; i < a.notes.length; i++) {
+if (String(a.notes[i]).indexOf("指定牌型限制") === 0) { var n58 = a.notes.splice(i, 1)[0]; a.notes.unshift(n58); break; }
+}
+}
+return a;
+};
+var _re58 = renderEnemy;
+renderEnemy = function() {
+_re58();
+var v = v46(); if (!v || typeof S === "undefined" || !S || !S.enemy || !v.bossRule) return;
+var badges = $("enemy-badges"); if (!badges) return;
+var txt = null;
+if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) txt = "Boss 限制 · 指定牌型：只有【" + COMBOS[v.bossCombo].name + "】能造成伤害";
+else { var rule58 = BOSS_RULES46.filter(function(r){ return r.id === v.bossRule; })[0]; if (rule58) txt = "Boss 限制 · " + rule58.name; }
+if (txt) badges.innerHTML += '<span class="badge bossfx">' + txt + "</span>";
+};
+var _et58 = enemyTipText;
+enemyTipText = function() {
+var t = _et58();
+var v = v46(); if (!v || typeof S === "undefined" || !S || !S.enemy || !v.bossRule) return t;
+if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) return t + " · Boss 限制：指定牌型——只有【" + COMBOS[v.bossCombo].name + "】能造成伤害，其他牌型伤害为 0";
+var rule58 = BOSS_RULES46.filter(function(r){ return r.id === v.bossRule; })[0];
+if (rule58) return t + " · Boss 限制：" + rule58.name + "（" + rule58.desc + "）";
+return t;
+};
+var _sm58 = showMap;
+showMap = function() {
+_sm58();
+var v = v46(); if (!v || typeof S === "undefined" || !S) return;
+if (!v.nextBossEffect || !BOSS_EFFECTS[v.nextBossEffect]) return;
+var bIdx = -1;
+(S.choices || []).forEach(function(c, i){ if (c.kind === "boss") bIdx = i; });
+var cards = $("map-choices")? $("map-choices").children: [];
+if (bIdx >= 0 && cards[bIdx] && !cards[bIdx].querySelector(".bossfx-lock58")) {
+var p58 = document.createElement("p");
+p58.className = "bossfx-lock58";
+p58.style.color = "#f0b35e"; p58.style.fontWeight = "700";
+p58.textContent = "Boss 异能【" + BOSS_EFFECTS[v.nextBossEffect].name + "】：" + BOSS_EFFECTS[v.nextBossEffect].desc + "（已锁定：存档读档、重进本场都不会变）";
+cards[bIdx].appendChild(p58);
+}
+};
+var _fn58 = finishNode;
+finishNode = function() {
+var node58 = (typeof S !== "undefined" && S)? S.node: null;
+_fn58();
+if (node58 && node58.kind === "boss") {
+var v = v46(); if (v) { v.bossActiveKey = null; v.bossActiveEffect = null; v.bossPenaltyKey58 = null; }
+}
+};
+</script>
+<script>
+"use strict";
+/* ================= v59：全关卡统一锁定（不只是寒冰女王那一场） =================
+用户要求：不只是那一个 Boss——后续所有关卡都不许这样，不管是伤害
+还是效果。v58 只锁了地图 Boss 的「限制 + 指定牌型 + 异能」。全面
+排查后，同类毛病还有三处，全是「战斗的伤害 / 效果定义在进场那一刻
+现掷、不跟存档走，读档重进就变」：
+1) 奇遇本身：showEvent 每次进场 randomOf(EVENTS) 现抽——在奇遇前
+   存档、进去看一眼、读档重进，奇遇就换了一个（旅人变医生、伪装
+   Boss 变赌局），后面整场战斗的伤害和效果自然全变。
+2) 掠夺战：startRobberyBattle 每次都 buildRival 现掷对手的实力
+   档位（弱小可欺 → 恐怖强敌）、骰组、符咒、血量、所中 Debuff 和
+   战利品倍率——读档重进能把恐怖强敌刷成弱小可欺，伤害完全两样。
+3) 伪装 Boss 战：它借用的是地图 Boss 预掷的 nextBossRule（把真
+   Boss 的规矩偷走，真 Boss 反而要另掷），异能也没有自己的锁定，
+   属于同一类问题。
+统一修法（和 v58 同一个原则，推广到全部关卡与遭遇）：
+- 凡是决定一场战斗「伤害 / 效果」的随机项，都在遭遇出现的那一刻
+  一次掷定、存进 S.v46（跟着存档走），读档 / 重进只恢复、不重掷、
+  开场惩罚不重复吃；本站打完才解锁，下一站重新掷。
+- 奇遇编号在 genChoices 生成节点时就掷定并挂在节点对象上
+  （S.choices 跟着存档走）；节点上没有编号时，用「种子码 + 站点」
+  的独立确定性 RNG 兜底推导——任何读档路径都推不出第二个奇遇。
+- 掠夺战对手与伪装 Boss 的限制 / 异能同样用独立确定性 RNG
+  （种子码 + 站点 + 遭遇）掷定：不消耗主种子流（种子局的复现不受
+  影响），也不挑存档时机——哪怕读的是遭遇发生之前的存档，对手和
+  规矩也和第一次进场时一模一样。
+- 普通 / 精英战复查过：scaledEnemy 是纯公式（敌人表固定意图 +
+  深度 / 周目 / 飞升 + 你的构筑），没有任何进场随机，本来就不会
+  变；Boss 二形态是战斗中当场发生的变身事件（规则里明示概率，
+  战斗中途不存档、读档回到地图整场重打），不是关卡定义，不动。
+- 伤害为 0 的解释通用化：任何让伤害归零 / 失效的说明一律顶到
+  预览说明第一条（v58 只处理了指定牌型那一条）。 */
+function stationKey59(extra) {
+if (typeof S === "undefined" || !S) return "";
+return [S.mode || "story", S.region || "", S.village || 0, S.tier || 0, S.towerFloor || 0, S.endlessWave || 0, S.act || 0, S.actCycle || 1, S.depth || 0, S.actStep || 0, extra || ""].join("|");
+}
+function lock59() {
+var v = v46(); if (!v) return null;
+if (!v.lock59) v.lock59 = {};
+return v.lock59;
+}
+function hashStr59(s) {
+var h = 2166136261;
+for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+return h >>> 0;
+}
+function privateR59(seedStr) {
+var st = hashStr59(seedStr) || 1;
+return function() { st = (Math.imul(st, 1664525) + 1013904223) >>> 0; return st / 4294967296; };
+}
+/* ---------- 1) 奇遇锁定：节点生成时掷定编号，进场只恢复 ---------- */
+var _gc59 = genChoices;
+genChoices = function() {
+_gc59();
+if (typeof S === "undefined" || !S || !S.choices) return;
+S.choices.forEach(function(c) {
+if (c && c.kind === "event" && typeof c.evIdx59 !== "number") c.evIdx59 = Math.floor(R() * EVENTS.length);
+});
+};
+var _se59 = showEvent;
+showEvent = function() {
+var idx = null;
+if (typeof S !== "undefined" && S && S.node && S.node.kind === "event" && typeof S.node.evIdx59 === "number") idx = S.node.evIdx59;
+if (idx === null || idx < 0 || idx >= EVENTS.length) {
+var L = lock59();
+if (L) {
+var k = stationKey59("event");
+if (L.evKey === k && typeof L.evIdx === "number") idx = L.evIdx;
+else {
+idx = Math.floor(privateR59((S.seedCode || "") + "|" + k)() * EVENTS.length);
+L.evKey = k; L.evIdx = idx;
+if (typeof S !== "undefined" && S && S.node && S.node.kind === "event") S.node.evIdx59 = idx;
+}
+}
+}
+if (idx === null || idx < 0 || idx >= EVENTS.length) { _se59(); return; }
+var _ro59 = randomOf, used59 = false;
+randomOf = function(arr) { if (!used59 && arr === EVENTS) { used59 = true; return EVENTS[idx]; } return _ro59(arr); };
+try { _se59(); } finally { randomOf = _ro59; }
+};
+/* ---------- 2) 掠夺战锁定：对手一次掷定，读档重进不换人 ---------- */
+function rivalKey59(key, opts) { return stationKey59("rob|" + key + "|" + ((opts && opts.mode) || "rob")); }
+function reviveRival59(rb) {
+if (!rb) return rb;
+var V = ROB_VICTIMS[rb.key];
+if (V) {
+if (typeof rb.goldBase !== "function") rb.goldBase = V.goldBase;
+if (!rb.taunts) rb.taunts = V.taunts;
+if (!rb.name) rb.name = V.name;
+if (!rb.scene) rb.scene = V.scene;
+}
+return rb;
+}
+function buildLockedRival59(key, opts) {
+var _R59 = R;
+R = privateR59((S.seedCode || "") + "|" + rivalKey59(key, opts || {}));
+try { return buildRival(key, opts || {}); } finally { R = _R59; }
+}
+var _srb59 = startRobberyBattle;
+startRobberyBattle = function(key, opts) {
+opts = opts || {};
+var rk = rivalKey59(key, opts);
+var L = lock59();
+var locked = null;
+var seen59 = !!(L && L.robSeen59 === rk);
+if (L && L.robKey === rk && L.robRival) locked = reviveRival59(L.robRival);
+if (!locked) {
+locked = buildLockedRival59(key, opts);
+if (L) { L.robKey = rk; L.robRival = locked; }
+}
+var _br59 = buildRival;
+buildRival = function() { return locked; };
+try { _srb59(key, opts); } finally { buildRival = _br59; }
+if (L && typeof S !== "undefined" && S && S.robbery) { L.robKey = rk; L.robRival = S.robbery; L.robSeen59 = rk; }
+if (seen59) log(" （对手已锁定：读档重进不会换人，实力档位、骰组、符咒和所中 Debuff 都和第一次进场时一样。）", "bad");
+};
+/* ---------- 3) 伪装 Boss 锁定：自己的限制 + 异能，不借地图 Boss 的 ---------- */
+function rollDisguisedLock59(enemyId) {
+var dk = stationKey59("disguised|" + enemyId);
+var _R59 = R;
+R = privateR59((((typeof S !== "undefined" && S && S.seedCode) || "") + "|" + dk));
+try {
+var rc = Object.assign({}, rollBossRule46());
+if (rc.id === "elemBan") rc.elem = randomOf(["metal", "wood", "water", "fire", "earth", "ice", "light", "dark"]);
+if (rc.id === "comboOnly") {
+rc.combo = randomOf(["pair", "twopair", "three", "smallstr", "fullhouse"]);
+rc.desc = String(rc.desc || "").replace(/（本场指定牌型：【[^】]*】）/g, "") + "（本场指定牌型：【" + COMBOS[rc.combo].name + "】）";
+}
+var pool = bossEffectPool58();
+var effect = pool[Math.floor(R() * pool.length)];
+return { key: dk, rule: rc, effect: effect };
+} finally { R = _R59; }
+}
+var _sb59 = startBattle;
+startBattle = function(id) {
+var v = v46();
+var isDisguised = (typeof S !== "undefined" && S && S.disguisedBattle && S.node && S.node.eventBattle);
+if (!isDisguised || !v) { _sb59(id); return; }
+var L = lock59(); if (!L) { _sb59(id); return; }
+var dk = stationKey59("disguised|" + id);
+var fresh59 = !(L.disguised && L.disguised.key === dk);
+if (fresh59) L.disguised = rollDisguisedLock59(id);
+var d = L.disguised;
+var savedRule = v.nextBossRule, savedFx = v.nextBossEffect, savedFxKey = v.nextBossEffectKey;
+v.nextBossRule = Object.assign({}, d.rule);
+v.nextBossEffect = d.effect;
+v.nextBossEffectKey = (typeof bossKey58 === "function")? bossKey58(id): dk;
+try { _sb59(id); } finally {
+v.nextBossRule = savedRule; v.nextBossEffect = savedFx; v.nextBossEffectKey = savedFxKey;
+}
+if (!fresh59) log(" （伪装 Boss 的限制与异能已锁定：和第一次进场时一样，读档重进不会变，开场效果也不会重复生效。）", "bad");
+};
+/* ---------- 存档落盘前先把待定遭遇掷定，保证锁一定在存档里 ---------- */
+var _sg59 = saveGameTo;
+saveGameTo = function(slotIdx, auto) {
+try {
+if (typeof S !== "undefined" && S) {
+var L = lock59();
+if (L) {
+if (S.pendingDisguised && !L.disguised) L.disguised = rollDisguisedLock59((ACTS[S.act] && ACTS[S.act].boss) || "");
+if (S.pendingRobbery && !L.robRival) { var pr59 = S.pendingRobbery; L.robKey = rivalKey59(pr59.key, pr59); L.robRival = buildLockedRival59(pr59.key, pr59); }
+}
+}
+} catch (e59) {}
+_sg59(slotIdx, auto);
+};
+/* ---------- 伤害为 0 / 效果无效的解释，一律顶到预览说明第一条 ---------- */
+var _ca59 = computeAttack;
+computeAttack = function() {
+var a = _ca59();
+if (a && a.notes && a.notes.length > 1) {
+for (var i = 0; i < a.notes.length; i++) {
+var t = String(a.notes[i]);
+if (t.indexOf("伤害为 0") >= 0 || t.indexOf("能造成伤害") >= 0 || t.indexOf("全部无效") >= 0 || t.indexOf("伤害无效") >= 0) { var n59 = a.notes.splice(i, 1)[0]; a.notes.unshift(n59); break; }
+}
+}
+return a;
+};
+/* ---------- 本站结束：清掉本站遭遇锁，下一站重新掷定 ---------- */
+var _fn59 = finishNode;
+finishNode = function() {
+_fn59();
+var L = null;
+try { L = lock59(); } catch (e59) {}
+if (L) { L.evKey = null; L.evIdx = null; L.robKey = null; L.robRival = null; L.robSeen59 = null; L.disguised = null; }
+};
 </script>
 </body>
 </html>
