@@ -8631,7 +8631,7 @@ SKIP_TAGS.push(
 );
 Object.assign(CARD46, { dl_seal: { name: "骰灵牌 · 印骰", desc: "选择一颗骰子，再选一种骰印贴上（金印/朱印/命印/灵印），出招时触发印记效果。" } });
 BOSS_RULES46.push(
-{ id: "comboOnly", name: "指定牌型", desc: "本场战斗只有打出指定牌型才能造成伤害，其他牌型伤害为 0。提前想好怎么凑这个牌型。" },
+{ id: "comboOnly", name: "指定牌型", desc: "本场战斗只有打出指定牌型才能造成全额伤害；其他牌型不归零，按 30% 造成破局伤害（最低 1 点），且每次出招都震裂一层封印——硬打满 3 次，封印破碎，之后所有牌型恢复全额伤害。能凑指定牌型最好，凑不出就硬打磨血、震碎它，一样有反制。" },
 { id: "noReroll", name: "禁止重摇", desc: "本场战斗不能重摇。摇到什么打什么，提前囤好改命类手段。" },
 { id: "capDown", name: "点数上限", desc: "本场战斗骰子点数上限 -1。缩界流派反而偷笑。" },
 { id: "drain", name: "龙息侵蚀", desc: "本场战斗每回合开始你受到 3 点侵蚀（不会致死，最低留 1 点）。速战速决。" }
@@ -8797,7 +8797,24 @@ computeAttack = function() {
 var a = _ca46c();
 var v = v46();
 if (v && v.bossRule === "comboOnly" && v.bossCombo && typeof S !== "undefined" && S && S.enemy) {
-if (!a.combo || a.combo.key !== v.bossCombo) { a.dmg = 0; (a.notes || (a.notes = [])).push("指定牌型限制：只有【" + COMBOS[v.bossCombo].name + "】能造成伤害"); }
+/* v60：不再归零——非指定牌型按 30% 破局伤害（最低 1 点），真实出招
+   每次震裂一层封印（按回合+骰面签名去重，预览重算不重复计数），
+   裂满 3 层后下一回合起封印破碎、全部牌型恢复全额（见 v60 脚本）。 */
+var want60 = COMBOS[v.bossCombo].name;
+var match60 = !!(a.combo && a.combo.key === v.bossCombo);
+if (v.comboBroken60) {
+(a.notes || (a.notes = [])).push("牌型封印已破：所有牌型全额伤害");
+} else if (match60) {
+(a.notes || (a.notes = [])).push("指定牌型命中【" + want60 + "】：全额伤害！");
+} else if (a.dmg > 0) {
+var cnt60 = v.comboBreak60 || 0;
+if (window.__inAttack46 && S.dice) {
+var sig60 = (S.turn || 0) + "|" + S.dice.map(function(d){ return d.face; }).join(",") + "|" + (a.combo? a.combo.key: "");
+if (v.comboSig60 !== sig60) { v.comboSig60 = sig60; cnt60 = cnt60 + 1; v.comboBreak60 = cnt60; if (cnt60 >= 3) v.comboBreakPending60 = true; }
+}
+a.dmg = Math.max(1, Math.floor(a.dmg * 0.3));
+(a.notes || (a.notes = [])).push("指定牌型限制：只有【" + want60 + "】全额伤害，本次非指定牌型按破局伤害 30% 结算 · 封印裂纹 " + Math.min(cnt60, 3) + "/3" + (cnt60 >= 3? "——封印即将破碎，下回合起全额": "——硬打满 3 次震碎封印，之后全额"));
+}
 }
 return a;
 };
@@ -9719,7 +9736,7 @@ var GUIDE46 = [
 { tier: 2, img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==", name: "元素联动", short: "同元素越多，连锁越强", detail: "四层联动：①武器和骰子同元素共鸣 +15% 伤害，装备同元素 2 件/3 件成套装；②整手同元素打出对应牌型触发元素牌型（烈焰葫芦、流水顺子、寒冰三条、暗影五条），伤害 +50% 还附带减益；③手里两种指定元素触发元素反应（火+水蒸发、火+冰融化、水+木生长、金+木破甲、土+火熔岩、光+暗混沌）；④每种元素凑 2 颗就有共鸣小加成（火伤、水回、冰甲、金破、木毒、土挡、光暴、暗咒）。" },
 { tier: 2, img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAAwCAYAAACynDzrAAAAiklEQVR4nO3QwQmAMBBFwZTgwasd2bjVWEJsQAkrCW5kHvybbGRKkSTpd63LVu/W6050X/3/8AcAvbwDqHEHUOMOoMad6YHOY693e3p49u8BAQIECFDi78NA0YezrRsEIECAAAECBCjbAAECBAhQ4gECBAgQoMQbDhSFm2WAAAECBCjxhgNJkpSmC25AO9pxGar9AAAAAElFTkSuQmCC", name: "流派", short: "凑齐关键牌，成型一种打法", detail: "九种流派都不是开局定死的，要靠运气凑：钢骰流（铸钢牌+骰王符+3 颗钢骰）、剥离流（灭骰+三骰定江山）、纯色流（归一+纯色符）、献祭流（献祭复刻+祭品符）、经济流（利生利+金库符）、暴击流（暴击大师+致命一击）、反伤护甲流（荆棘+堡垒）、毒咒流（毒雾+诅咒）、连击流（连击+疾风）。关键牌掉率低，捡到哪系的组件就往哪系转——背包最下面有「流派倾向」提示你现在接近哪一系。" },
 { tier: 2, img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAxElEQVR4nO3XsQkDQQwEwC/BgVPX6LbciquyK3iE4MRJ/7Ow2SGkye44ivN8vH6Vrd6/PICCAAoCKAigILcDyh7w/nxL2w4UECBAgAA1AFp18JQ5gAABAgSo8ZxtQN0KCBAgQIAaNw2UhTh7vwt01T6ncIAAAQIE6EJAVy0gQIAAAWrcU6Dqz+qUOdt+81PmAAIECNAtgboVECBAgAA17jKgLNwu0Ow+yyAAAQIECNBAoGyyB4w/OBtAQQAFARQEUJDpQH+cH1RGweRYXQAAAABJRU5ErkJggg==", name: "五灵根", short: "金木水火土齐聚，伤害翻倍", detail: "最高阶的玩法：一手骰子里同时有金、木、水、火、土五种元素，触发五行大阵——本次伤害 ×2，并同时给敌人挂上灼烧、缠毒、破甲、迟缓、重压五种减益。很难凑（要五种元素骰都在组里），凑出来就是一波爆发。" },
-{ tier: 2, img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAApUlEQVR4nO3VsQ3DIBRFUY+Qwm02yuKexiMkDa319CUjMDlXei2C07Btg9pf729lo+45LEAhQCFAIUAhQK2rB5/Hp7Rl4QCFAIUAhQCFALXuglgWDlAIUAhQCFAIUKj6gGUhrgIUAhQCFAIUAtTq/Z1Xz58ODhAgQIAA/TFQb2hAgAABAjTBugM9BWIYHCBAgAABeiDQqgMECBAgQBOvDCRJ0vT9ACxS1Ub7oVvoAAAAAElFTkSuQmCC", name: "Boss 限制", short: "打 Boss 前，先看清规矩", detail: "每场 Boss 战随机一条限制，地图上 Boss 卡片会提前写明：牌型等级 -1、进场献祭一张符咒、封印一种元素、重摇 -1 或禁用、只能用指定牌型打伤害、点数上限 -1、每回合龙息扣血。提前照规矩调符咒和骰组，别硬着头皮进。" },
+{ tier: 2, img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAApUlEQVR4nO3VsQ3DIBRFUY+Qwm02yuKexiMkDa319CUjMDlXei2C07Btg9pf729lo+45LEAhQCFAIUAhQK2rB5/Hp7Rl4QCFAIUAhQCFALXuglgWDlAIUAhQCFAIUKj6gGUhrgIUAhQCFAIUAtTq/Z1Xz58ODhAgQIAA/TFQb2hAgAABAjTBugM9BWIYHCBAgAABeiDQqgMECBAgQBOvDCRJ0vT9ACxS1Ub7oVvoAAAAAElFTkSuQmCC", name: "Boss 限制", short: "打 Boss 前，先看清规矩", detail: "每场 Boss 战随机一条限制，地图上 Boss 卡片会提前写明：牌型等级 -1、进场献祭一张符咒、封印一种元素、重摇 -1 或禁用、指定牌型（只有它全额伤害，其他牌型 30% 破局伤害、硬打 3 次震碎封印）、点数上限 -1、每回合龙息扣血。提前照规矩调符咒和骰组，别硬着头皮进。" },
 { tier: 2, img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA2CAYAAABkxd/2AAAAoklEQVR4nO3QwQ2DQBAEQULww1/HSFpOxVHhCGAEYsUeVEvzPd3WNBX3fn2WylX/vzxAIUAhQCFAoccB7T1g/v5K1w4UECBAgAA1ADrr4FHeAQQIECBAjd+5DKjbAAECBAhQ450GNDpcOQQgQIAAARoQqBtcO4i1AIUAhQCFAIUAHawaDhAgQIC2AhQCdLC1w2578N4AhQCFAIUAhQBJklTdHz5mYxUfmveVAAAAAElFTkSuQmCC", name: "符咒进阶", short: "虚符版本贴纸，花样更多", detail: "符咒有三种花样：虚符——不占 8 个栏位的特殊版本，只从稀有/龙牙抽奖、Boss 掉落、高级宝箱出；版本——金边（+50 筹码）、幻彩（+4 乘数）、彩虹（乘数 ×1.5)，装备也有版本（面板更强）；贴纸——永恒（不能被移除/投喂）、租赁（每站扣 3 金）、易逝（5 站后消失）。在符咒收藏里能看到每张符咒的版本和贴纸，还能按品质/类别/时期筛选。" }
 ];
 var GUIDE_TIERS46 = [
@@ -11097,7 +11114,7 @@ startBattle = function(id) {
 _sb58(id);
 var v = v46(); if (!v || typeof S === "undefined" || !S || !S.enemy) return;
 if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) {
-log(" 【指定牌型 · 本场规矩】只有打出【" + COMBOS[v.bossCombo].name + "】才能造成伤害，其他牌型伤害为 0。注意：骰子按最高分牌型结算——摇出比指定牌型更大的牌型也会按大牌型算（一样是 0），要靠锁骰 / 重摇把牌型凑成【" + COMBOS[v.bossCombo].name + "】。", "bad");
+log(" 【指定牌型 · 本场规矩】只有打出【" + COMBOS[v.bossCombo].name + "】是全额伤害；其他牌型不归零，按 30% 破局伤害结算（最低 1 点），每次出招震裂一层封印，硬打满 3 次封印破碎、之后全部牌型全额。注意：骰子按最高分牌型结算——摇出比指定牌型更大的牌型也按大牌型算，想全额就靠锁骰 / 重摇把牌型凑成【" + COMBOS[v.bossCombo].name + "】；凑不出就硬打磨血震封印，照样有反制。", "bad");
 }
 };
 var _ca58 = computeAttack;
@@ -11116,7 +11133,7 @@ _re58();
 var v = v46(); if (!v || typeof S === "undefined" || !S || !S.enemy || !v.bossRule) return;
 var badges = $("enemy-badges"); if (!badges) return;
 var txt = null;
-if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) txt = "Boss 限制 · 指定牌型：只有【" + COMBOS[v.bossCombo].name + "】能造成伤害";
+if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) txt = v.comboBroken60? "Boss 限制 · 指定牌型：封印已破，全部牌型全额伤害": "Boss 限制 · 指定牌型：只有【" + COMBOS[v.bossCombo].name + "】全额伤害，其他牌型 30% 破局伤害 · 封印裂纹 " + Math.min(v.comboBreak60 || 0, 3) + "/3";
 else { var rule58 = BOSS_RULES46.filter(function(r){ return r.id === v.bossRule; })[0]; if (rule58) txt = "Boss 限制 · " + rule58.name; }
 if (txt) badges.innerHTML += '<span class="badge bossfx">' + txt + "</span>";
 };
@@ -11124,7 +11141,7 @@ var _et58 = enemyTipText;
 enemyTipText = function() {
 var t = _et58();
 var v = v46(); if (!v || typeof S === "undefined" || !S || !S.enemy || !v.bossRule) return t;
-if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) return t + " · Boss 限制：指定牌型——只有【" + COMBOS[v.bossCombo].name + "】能造成伤害，其他牌型伤害为 0";
+if (v.bossRule === "comboOnly" && v.bossCombo && COMBOS[v.bossCombo]) return t + (v.comboBroken60? " · Boss 限制：指定牌型——封印已被震碎，所有牌型恢复全额伤害": " · Boss 限制：指定牌型——只有【" + COMBOS[v.bossCombo].name + "】全额伤害，其他牌型按 30% 破局伤害（最低 1 点），硬打满 3 次震碎封印（当前裂纹 " + Math.min(v.comboBreak60 || 0, 3) + "/3）");
 var rule58 = BOSS_RULES46.filter(function(r){ return r.id === v.bossRule; })[0];
 if (rule58) return t + " · Boss 限制：" + rule58.name + "（" + rule58.desc + "）";
 return t;
@@ -11340,6 +11357,58 @@ _fn59();
 var L = null;
 try { L = lock59(); } catch (e59) {}
 if (L) { L.evKey = null; L.evIdx = null; L.robKey = null; L.robRival = null; L.robSeen59 = null; L.disguised = null; }
+};
+</script>
+<script>
+"use strict";
+/* ================= v60：伤害 0 改版——不能让玩家完全没有伤害，要有反制 =================
+   用户原话：「把伤害0改一下，不能让玩家完全没有伤害，要有反制。」
+   v58/v59 只解决了「看得见、读档不变」，规则本身仍然是硬归零：
+   Boss 限制「指定牌型」（comboOnly）下，非指定牌型筹码 × 乘数再大
+   也是 0，玩家一整场可能打不出一点伤害、没有任何反制手段。
+   本版改规则本身（归零点在 v46 的 computeAttack 包装里，已就地改）：
+   1) 非指定牌型不再归零：按 30% 造成「破局伤害」，且至少 1 点；
+      指定牌型命中仍是全额伤害，凑牌型的收益不变。
+   2) 反制（破封）：每次真实出招（非指定牌型）震裂一层封印，裂纹
+      在敌人名牌和预览说明里实时可见；裂满 3 层，下一回合开始时
+      封印破碎，本场剩余战斗所有牌型恢复全额伤害。凑不出指定牌型
+      的玩家可以靠硬打磨血 + 震碎封印翻盘，不是死局。
+   3) 全游戏保底：任何一场战斗里，只要这一击有筹码 / 牌型，结算
+      伤害至少为 1——叠满减伤 Debuff 向下取整也打不没（本脚本是
+      computeAttack 最外层包装，最后兜底）。
+   排查过其他归零源：封印之环只禁特殊骰效与元素克制（基础筹码 ×
+   乘数仍在）、武器被克制只压装备攻击那部分、敌人护甲挡伤会随
+   攻击被磨掉（打 0 时护甲同步减少，本身就是进度），均非死局，
+   不动。破封计数按「回合 + 骰面」签名去重：出招结算里 renderAll
+   会反复重算预览，不会重复计裂纹；战斗中途不存档，计数只活在本
+   场战斗内，每场开战清零（见下方 startBattle 包装）。 */
+/* ---------- 每场开战：破封计数清零 ---------- */
+var _sb60 = startBattle;
+startBattle = function(id) {
+var v = v46();
+if (v) { v.comboBreak60 = 0; v.comboBroken60 = false; v.comboBreakPending60 = false; v.comboSig60 = null; }
+_sb60(id);
+};
+/* ---------- 回合开始：裂满 3 层的封印正式破碎 ---------- */
+var _st60 = startTurn;
+startTurn = function(first) {
+_st60(first);
+var v = v46();
+if (v && v.comboBreakPending60 && !v.comboBroken60 && typeof S !== "undefined" && S && S.enemy) {
+v.comboBreakPending60 = false; v.comboBroken60 = true;
+log(" 你硬打出的裂纹贯通了封印——【牌型封印破碎】！本场剩余战斗，所有牌型恢复全额伤害。", "strong");
+renderAll();
+}
+};
+/* ---------- 全游戏保底伤害：有筹码的一击至少 1 点 ---------- */
+var _ca60 = computeAttack;
+computeAttack = function() {
+var a = _ca60();
+if (a && typeof S !== "undefined" && S && S.enemy && !S.over && a.dmg <= 0 && ((a.chips || 0) > 0 || a.combo)) {
+a.dmg = 1;
+(a.notes || (a.notes = [])).unshift("保底伤害：这一击至少造成 1 点伤害，不会被完全打没");
+}
+return a;
 };
 </script>
 </body>
