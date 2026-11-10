@@ -12046,6 +12046,10 @@ try { plot62(); } catch (e) {}
 .cs-scope63{position:absolute;right:2px;bottom:1px;font-size:8px;line-height:1;color:#B8AC93;letter-spacing:.02em}
 .battle-topbar .charm-slot{position:relative}
 @media (prefers-reduced-motion: reduce){.die.gold63,.charm-slot.gold63,.charm-slot.chain63,.score-burst63{animation:none!important}.fever63-track i{transition:none}}
+/* v64: 无条件触碰——骰子滑过时被碰的符咒亮一下（比全额触发的 score-pop61 轻一档） */
+@keyframes touchFlash64{0%{box-shadow:0 0 0 2px #EFC94C,0 0 15px rgba(239,201,76,.85)}100%{box-shadow:0 0 0 0 rgba(239,201,76,0)}}
+.charm-slot.touch64{animation:touchFlash64 .3s ease;border-color:#EFC94C!important}
+@media (prefers-reduced-motion: reduce){.charm-slot.touch64{animation:none!important}}
 </style>
 <script>
 "use strict";
@@ -12181,11 +12185,29 @@ return info;
 var ticks = [], baseTicks = [];
 function pushBase(tick, weight) { tick.amt = 0; ticks.push(tick); baseTicks.push({ tick: tick, w: weight }); }
 var retriggerCount = 0;
+/* v64 无条件触碰（老哥定版：无论发生什么，只要记分，都触碰）：
+   每颗参与组合的骰子依次滑过整行符咒——每到一张符咒先「碰」一下
+   （touch tick，+1 筹码，只保证 tick 音不断、符咒亮一下、跑分数字
+   一直爬），若这颗骰子正好命中这张逐骰型符咒，紧接着才结算它的
+   全额触发（charm tick，规则与 v63 完全一致）。触碰不看元素匹不
+   匹配、不看逐骰/整手、不看 Boss 规则；整手型符咒同样被每颗骰子
+   碰到（全额效果仍只在后面整手结算一次）。重触发的骰子再打一次
+   时，再滑过整行、再碰一轮。触碰筹码直接进 plan.dmg，所以预览
+   （同源 computeAttack）与实战天然一致：触碰总数 = 参与骰子数 ×
+   符咒张数 + 重触发轮次 × 符咒张数，每碰 +1。 */
+var touchCount = 0;
+function pushTouch64(dieIdx, pass, slotIdx) { ticks.push({ kind: "touch", slot: slotIdx, die: dieIdx, pass: pass, amt: 1 }); touchCount++; }
 S.dice.forEach(function(d, i) {
 if (!parts[i]) return;
 pushBase({ kind: "die", die: i }, 3);
-slots.forEach(function(s, idx) { if (PERDIE63[s.eff] && s.matched.indexOf(i) >= 0) pushBase({ kind: "charm", slot: idx, die: i }, 1); });
-if (d.face === 6 || d.steel || d.seal === "red") { ticks.push({ kind: "retrigger", die: i, amt: Math.max(1, Math.round(dieChips[i] * (a.mult || 1))) }); retriggerCount++; }
+slots.forEach(function(s, idx) {
+pushTouch64(i, 0, idx);
+if (PERDIE63[s.eff] && s.matched.indexOf(i) >= 0) pushBase({ kind: "charm", slot: idx, die: i }, 1);
+});
+if (d.face === 6 || d.steel || d.seal === "red") {
+ticks.push({ kind: "retrigger", die: i, amt: Math.max(1, Math.round(dieChips[i] * (a.mult || 1))) }); retriggerCount++;
+slots.forEach(function(s2, idx2) { pushTouch64(i, 1, idx2); });
+}
 });
 slots.forEach(function(s, idx) { if (!PERDIE63[s.eff] && s.triggered) pushBase({ kind: "charm", slot: idx }, 2); });
 var sumW = 0; baseTicks.forEach(function(b) { sumW += b.w; });
@@ -12226,7 +12248,7 @@ var triggers = fAfter >= 30;
 var feverFrom = triggers ? (fStart >= 30 ? 0 : Math.ceil((30 - fStart) / gain)) : -1;
 var feverBonus = triggers ? Math.floor(subtotal * 0.15) : 0;
 if (feverBonus > 0) ticks.push({ kind: "fever", amt: feverBonus });
-return { ticks: ticks, dmg: subtotal + feverBonus, base: a.dmg, lv: lv, echoes: echoes, perEcho: perEcho, retriggerCount: retriggerCount, chainCount: chainCount, goldTick: goldTick, goldExtra: goldExtra, tickCount: T, gain: gain, feverStart: fStart, feverAfter: fAfter, feverTriggers: triggers, feverFromTick: feverFrom, feverBonus: feverBonus };
+return { ticks: ticks, dmg: subtotal + feverBonus, base: a.dmg, lv: lv, echoes: echoes, perEcho: perEcho, retriggerCount: retriggerCount, chainCount: chainCount, touchCount: touchCount, goldTick: goldTick, goldExtra: goldExtra, tickCount: T, gain: gain, feverStart: fStart, feverAfter: fAfter, feverTriggers: triggers, feverFromTick: feverFrom, feverBonus: feverBonus };
 }
 /* ---------- computeAttack 最外层：链条加成进伤害（预览 = 实战） ---------- */
 var _ca63 = computeAttack;
@@ -12240,6 +12262,7 @@ a.score63 = plan;
 a.dmg = plan.dmg;
 var notes = a.notes || (a.notes = []);
 if (plan.goldTick >= 0) notes.push("金骰：第 " + (plan.goldTick + 1) + " 跳翻倍（+" + plan.goldExtra + "）");
+if (plan.touchCount) notes.push("触碰 ×" + plan.touchCount + "（每碰 +1 筹码）");
 if (plan.retriggerCount) notes.push("连锁重触发 ×" + plan.retriggerCount);
 if (plan.chainCount) notes.push("符咒连锁 ×" + plan.chainCount + "（后符 +50%）");
 if (plan.echoes) notes.push("牌型共鸣 Lv." + plan.lv + " 回响 ×" + plan.echoes);
@@ -12434,6 +12457,10 @@ if (tk.kind === "die" || tk.kind === "retrigger") {
 el = diceEls[tk.die];
 if (el) { el.classList.remove("score-hop61"); void el.offsetWidth; el.classList.add("score-hop61"); }
 if (tk.kind === "retrigger") { try { fxFloat("再打一次！", el, "crit"); } catch (e) {} }
+} else if (tk.kind === "touch") {
+/* v64 触碰：被碰的符咒亮一下（轻闪，区别于全额触发的弹起） */
+el = charmEls[tk.slot];
+if (el) { el.classList.remove("touch64"); void el.offsetWidth; el.classList.add("touch64"); }
 } else if (tk.kind === "charm" || tk.kind === "chain") {
 el = charmEls[tk.slot];
 if (el) { el.classList.remove("score-pop61"); void el.offsetWidth; el.classList.add("score-pop61"); if (tk.kind === "chain") { el.classList.remove("chain63"); void el.offsetWidth; el.classList.add("chain63"); } }
@@ -12456,11 +12483,12 @@ try { paintFever63(plan.feverTriggers && feverOn ? 30 : plan.feverStart + (i + 1
 var p = T > 1 ? i / (T - 1) : 1;
 var interval = 90 - 50 * p;
 if (feverOn) interval /= 2;
+if (tk.kind === "touch") interval *= 0.55;
 if (T > 50) interval *= 50 / T;
 timers.push(setTimeout(function() { step(i + 1); }, Math.max(16, interval)));
 }
 timers.push(setTimeout(function() { step(0); }, 140));
-timers.push(setTimeout(finish, 6000));
+timers.push(setTimeout(finish, Math.max(6000, ticks.length * 110 + 2500)));
 };
 try { window.SCORE63 = { buildPlan: buildPlan63, measureReal: measureReal63, fever: fever63, perDie: PERDIE63 }; } catch (e) {}
 try { fever63(); paintFever63(); } catch (e) {}
