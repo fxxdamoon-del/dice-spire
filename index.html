@@ -2532,8 +2532,10 @@ var SKIP_TAGS = [
 {id:"armor",name:"<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAAvElEQVR4nO3QwQ2DMBBFQUrgwDU1pq2UQqrINV2ECpyV0Vqs0TzpXzE7y5LUtj5+lZZ1V1pXgwACBAhQpZWDeL7epXYZHCBAgAABKgCUBdH6zvezd230/wACBAgQIECAAAECBAjQnYBa6wXKehcQIECAAAGad4AAAQIEqPDSgGaHGw4BCBAgQIAmBKoGVw6iFaAgQEGAggAFATrZaDhAgAAB+hegIEAnax1224N7AxQEKAhQEKAgQJIkje4AB7p69Y6EN40AAAAASUVORK5CYII=> 铁壁祝福",desc:"最大生命 +8 并恢复 8 点",apply:function(){S.maxHp+=8;S.hp=Math.min(S.maxHp,S.hp+8);}},
 {id:"elem",name:"<img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAuElEQVR4nO3VsQ3CQBBEUZdAQOrq6IYa6MM1UAw1QOIURofOWrG8L01+95JdlqLOp/U5sqp3lgUoBCgEKAQoBGjv3Yevl/vQ2sIBCgEKAQoBCgHamwXRFg5QCFAIUAhQCFBoFGi7PYYGCBAgQJ8CFAL0JUTVyuAAAQIECFAjoFnnHBAgQIAAAToO4lc2DQ4QIECAADUCqjrngAABAgTon4G6nvNpcIAAAQIEqH7DQAYIECBA9QMU9gIHewGZrlvDEwAAAABJRU5ErkJggg==> 元素精华",desc:"元素强化等级 +1：克制时每颗克制骰的额外伤害 +2%",apply:function(){if(S.elemLevel<6)S.elemLevel++;}}
 ];
-function blessingBonus(key){ var c=COMBOS[key]; var lv=(S&&S.comboLevels&&S.comboLevels[key])||1; return {lv:lv,chips:(lv-1)*(c.upChips||10),mult:(lv-1)*(c.upMult||0)}; }
-function applyBlessing(key,n){ n=n||1; if(!S.comboLevels)S.comboLevels={}; S.comboLevels[key]=(S.comboLevels[key]||1)+n; var p=BLESSINGS[key]; log("祝福生效：「"+p.name+"」升到 Lv."+S.comboLevels[key]+"，该牌型筹码 +"+(COMBOS[key].upChips*n)+"、乘数 +"+(COMBOS[key].upMult*n)+"（永久）。","strong"); }
+/* v68：大数字显示压缩——超过 1 亿显示成「X.Y亿」（纯显示，数值不动） */
+function fmtBig68(n){ if (typeof n !== "number" || !isFinite(n)) return String(n); if (Math.abs(n) < 100000000) return String(Math.round(n)); return (n / 100000000).toFixed(1) + "亿"; }
+function blessingBonus(key){ var c=COMBOS[key]; var lv=Math.min(20,(S&&S.comboLevels&&S.comboLevels[key])||1); return {lv:lv,chips:(lv-1)*(c.upChips||10),mult:(lv-1)*(c.upMult||0)}; }
+function applyBlessing(key,n){ n=n||1; if(!S.comboLevels)S.comboLevels={}; S.comboLevels[key]=Math.min(20,(S.comboLevels[key]||1)+n); var p=BLESSINGS[key]; log("祝福生效：「"+p.name+"」升到 Lv."+S.comboLevels[key]+"，该牌型筹码 +"+(COMBOS[key].upChips*n)+"、乘数 +"+(COMBOS[key].upMult*n)+"（永久）。","strong"); }
 function applyFaceBonus(face,amt){ if(!S.faceBonus)S.faceBonus={}; S.faceBonus[face]=(S.faceBonus[face]||0)+amt; log("点数强化：点数 "+face+" 永久 +"+amt+" 筹码/颗（当前每颗 +"+S.faceBonus[face]+"）。","strong"); }
 /* Single-die enhancements （单骰强化）: a reward can bolt one of these runes
 onto ONE specific die (chosen at random when the reward is generated).
@@ -2606,7 +2608,8 @@ box.appendChild(b);
 }
 if (spec.kind === "blessing") {
 Object.keys(BLESSINGS).forEach(function(k) {
-targetBtn(COMBOS[k].name + "<br><small>当前 Lv." + (S.comboLevels[k] || 1) + " → Lv." + ((S.comboLevels[k] || 1) + 1) + "</small>", k);
+var clv68 = Math.min(20, S.comboLevels[k] || 1);
+targetBtn(COMBOS[k].name + "<br><small>当前 Lv." + clv68 + (clv68 >= 20? " · 已封顶": " → Lv." + (clv68 + 1)) + "</small>", k);
 });
 } else {
 [1, 2, 3, 4, 5, 6].forEach(function(f) {
@@ -3160,7 +3163,7 @@ disguisedBattle: false, stunnedThisTurn: false, aegisUsedBattle: false, robbery:
 function hasTalisman(id) { return S.talismans.indexOf(id) >= 0;}
 function baseRerolls() {
 if (S.enemy && ENEMIES[S.enemy.id].rule === "noReroll") return 0;
-return 2 + S.rerollBonus + (S.activeRerollBonus || 0);
+return Math.min(5, 2 + S.rerollBonus + (S.activeRerollBonus || 0));
 }
 
 /* ================= Combo evaluation ================= */
@@ -3382,7 +3385,7 @@ function renderAll() {
 if (window.refreshMusic) refreshMusic();
 $("hud-floor").innerHTML = "第 " + S.act + " 幕 · " + ACTS[S.act].name + " · 深度 " + (S.depth + 1) + (S.actCycle > 1? " · 第 " + S.actCycle + " 周目": "") + (S.ascension > 0? ' <span class="endless-tag">飞升 ' + S.ascension + "</span>": ' <span class="endless-tag">无尽</span>');
 var _hc = $("hud-class"); if (_hc) _hc.textContent = " " + CLASSES[S.classId].title;
-$("hud-hp").textContent = Math.max(0, S.hp) + " / " + S.maxHp;
+$("hud-hp").textContent = fmtBig68(Math.max(0, S.hp)) + " / " + fmtBig68(S.maxHp);
 $("hud-hpbar").style.width = Math.max(0, S.hp / S.maxHp * 100) + "%";
 $("hud-armor").textContent = S.armor;
 $("hud-gold").textContent = S.gold;
@@ -3534,7 +3537,7 @@ var e = S.enemy, def = ENEMIES[e.id];
 $("enemy-name").textContent = def.name + (e.form2? " · 第二形态": "");
 $("enemy-art").innerHTML = (e.form2 && ART.boss2)? ART.boss2: ART[def.art];
 $("enemy-art").classList.toggle("second-form", !!e.form2);
-$("enemy-hp").textContent = Math.max(0, e.hp) + " / " + e.maxHp;
+$("enemy-hp").textContent = fmtBig68(Math.max(0, e.hp)) + " / " + fmtBig68(e.maxHp);
 $("enemy-hpbar").style.width = Math.max(0, e.hp / e.maxHp * 100) + "%";
 var badges = $("enemy-badges");
 badges.innerHTML = "";
@@ -3546,7 +3549,7 @@ if (S.bossEffect && BOSS_EFFECTS[S.bossEffect]) badges.innerHTML += '<span class
 if (e.form2) badges.innerHTML += '<span class="badge bossfx">第二形态 · ' + e.formName + "</span>";
 if (S.robbery) {
 badges.innerHTML += '<span class="badge bossfx"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA5klEQVR4nO3XMW4CMRBAUY6QgjZ17p3TwCnScovQuInE8mUEAYv3Jbdjz2tWu9u9WfuPz9+Z8+z3/nuAIkARoAhQBGi0tfDp53DxAAL0N0ARoAhQBGgEIgIUAYoARYAiQCMQEaAIUAQoAhQtA/Toi5eBmF3g0fMBxXxAMR9QzAcU818OaOvi4/fXxTP70GUgZhcAFAsAigUAxQKAYgFA0b3glofYClAEKAIUAYoA3djWYoBGgCJAEaAIUARoNPuZv9fP7TIBigBFgCJAEaARiAhQBCgCFAGKAI1ARIAiQBGgCFAE6HpnBO4ijpPj/zkAAAAASUVORK5CYII=> 掠夺战 · 对方实力【' + S.robbery.tierLabel + "】</span>";
-badges.innerHTML += '<span class="badge rule">带伤作战 · 生命 ' + Math.max(0, e.hp) + " / " + e.maxHp + "（开局就不满血）</span>";
+badges.innerHTML += '<span class="badge rule">带伤作战 · 生命 ' + fmtBig68(Math.max(0, e.hp)) + " / " + fmtBig68(e.maxHp) + "（开局就不满血）</span>";
 badges.innerHTML += '<span class="badge">对方骰子：' + S.robbery.diceTypes.map(function(t){ return DIE_TYPES[t].name;}).join("、") + "</span>";
 if (S.robbery.charms.length) badges.innerHTML += '<span class="badge">对方符咒：' + S.robbery.charms.map(function(id){ return TALISMANS[id].name;}).join("、") + "</span>";
 }
@@ -3587,18 +3590,18 @@ function renderPreview() {
 if (!S.enemy) return;
 var a = computeAttack();
 $("pv-combo").textContent = a.combo.name;
-var formula = "（筹码 " + a.chips + "）× 乘数 " + a.mult;
+var formula = "（筹码 " + fmtBig68(a.chips) + "）× 乘数 " + fmtBig68(a.mult);
 if (a.notes.length) formula += " · " + a.notes.slice(0, 5).join(" · ") + (a.notes.length > 5? " · …": "");
 $("pv-formula").textContent = formula;
-$("pv-dmg").textContent = a.dmg;
+$("pv-dmg").textContent = fmtBig68(a.dmg);
 /* Dice-side preview (v40): same `a` feeds the panel beside the tray, so
 the two readouts can never disagree. Verdict already nets out enemy
 armour, exactly like doAttack() resolves it. */
 var dc = $("dsp-combo"), df = $("dsp-formula"), dn = $("dsp-notes"), dd = $("dsp-dmg"), dv = $("dsp-verdict");
 if (dc) dc.textContent = a.combo.name;
-if (df) df.textContent = "筹码 " + a.chips + " × 乘数 " + a.mult + " = " + (a.chips * a.mult);
+if (df) df.textContent = "筹码 " + fmtBig68(a.chips) + " × 乘数 " + fmtBig68(a.mult) + " = " + fmtBig68(a.chips * a.mult);
 if (dn) dn.textContent = a.notes.length? a.notes.slice(0, 3).join(" · ") + (a.notes.length > 3? " · …": ""): "";
-if (dd && dd.textContent !== String(a.dmg)) { dd.textContent = a.dmg; dd.classList.remove("bump"); void dd.offsetWidth; dd.classList.add("bump"); }
+if (dd && dd.textContent !== fmtBig68(a.dmg)) { dd.textContent = fmtBig68(a.dmg); dd.classList.remove("bump"); void dd.offsetWidth; dd.classList.add("bump"); }
 if (dv) {
 var eArmor = S.enemy.armor || 0;
 var blocked = Math.min(eArmor, a.dmg);
@@ -3606,10 +3609,10 @@ var eff = a.dmg - blocked;
 var remain = S.enemy.hp - eff;
 if (eff >= S.enemy.hp) {
 dv.className = "dsp-verdict kill";
-dv.innerHTML = (blocked? "先破护甲 " + blocked + " 点——": "") + "这一击能击败敌人！";
+dv.innerHTML = (blocked? "先破护甲 " + fmtBig68(blocked) + " 点——": "") + "这一击能击败敌人！";
 } else {
 dv.className = "dsp-verdict";
-dv.innerHTML = (blocked? '<span class="armor-note">护甲挡下 ' + blocked + " 点</span> · ": "") + "实打 " + eff + " 点 · 敌人还剩 " + remain + " 点生命";
+dv.innerHTML = (blocked? '<span class="armor-note">护甲挡下 ' + fmtBig68(blocked) + " 点</span> · ": "") + "实打 " + fmtBig68(eff) + " 点 · 敌人还剩 " + fmtBig68(remain) + " 点生命";
 }
 }
 }
@@ -3887,7 +3890,7 @@ S.nextRerollBonus = 0;
 showView("battle");
 requestAnimationFrame(function(){ var a = $("enemy-art"); a.classList.remove("enter", "dead", "hurt"); void a.offsetWidth; a.classList.add("enter");});
 $("log").innerHTML = "";
-log("—— " + def.name + " 出现了（生命 " + sc.hp + "，第 " + S.act + " 幕 · 深度 " + (S.depth + 1) + (elem? "，属性：" + ELEMENTS[elem]: "") + "）——", "strong");
+log("—— " + def.name + " 出现了（生命 " + fmtBig68(sc.hp) + "，第 " + S.act + " 幕 · 深度 " + (S.depth + 1) + (elem? "，属性：" + ELEMENTS[elem]: "") + "）——", "strong");
 if (def.ruleText) log(def.ruleText + "。", "bad");
 if (S.activeRerollBonus) log("备用骰筒生效：本场战斗每回合重摇 +" + S.activeRerollBonus + " 次（宝箱补给，打完这场失效）。", "strong");
 if (def.isBoss) applyBossEffect();
@@ -3909,6 +3912,7 @@ renderAll();
 }
 function doReroll() {
 if (S.busy || S.rerollsLeft <= 0) return;
+if (S.rerollsUsed >= 5) return;
 S.rerollsLeft--;
 S.rerollsUsed++;
 rollUnlocked(null);
@@ -6150,7 +6154,8 @@ $("upg-btn-cancel2").addEventListener("click", cancelUpgradePicker);
 $("upg-btn-rand").addEventListener("click", function(){
 if (!upgradeState) return;
 var spec = upgradeState.spec;
-var key = spec.kind === "blessing"? randomOf(Object.keys(BLESSINGS)): 1 + Math.floor(R() * 6);
+var bkeys68 = spec.kind === "blessing"? Object.keys(BLESSINGS).filter(function(k){ return (S.comboLevels[k] || 1) < 20; }): null;
+var key = spec.kind === "blessing"? (bkeys68.length? randomOf(bkeys68): randomOf(Object.keys(BLESSINGS))): 1 + Math.floor(R() * 6);
 var s = applyUpgradeShare(spec, key, 2);
 log(" 随机强化（+2 份，翻倍）：" + s + "。", "strong");
 closeUpgradePicker("随机强化（+2 份）：" + s);
@@ -11507,8 +11512,8 @@ try { if (typeof fxShake === "function") fxShake(); } catch (e) {}
 _doAttack61();
 }
 function setCounter(v) {
-if (dd) { dd.textContent = v; dd.classList.remove("score-bump61"); void dd.offsetWidth; dd.classList.add("score-bump61"); }
-if (pd) pd.textContent = v;
+if (dd) { dd.textContent = fmtBig68(v); dd.classList.remove("score-bump61"); void dd.offsetWidth; dd.classList.add("score-bump61"); }
+if (pd) pd.textContent = fmtBig68(v);
 }
 function setChips(c) {
 if (df) df.textContent = "筹码 " + c + " × 乘数 " + multStr + " = " + Math.round(c * parseFloat(multStr));
@@ -12080,7 +12085,7 @@ try { plot62(); } catch (e) {}
 - 敌人血量（scaledEnemy）：改按「真实每回合伤害」算——用 computeAttack
   本身蒙特卡洛实测当前 build 的平均一击（含全部链条），血量 =
   max(深度公式血量, 真实伤害 × 锚点 2.15/3.4/5.2)，删掉原来
-  800/1200/2400 的死上限，只留 999999 防 bug 上限。
+  800/1200/2400 的死上限，只留防 bug 上限（v68：999999 → 10^12）。
 - 击杀溢出：伤害数字永远全额显示（computeAttack 从不按敌人剩余
   血量截断，预览同样全额）；击杀那一击多出的伤害按 200:1 折成
   狂热格（单次上限 +10），喂给下一场战斗的狂热槽。 */
@@ -12300,14 +12305,14 @@ if (!plan) return a;
 a.score63 = plan;
 a.dmg = plan.dmg;
 var notes = a.notes || (a.notes = []);
-if (plan.goldTick >= 0) notes.push("金骰：第 " + (plan.goldTick + 1) + " 跳翻倍（+" + plan.goldExtra + "）");
+if (plan.goldTick >= 0) notes.push("金骰：第 " + (plan.goldTick + 1) + " 跳翻倍（+" + fmtBig68(plan.goldExtra) + "）");
 if (plan.touchCount) notes.push("触碰 ×" + plan.touchCount + "（每碰 +1 筹码）");
 if (plan.dtouchCount) notes.push("互触 ×" + plan.dtouchCount + "（每碰 +1 筹码）");
 if (plan.echo66Count) notes.push("回响 ×" + plan.echo66Count + "（触发后 50%→25%，共 +" + plan.echo66Dmg + "）");
 if (plan.retriggerCount) notes.push("连锁重触发 ×" + plan.retriggerCount);
 if (plan.chainCount) notes.push("符咒连锁 ×" + plan.chainCount + "（后符 +50%）");
 if (plan.echoes) notes.push("牌型共鸣 Lv." + plan.lv + " 回响 ×" + plan.echoes);
-if (plan.feverTriggers) notes.unshift("狂热爆发！本轮固定加分 +" + plan.feverBonus + "（总伤害 15%）");
+if (plan.feverTriggers) notes.unshift("狂热爆发！本轮固定加分 +" + fmtBig68(plan.feverBonus) + "（总伤害 15%）");
 if (window.__inAttack46 && window.__attack63 && !S.score63Committed) {
 S.score63Committed = true;
 S.fever63 = plan.feverTriggers ? 0 : Math.min(30, plan.feverAfter);
@@ -12367,7 +12372,7 @@ var real = 0;
 try { real = measureReal63(id); } catch (e) {}
 var hp = Math.max(hpBase, Math.round(real * turns));
 if (!(hp > 0)) hp = hpBase;
-if (hp > 999999) hp = 999999;
+if (hp > 1000000000000) hp = 1000000000000;
 return { hp: hp, intents: orig.intents };
 };
 /* ---------- 击杀溢出 → 狂热（200:1，单次上限 +10） ---------- */
@@ -12381,7 +12386,7 @@ S.score63LastKill = null;
 var over = lk.net - lk.hpBefore;
 if (over > 0) {
 var gain = Math.min(10, Math.floor(over / 200));
-if (gain > 0) { S.fever63 = Math.min(30, fever63() + gain); if (typeof log === "function") log(" 击杀溢出 " + over + " 点伤害，按 200:1 折成狂热 +" + gain + " 格，攒给下一场。", "strong"); }
+if (gain > 0) { S.fever63 = Math.min(30, fever63() + gain); if (typeof log === "function") log(" 击杀溢出 " + fmtBig68(over) + " 点伤害，按 200:1 折成狂热 +" + gain + " 格，攒给下一场。", "strong"); }
 }
 }
 } catch (e) {}
@@ -12462,8 +12467,8 @@ try { REDUCED_MOTION = true; _da63(); } catch (e) {}
 try { REDUCED_MOTION = rm; } catch (e) {}
 }
 function setCounter(v) {
-if (dd) { dd.textContent = v; dd.classList.remove("score-bump61"); void dd.offsetWidth; dd.classList.add("score-bump61"); }
-if (pd) pd.textContent = v;
+if (dd) { dd.textContent = fmtBig68(v); dd.classList.remove("score-bump61"); void dd.offsetWidth; dd.classList.add("score-bump61"); }
+if (pd) pd.textContent = fmtBig68(v);
 }
 var ticks = plan.ticks, T = Math.max(1, plan.tickCount);
 var cum = 0, milestones = [500, 1000, 2000, 5000], mi = 0;
@@ -12807,6 +12812,104 @@ var _eqSell67 = equipSellPrice46;
 equipSellPrice46 = function(it) {
 var base = it.rarity === "史诗"? 30: it.rarity === "稀有"? 14: 6;
 return Math.min(_eqSell67(it), base * 2);
+};
+</script>
+<script>
+"use strict";
+/* ================= v68：限流派（老哥定版：限制流派的发展） =================
+1) 血量上限 999999 → 10^12 已在 scaledEnemy 源头改（见 v63 脚本注释），
+   血量重新按真实伤害 × TTK 锚点走（普通 2.15 / 精英 3.4 / Boss 5.2）。
+2) 牌型等级封顶 Lv.20：blessingBonus / applyBlessing 已在源头封顶（计算
+   与显示同源、共鸣回响 Lv.10 封顶 4 次不变）；这里再给读档加一道——
+   读档前把存档里超过 Lv.20 的牌型等级一次性压到 20 并写回存档，
+   老存档照常能读。
+3) 单张符咒每回合乘数加成封顶 +20：包住 charmApply——在一次计分管线
+   （runCharmPipeline）或计分链估算（buildPlan63）内，按符咒累计它
+   给出的「乘数+N」加成，累计超过 +20 的部分不生效，结算 note 同步
+   改成实际数值（借势 +3 触发再多也只算到 +20）；×N 类乘数符（玻璃 /
+   豹子 / 首回合等）不在此列。预览与实战同源 computeAttack，天然一致。
+4) 重摇每回合封顶 5 次：baseRerolls / doReroll 已在源头封顶；这里再
+   在 renderAll 前把 rerollsLeft 压到 5 − 本回合已用次数，回合中途的
+   返还 / 加成（连摇符、疾风源泉等）也顶不破 5 次总上限。
+5) 浮动伤害数字超过 1 亿同样压缩成「X.Y亿」（fmtBig68，纯显示）。 */
+function clampComboLevels68(st) {
+if (!st || !st.comboLevels) return;
+Object.keys(st.comboLevels).forEach(function(k) {
+var lv = st.comboLevels[k];
+if (typeof lv === "number" && lv > 20) st.comboLevels[k] = 20;
+});
+}
+var _lg68 = loadGameFrom;
+loadGameFrom = function(slotIdx) {
+try {
+var arr = loadSavesData();
+var slot = arr[slotIdx];
+if (slot && slot.state && slot.state.comboLevels) {
+var before68 = JSON.stringify(slot.state.comboLevels);
+clampComboLevels68(slot.state);
+if (JSON.stringify(slot.state.comboLevels) !== before68) writeSavesData(arr);
+}
+} catch (e) {}
+_lg68(slotIdx);
+};
+/* ---- 符咒乘数封顶 +20 ---- */
+var cap68State = null, cap68Depth = 0;
+function cap68Scope(fn) {
+return function() {
+var prev = cap68State;
+cap68State = {};
+try { return fn.apply(this, arguments); }
+finally { cap68State = prev; }
+};
+}
+runCharmPipeline = cap68Scope(runCharmPipeline);
+buildPlan63 = cap68Scope(buildPlan63);
+var _ca68 = charmApply;
+charmApply = function(id, st, comboKey) {
+if (!cap68State || cap68Depth > 0) return _ca68(id, st, comboKey);
+cap68Depth++;
+var beforeMult68 = st.mult;
+var note = _ca68(id, st, comboKey);
+cap68Depth--;
+if (note && st.mult > beforeMult68) {
+var m68 = /乘数\+(\d+)/.exec(note);
+if (m68) {
+var claimed68 = parseInt(m68[1], 10);
+var used68 = cap68State[id] || 0;
+var allowed68 = Math.max(0, Math.min(claimed68, 20 - used68));
+cap68State[id] = used68 + allowed68;
+if (allowed68 < claimed68) {
+st.mult -= (claimed68 - allowed68);
+if (allowed68 > 0) note = note.replace("乘数+" + claimed68, "乘数+" + allowed68 + "（单符封顶 +20）");
+else {
+note = note.replace(/\s*乘数\+\d+/, "").trim();
+if (!note) return null;
+}
+}
+}
+}
+return note;
+};
+/* ---- 重摇封顶（render 前钳制） ---- */
+var _ra68 = renderAll;
+renderAll = function() {
+try {
+if (typeof S !== "undefined" && S && S.enemy && typeof S.rerollsLeft === "number" && typeof S.rerollsUsed === "number") {
+var maxLeft68 = Math.max(0, 5 - S.rerollsUsed);
+if (S.rerollsLeft > maxLeft68) S.rerollsLeft = maxLeft68;
+}
+} catch (e) {}
+_ra68();
+};
+/* ---- 浮动数字压缩 ---- */
+var _fx68 = fxFloat;
+fxFloat = function(text, targetEl, cls) {
+try {
+if (typeof text === "string" && /\d{9,}/.test(text)) {
+text = text.replace(/\d{9,}/g, function(m0) { return fmtBig68(parseInt(m0, 10)); });
+}
+} catch (e) {}
+return _fx68(text, targetEl, cls);
 };
 </script>
 </body>
