@@ -12050,6 +12050,12 @@ try { plot62(); } catch (e) {}
 @keyframes touchFlash64{0%{box-shadow:0 0 0 2px #EFC94C,0 0 15px rgba(239,201,76,.85)}100%{box-shadow:0 0 0 0 rgba(239,201,76,0)}}
 .charm-slot.touch64{animation:touchFlash64 .3s ease;border-color:#EFC94C!important}
 @media (prefers-reduced-motion: reduce){.charm-slot.touch64{animation:none!important}}
+/* v66: 回响淡闪（比触碰再淡一档，同一张符咒以回响的身份再亮一次）+ 骰子互触时被碰骰子的亮光 */
+@keyframes echoFlash66{0%{box-shadow:0 0 0 2px rgba(239,201,76,.5),0 0 9px rgba(239,201,76,.4);transform:scale(1.07)}100%{box-shadow:0 0 0 0 rgba(239,201,76,0);transform:scale(1)}}
+.charm-slot.echo66{animation:echoFlash66 .36s ease;border-color:rgba(239,201,76,.55)!important}
+@keyframes dtouchFlash66{0%{box-shadow:0 0 0 2px rgba(239,201,76,.75),0 0 11px rgba(239,201,76,.6)}100%{box-shadow:0 0 0 0 rgba(239,201,76,0)}}
+.die.dtouch66{animation:dtouchFlash66 .3s ease}
+@media (prefers-reduced-motion: reduce){.charm-slot.echo66,.die.dtouch66{animation:none!important}}
 </style>
 <script>
 "use strict";
@@ -12197,15 +12203,26 @@ var retriggerCount = 0;
    符咒张数 + 重触发轮次 × 符咒张数，每碰 +1。 */
 var touchCount = 0;
 function pushTouch64(dieIdx, pass, slotIdx) { ticks.push({ kind: "touch", slot: slotIdx, die: dieIdx, pass: pass, amt: 1 }); touchCount++; }
+/* v66-C 骰子互触（老哥定版：骰子自己也是触发源）：每颗参与组合的
+   骰子计分时，先碰左右相邻的参与组合的骰子（左右各算一次，边上
+   的骰子只有一边），每次互触 +1 筹码 + 小 tick + 被碰的骰子亮一
+   下，然后才滑过符咒行；重触发的骰子再打一次时，再互触一轮。
+   互触只是小碰：不触发符咒、不留回响。互触筹码直接进 plan.dmg，
+   预览（同源 computeAttack）与实战天然一致。 */
+var dtouchCount = 0;
+function pushDTouch66(from, to, pass) { ticks.push({ kind: "dtouch", die: to, from: from, pass: pass, amt: 1 }); dtouchCount++; }
+function dtouch66(i, pass) { if (i > 0 && parts[i - 1]) pushDTouch66(i, i - 1, pass); if (i < S.dice.length - 1 && parts[i + 1]) pushDTouch66(i, i + 1, pass); }
 S.dice.forEach(function(d, i) {
 if (!parts[i]) return;
 pushBase({ kind: "die", die: i }, 3);
+dtouch66(i, 0);
 slots.forEach(function(s, idx) {
 pushTouch64(i, 0, idx);
 if (PERDIE63[s.eff] && s.matched.indexOf(i) >= 0) pushBase({ kind: "charm", slot: idx, die: i }, 1);
 });
 if (d.face === 6 || d.steel || d.seal === "red") {
 ticks.push({ kind: "retrigger", die: i, amt: Math.max(1, Math.round(dieChips[i] * (a.mult || 1))) }); retriggerCount++;
+dtouch66(i, 1);
 slots.forEach(function(s2, idx2) { pushTouch64(i, 1, idx2); });
 }
 });
@@ -12226,13 +12243,35 @@ ticks.push({ kind: "chain", slot: ci, amt: camt });
 chainCount++;
 }
 }
+/* v66-A 回响（老哥定版：触发要有拖尾，链条断不下来）：每次符咒全额
+   触发——逐骰型匹配触发、整手型触发、连锁反应的再触发（chain
+   tick）——都在原触发后留两层回响：紧接着以 50% 效果再响一次，
+   再隔一跳以 25% 效果再响一次（筹码/乘数按比例缩放后取整，取整
+   为 0 的不入链）。回响是纯数值 tick：不再触发连锁、不碰符咒、
+   不再留回响（两层封顶，绝不递归）；牌型共鸣回响（echo tick）、
+   金骰翻倍、狂热结算加成不参与回响。回响在金骰选点之前生成（按
+   翻倍前的触发值算），且金骰不会落在回响 tick 上。回响伤害直接
+   进 plan.dmg，预览 = 实战；敌人血量按 v63 真实伤害锚点自动吸收，
+   TTK 不变。动画侧：回响 tick 音调比原触发低半个八度、音量更小，
+   被触发的符咒以更淡的闪光（echo66）再亮一次。 */
+var echo66Count = 0, echo66Dmg = 0;
+var withEcho66 = [];
+ticks.forEach(function(t) {
+withEcho66.push(t);
+if (t.kind === "charm" || t.kind === "chain") {
+var e1 = Math.round(t.amt * 0.5), e2 = Math.round(t.amt * 0.25);
+if (e1 > 0) { withEcho66.push({ kind: "echo2", slot: t.slot, layer: 1, amt: e1 }); echo66Count++; echo66Dmg += e1; }
+if (e2 > 0) { withEcho66.push({ kind: "echo2", slot: t.slot, layer: 2, amt: e2 }); echo66Count++; echo66Dmg += e2; }
+}
+});
+ticks = withEcho66;
 var echoes = lv <= 3 ? 1 : lv <= 6 ? 2 : lv <= 9 ? 3 : 4;
 var perEcho = Math.max(0, Math.round((bb.chips || 0) * (a.mult || 1) + (a.chips || 0) * (bb.mult || 0)));
 if (perEcho > 0) for (var ei = 0; ei < echoes; ei++) ticks.push({ kind: "echo", amt: perEcho });
 else echoes = 0;
 var goldTick = -1, goldExtra = 0;
 var cands = [];
-ticks.forEach(function(t, i) { if (t.amt > 0) cands.push(i); });
+ticks.forEach(function(t, i) { if (t.amt > 0 && t.kind !== "echo2") cands.push(i); });
 if (cands.length) {
 goldTick = cands[goldPick63(planSig63(key), cands.length) % cands.length];
 goldExtra = ticks[goldTick].amt;
@@ -12248,7 +12287,7 @@ var triggers = fAfter >= 30;
 var feverFrom = triggers ? (fStart >= 30 ? 0 : Math.ceil((30 - fStart) / gain)) : -1;
 var feverBonus = triggers ? Math.floor(subtotal * 0.15) : 0;
 if (feverBonus > 0) ticks.push({ kind: "fever", amt: feverBonus });
-return { ticks: ticks, dmg: subtotal + feverBonus, base: a.dmg, lv: lv, echoes: echoes, perEcho: perEcho, retriggerCount: retriggerCount, chainCount: chainCount, touchCount: touchCount, goldTick: goldTick, goldExtra: goldExtra, tickCount: T, gain: gain, feverStart: fStart, feverAfter: fAfter, feverTriggers: triggers, feverFromTick: feverFrom, feverBonus: feverBonus };
+return { ticks: ticks, dmg: subtotal + feverBonus, base: a.dmg, lv: lv, echoes: echoes, perEcho: perEcho, retriggerCount: retriggerCount, chainCount: chainCount, touchCount: touchCount, dtouchCount: dtouchCount, echo66Count: echo66Count, echo66Dmg: echo66Dmg, goldTick: goldTick, goldExtra: goldExtra, tickCount: T, gain: gain, feverStart: fStart, feverAfter: fAfter, feverTriggers: triggers, feverFromTick: feverFrom, feverBonus: feverBonus };
 }
 /* ---------- computeAttack 最外层：链条加成进伤害（预览 = 实战） ---------- */
 var _ca63 = computeAttack;
@@ -12263,6 +12302,8 @@ a.dmg = plan.dmg;
 var notes = a.notes || (a.notes = []);
 if (plan.goldTick >= 0) notes.push("金骰：第 " + (plan.goldTick + 1) + " 跳翻倍（+" + plan.goldExtra + "）");
 if (plan.touchCount) notes.push("触碰 ×" + plan.touchCount + "（每碰 +1 筹码）");
+if (plan.dtouchCount) notes.push("互触 ×" + plan.dtouchCount + "（每碰 +1 筹码）");
+if (plan.echo66Count) notes.push("回响 ×" + plan.echo66Count + "（触发后 50%→25%，共 +" + plan.echo66Dmg + "）");
 if (plan.retriggerCount) notes.push("连锁重触发 ×" + plan.retriggerCount);
 if (plan.chainCount) notes.push("符咒连锁 ×" + plan.chainCount + "（后符 +50%）");
 if (plan.echoes) notes.push("牌型共鸣 Lv." + plan.lv + " 回响 ×" + plan.echoes);
@@ -12451,7 +12492,10 @@ var fb = $("fever63"); if (fb) fb.classList.add("full");
 }
 var freq = Math.min(1200, 520 + 30 * i);
 if (feverOn) freq *= 2;
-tickTone63(freq, i % 10 === 9);
+if (tk.kind === "echo2") {
+/* v66 回响音：比原触发低半个八度（频率 ×0.707）、音量更小，不带亮音 */
+try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) { AU.tone(freq * 0.707, AU.ctx.currentTime, 0.07, "square", 0.03); AU.noiseAt(AU.ctx.currentTime, 0.02, 0.018, 2200, 1500); } } catch (e) {}
+} else tickTone63(freq, i % 10 === 9);
 var el = null;
 if (tk.kind === "die" || tk.kind === "retrigger") {
 el = diceEls[tk.die];
@@ -12461,6 +12505,14 @@ if (tk.kind === "retrigger") { try { fxFloat("再打一次！", el, "crit"); } c
 /* v64 触碰：被碰的符咒亮一下（轻闪，区别于全额触发的弹起） */
 el = charmEls[tk.slot];
 if (el) { el.classList.remove("touch64"); void el.offsetWidth; el.classList.add("touch64"); }
+} else if (tk.kind === "dtouch") {
+/* v66 互触：被碰的相邻骰子亮一下 */
+el = diceEls[tk.die];
+if (el) { el.classList.remove("dtouch66"); void el.offsetWidth; el.classList.add("dtouch66"); }
+} else if (tk.kind === "echo2") {
+/* v66 回响：被触发的符咒以更淡一档的闪光再亮一次 */
+el = charmEls[tk.slot];
+if (el) { el.classList.remove("echo66"); void el.offsetWidth; el.classList.add("echo66"); }
 } else if (tk.kind === "charm" || tk.kind === "chain") {
 el = charmEls[tk.slot];
 if (el) { el.classList.remove("score-pop61"); void el.offsetWidth; el.classList.add("score-pop61"); if (tk.kind === "chain") { el.classList.remove("chain63"); void el.offsetWidth; el.classList.add("chain63"); } }
