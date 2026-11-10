@@ -12778,5 +12778,36 @@ try { if (typeof S !== "undefined" && S) { S._battle63 = (S._battle63 || 0) + 1;
 _sb63d(id);
 };
 </script>
+<script>
+"use strict";
+/* ================= v67：当铺卖价封顶（噬咒匕首卖金币 bug 修复） =================
+老哥报的 bug：噬咒匕首（吃符咒养成的符咒刀）养成之后卖价离谱，
+养满卖掉金币直接爆表。定版规则（只改卖价，不动养成与战斗）：
+1) 噬咒匕首卖价固定 = 基础卖价（符咒购买价 14 的六折 = 8 金），
+   daggerPower（吞噬成长）、投喂数量一律不计入卖价，养多满都一样。
+2) 其余符咒：维持原价，但硬封顶 = 基础卖价 × 2，任何修正都顶不上去。
+3) 骰子（当铺收购）：卖价封顶 = 该骰基础卖价（购买价六折）× 2。
+4) 装备（背包出售）：原本卖价 = 稀有度基础价 + 强化等级 × 4，
+   随强化等级上涨——封顶 = 稀有度基础价 × 2。
+卖价的显示（当铺按钮 / 装备卡）与实付都走同一批价格函数，改这里
+即处处一致；已卖出的金币不追回。 */
+var _talSell67 = talismanSellPrice;
+talismanSellPrice = function(id) {
+var baseSell = Math.max(1, Math.floor(14 * 0.6));
+if (id === "dagger46") return baseSell;
+return Math.min(_talSell67(id), baseSell * 2);
+};
+var _dieSell67 = dieSellPrice;
+dieSellPrice = function(type) {
+var base = 8; SHOP_DICE.forEach(function(p){ if (p[0] === type) base = p[1]; });
+var cap = Math.max(1, Math.floor(base * 0.6)) * 2;
+return Math.min(_dieSell67(type), cap);
+};
+var _eqSell67 = equipSellPrice46;
+equipSellPrice46 = function(it) {
+var base = it.rarity === "史诗"? 30: it.rarity === "稀有"? 14: 6;
+return Math.min(_eqSell67(it), base * 2);
+};
+</script>
 </body>
 </html>
