@@ -12483,12 +12483,16 @@ try { paintFever63(plan.feverTriggers && feverOn ? 30 : plan.feverStart + (i + 1
 var p = T > 1 ? i / (T - 1) : 1;
 var interval = 90 - 50 * p;
 if (feverOn) interval /= 2;
-if (tk.kind === "touch") interval *= 0.55;
+/* v65：触碰放慢——间隔系数由 ×0.55 改为 ×1.0，与普通计分 tick 同速，
+   加速曲线（90ms→40ms）保留；触碰仍无条件（v64 规则不变）。 */
+if (tk.kind === "touch") interval *= 1.0;
 if (T > 50) interval *= 50 / T;
 timers.push(setTimeout(function() { step(i + 1); }, Math.max(16, interval)));
 }
 timers.push(setTimeout(function() { step(0); }, 140));
-timers.push(setTimeout(finish, Math.max(6000, ticks.length * 110 + 2500)));
+/* v65：触碰变慢后整链变长，兜底时限按新链长放大（每 tick 预留由
+   110ms 提到 200ms，保底由 6000ms 提到 9000ms），避免动画被截断。 */
+timers.push(setTimeout(finish, Math.max(9000, ticks.length * 200 + 3000)));
 };
 try { window.SCORE63 = { buildPlan: buildPlan63, measureReal: measureReal63, fever: fever63, perDie: PERDIE63 }; } catch (e) {}
 try { fever63(); paintFever63(); } catch (e) {}
