@@ -9189,20 +9189,20 @@ h += "<h3 class='v46-sec'>装备背包（" + v.bag.length + " 件）</h3>";
 h += v.bag.length? "<div class='v46-grid'>" + v.bag.map(function(it) { return equipCardHTML46(it, "bag"); }).join("") + "</div>": "<p class='sub'>空空如也。击杀怪物有机会掉落成品装备（多为普通品质，越往深处品质越好）。</p>";
 h += "<h3 class='v46-sec'>祝福（战斗中用 · 每场最多 2 个）</h3><div>";
 var blessKeys = Object.keys(v.bless).filter(function(k) { return v.bless[k] > 0; });
-h += blessKeys.length? blessKeys.map(function(k) { return "<span class='mat-chip'>" + BLESS46[k].name + " ×" + v.bless[k] + "</span>"; }).join(""): "<span class='sub'>暂无祝福。掉落、商店、宝箱、任务可得。</span>";
+h += blessKeys.length? blessKeys.map(function(k) { return "<span class='mat-chip'>" + ((BLESS46[k] || {}).name || k) + " ×" + v.bless[k] + "</span>"; }).join(""): "<span class='sub'>暂无祝福。掉落、商店、宝箱、任务可得。</span>";
 h += "</div><h3 class='v46-sec'>源泉（战斗中即时用 · 每场最多 2 个；治疗源泉随时能喝）</h3><div>";
 var springKeys = Object.keys(v.springs).filter(function(k) { return v.springs[k] > 0; });
-h += springKeys.length? springKeys.map(function(k) { return "<span class='mat-chip'>" + SPRING46[k].name + " ×" + v.springs[k] + (k === "spring_heal"? " <button class='btn' data-act='usespring' data-id='spring_heal' type='button'>喝下（回复 20%）</button>": "") + "</span>"; }).join(""): "<span class='sub'>暂无源泉。</span>";
+h += springKeys.length? springKeys.map(function(k) { return "<span class='mat-chip'>" + ((SPRING46[k] || {}).name || k) + " ×" + v.springs[k] + (k === "spring_heal"? " <button class='btn' data-act='usespring' data-id='spring_heal' type='button'>喝下（回复 20%）</button>": "") + "</span>"; }).join(""): "<span class='sub'>暂无源泉。</span>";
 h += "</div><h3 class='v46-sec'>手牌栏（命格牌 / 骰灵牌 / 卡牌包 · 战斗中在符咒栏上方、顶栏音乐旁也能直接用）</h3>";
 var cardKeys = Object.keys(v.cards).filter(function(k) { return v.cards[k] > 0 && CARD46[k]; });
 h += cardKeys.length? "<div class='v46-grid'>" + cardKeys.map(function(k) { return "<div class='eq-card'><h4>" + CARD46[k].name + " ×" + v.cards[k] + "</h4><p class='clamp3'>" + CARD46[k].desc + "</p>" + detailBtn46(CARD46[k].name, "<p>" + CARD46[k].desc + "</p>", "corner") + "<div class='ops'><button class='btn primary' data-act='usecard' data-id='" + k + "' type='button'>" + (k.indexOf("pack_") === 0? "打开": "使用") + "</button></div></div>"; }).join("") + "</div>": "<p class='sub'>暂无牌。骰灵包/命格包/流派包、宝箱、抽奖、商店都能开出或买到。</p>";
 h += "<h3 class='v46-sec'>材料栏（强化装备的消耗品，也能卖钱——但留着强化更值）</h3><div>";
-var matKeys = Object.keys(v.mats).filter(function(k) { return v.mats[k] > 0; });
+var matKeys = Object.keys(v.mats).filter(function(k) { return v.mats[k] > 0 && MATS46[k.split("|")[0]]; });
 h += matKeys.length? matKeys.map(function(k) { var p = k.split("|"); return "<span class='mat-chip'>" + MATS46[p[0]].name + "（" + p[1] + "）×" + v.mats[k] + " <button class='btn' data-act='sellmat' data-key='" + k + "' type='button'>卖 1 个 +" + Math.round(MATS46[p[0]].sell * (p[1] === "史诗"? 6: p[1] === "稀有"? 2.5: 1)) + " 金</button></span>"; }).join(""): "<span class='sub'>暂无材料。击杀怪物会掉落它们的材料（如骷髅兵掉骷髅骨、骷髅牙）。</span>";
 h += "</div>";
 if (v.voidCharms.length) h += "<h3 class='v46-sec'>虚符（不占符咒栏位）</h3><p class='sub'>" + v.voidCharms.map(function(id) { return "【" + ((TALISMANS[id] || {}).name || "虚符") + "】"; }).join("、") + "——虚符只从稀有/龙牙抽奖、Boss 掉落、高级宝箱里出。</p>";
-h += "<h3 class='v46-sec'>符咒状态（版本 / 贴纸）</h3><p class='sub'>" + (S.talismans.length? S.talismans.map(function(id, i) { var m = v.charmMeta[i] || {}; var tags = []; if (m.edition) tags.push("版本·" + EDITION46[m.edition].name); if (m.sticker === "eternal") tags.push("贴纸·永恒"); if (m.sticker === "rental") tags.push("贴纸·租赁（每站 3 金）"); if (m.sticker === "perish") tags.push("贴纸·易逝（剩 " + (m.left || 5) + " 站）"); return TALISMANS[id].name + (tags.length? "（" + tags.join("、") + "）": ""); }).join("、") : "暂无符咒。") + "</p>";
-if (v.tags && v.tags.length) h += "<h3 class='v46-sec'>持有的标签</h3><p class='sub'>" + v.tags.map(function(t) { return "【" + TAG46[t].name + "】" + TAG46[t].desc; }).join("<br>") + "</p>";
+h += "<h3 class='v46-sec'>符咒状态（版本 / 贴纸）</h3><p class='sub'>" + (S.talismans.length? S.talismans.map(function(id, i) { var m = v.charmMeta[i] || {}; var tags = []; if (m.edition && EDITION46[m.edition]) tags.push("版本·" + EDITION46[m.edition].name); if (m.sticker === "eternal") tags.push("贴纸·永恒"); if (m.sticker === "rental") tags.push("贴纸·租赁（每站 3 金）"); if (m.sticker === "perish") tags.push("贴纸·易逝（剩 " + (m.left || 5) + " 站）"); return ((TALISMANS[id] || {}).name || id) + (tags.length? "（" + tags.join("、") + "）": ""); }).join("、") : "暂无符咒。") + "</p>";
+if (v.tags && v.tags.length) h += "<h3 class='v46-sec'>持有的标签</h3><p class='sub'>" + v.tags.map(function(t) { return "【" + ((TAG46[t] || {}).name || t) + "】" + ((TAG46[t] || {}).desc || ""); }).join("<br>") + "</p>";
 h += "<h3 class='v46-sec'>商会令（商店永久升级）</h3><p class='sub'>" + Object.keys(VOUCHERS46).map(function(k) { return (v.vouchers[k]? "已购 ✔ ": "未购 · ") + VOUCHERS46[k].name; }).join("　") + "<br>在商店的「强化」分类里买，买了整局有效。</p>";
 h += "<h3 class='v46-sec'>任务栏</h3><p class='sub'>" + (v.quest? "【" + v.quest.title + "】" + v.quest.desc + "<br>进度 " + v.quest.got + " / " + v.quest.need + " · 报酬 " + v.quest.rewardGold + " 金币 + 材料（完成自动发放）": "暂无任务。每过 2 关，会有村民在地图上找你求助。") + "</p>";
 h += "<h3 class='v46-sec'>钱庄（存金生息 / 应急借金）</h3><p class='sub'>";
@@ -9214,7 +9214,24 @@ h += "</p>";
 h += "<h3 class='v46-sec'>流派倾向</h3><p class='sub'>" + buildHints46() + "</p>";
 body.innerHTML = h;
 }
-function openPack46() { $("pack-overlay").classList.add("show"); try { renderPack46(); } catch (e) { var pb = $("pack-body"); if (pb && !pb.innerHTML) pb.innerHTML = "<p class='sub'>背包读取出了点问题，关掉重开一次就好。</p>"; } }
+function sanitizePack46() {
+var v = null;
+try { v = v46(); } catch (e) { return; }
+if (!v) return;
+/* 老存档跨版本攒下来，可能留着已改名/下架的道具 id；渲染背包时查不到定义就会整页抛错、面板打不开。打开失败时先把这些无定义条目清掉自愈（只清背包里的计数，不动已穿装备和符咒）。 */
+try { Object.keys(v.bless || {}).forEach(function(k) { if (!BLESS46[k]) delete v.bless[k]; }); } catch (e) {}
+try { Object.keys(v.springs || {}).forEach(function(k) { if (!SPRING46[k]) delete v.springs[k]; }); } catch (e) {}
+try { Object.keys(v.cards || {}).forEach(function(k) { if (!CARD46[k]) delete v.cards[k]; }); } catch (e) {}
+try { Object.keys(v.mats || {}).forEach(function(k) { if (!MATS46[k.split("|")[0]]) delete v.mats[k]; }); } catch (e) {}
+}
+function openPack46() {
+var ov = $("pack-overlay"); if (!ov) return;
+ov.classList.add("show");
+try { renderPack46(); return; } catch (e) {}
+try { sanitizePack46(); renderPack46(); return; } catch (e) {}
+var pb = $("pack-body");
+if (pb) pb.innerHTML = "<p class='sub'>背包读取出了点问题，关掉重开一次就好。</p>";
+}
 document.addEventListener("DOMContentLoaded", function() {});
 $("pack-body").addEventListener("click", function(ev) {
 var btn = ev.target.closest("[data-act]"); if (!btn || btn.disabled) return;
@@ -11409,6 +11426,141 @@ a.dmg = 1;
 (a.notes || (a.notes = [])).unshift("保底伤害：这一击至少造成 1 点伤害，不会被完全打没");
 }
 return a;
+};
+</script>
+<style>
+/* v61: 计分结算动画（小丑牌式）——骰子逐颗跳、符咒依次弹、总伤害冒火砸下 */
+@keyframes scoreHop61 { 0%{transform:translateY(0) rotate(0deg)} 35%{transform:translateY(-18px) rotate(-7deg)} 55%{transform:translateY(0) rotate(3deg)} 78%{transform:translateY(-7px) rotate(0deg)} 100%{transform:translateY(0) rotate(0deg)} }
+.die.score-hop61{animation:scoreHop61 .34s ease;box-shadow:0 10px 18px rgba(11,9,16,.55)}
+@keyframes scorePop61 { 0%{transform:scale(1)} 40%{transform:scale(1.17) translateY(-6px)} 100%{transform:scale(1)} }
+.charm-slot.score-pop61{animation:scorePop61 .32s ease;box-shadow:0 0 0 3px #EFC94C,0 8px 16px rgba(11,9,16,.5);z-index:2}
+@keyframes scoreFire61 { 0%,100%{transform:scale(1.22);text-shadow:0 0 6px rgba(255,120,30,.9),0 0 16px rgba(255,60,0,.75),0 -2px 8px rgba(255,190,60,.9)} 50%{transform:scale(1.36);text-shadow:0 0 10px rgba(255,150,40,1),0 0 26px rgba(255,70,0,.9),0 -4px 12px rgba(255,210,80,1)} }
+.score-fire61{display:inline-block;animation:scoreFire61 .22s ease-in-out infinite;color:#FFD968!important}
+@keyframes scoreBump61 { 0%{transform:scale(1)} 40%{transform:scale(1.13)} 100%{transform:scale(1)} }
+.score-bump61{display:inline-block;animation:scoreBump61 .18s ease}
+@media (prefers-reduced-motion: reduce){ .die.score-hop61,.charm-slot.score-pop61,.score-fire61,.score-bump61{animation:none!important} }
+</style>
+<script>
+"use strict";
+/* ================= v61：背包打开安全网 + 计分结算动画 =================
+1) 背包：原绑定在 v46 大脚本末尾，任何一环失效（按钮被重渲染、老存档
+   让脚本提前抛错）按钮就成死的。这里在文档层再委托一份：点到
+   #btn-pack / #btn-battle-pack 就调 openPack46，点 #btn-pack-close
+   就关面板。与原绑定重复触发也无妨（打开/关闭都是幂等的）。
+2) 计分动画（老哥定版）：出招后先演一段小丑牌式结算——骰子逐颗跳起
+   带筹码音、筹码数往上蹦；符咒从左到右依次弹起触发、音调越跳越高、
+   伤害数继续往上爬；最后总伤害变大冒火、屏震，砸到怪身上（走原
+   doAttack 的投射物/受击/飘字）。不做跳过：每次都完整放完，一手
+   约 2–3 秒。只改表现：伤害仍由原 computeAttack/doAttack 结算，
+   数字、流程、回合逻辑一概不动；动画期间 S.busy 锁输入，演完才
+   真正出招。prefers-reduced-motion / 游戏内减动效时直接出招。 */
+document.addEventListener("click", function(ev) {
+var t = ev.target && ev.target.closest ? ev.target.closest("#btn-pack,#btn-battle-pack,#btn-pack-close") : null;
+if (!t) return;
+if (t.id === "btn-pack-close") { var ov = $("pack-overlay"); if (ov) ov.classList.remove("show"); return; }
+if (typeof openPack46 === "function") openPack46();
+});
+/* ---------- 计分音：音调随步骤升高的小筹码音 ---------- */
+function scoreTick61(freq) {
+try {
+if (typeof AU === "undefined" || !AU || !AU.ctx || AU.muted || AU.sfxMuted) return;
+AU.tone(freq, AU.ctx.currentTime, 0.06, "square", 0.05);
+} catch (e) {}
+}
+function scoreNoise61() {
+try {
+if (typeof AU === "undefined" || !AU || !AU.ctx || AU.muted || AU.sfxMuted) return;
+AU.noiseAt(AU.ctx.currentTime, 0.03, 0.045, 2400, 1500);
+} catch (e) {}
+}
+/* ---------- 出招包装：先演结算，再走原出招 ---------- */
+var scoreAnim61 = false;
+var _doAttack61 = doAttack;
+doAttack = function() {
+if (scoreAnim61) return;
+if (typeof S === "undefined" || !S || S.busy || S.over || !S.enemy || S.stunnedThisTurn) { _doAttack61(); return; }
+if (typeof REDUCED_MOTION !== "undefined" && REDUCED_MOTION) { _doAttack61(); return; }
+var df = $("dsp-formula"), dd = $("dsp-dmg"), pd = $("pv-dmg");
+var m = df && df.textContent ? df.textContent.match(/筹码\s*(\d+)\s*×\s*乘数\s*([\d.]+)/) : null;
+var dmg = dd ? parseInt(dd.textContent, 10) : NaN;
+if (!m || !isFinite(dmg) || dmg <= 0) { _doAttack61(); return; }
+var chips = parseInt(m[1], 10), multStr = m[2];
+var tray = $("dice-tray");
+var diceEls = tray ? Array.prototype.slice.call(tray.querySelectorAll(".die")) : [];
+var bar = $("charm-bar");
+var charmEls = bar ? Array.prototype.slice.call(bar.querySelectorAll(".charm-slot:not(.empty-slot)")) : [];
+if (!diceEls.length) { _doAttack61(); return; }
+scoreAnim61 = true;
+S.busy = true;
+var atkBtn = $("btn-attack"); if (atkBtn) atkBtn.disabled = true;
+var fired = false;
+function fire() {
+if (fired) return; fired = true;
+scoreAnim61 = false;
+S.busy = false;
+if (atkBtn) atkBtn.disabled = false;
+if (dd) dd.classList.remove("score-fire61");
+if (pd) pd.classList.remove("score-fire61");
+try { if (dmg >= 80 && window.sfx) sfx("boom"); } catch (e) {}
+try { if (typeof fxShake === "function") fxShake(); } catch (e) {}
+_doAttack61();
+}
+function setCounter(v) {
+if (dd) { dd.textContent = v; dd.classList.remove("score-bump61"); void dd.offsetWidth; dd.classList.add("score-bump61"); }
+if (pd) pd.textContent = v;
+}
+function setChips(c) {
+if (df) df.textContent = "筹码 " + c + " × 乘数 " + multStr + " = " + Math.round(c * parseFloat(multStr));
+}
+var steps = [];
+var nD = diceEls.length, nC = charmEls.length;
+var dieStep = 140, charmStep = nC > 1 ? Math.min(160, Math.floor(830 / (nC - 1))) : 160;
+var t = 150, totalSteps = nD + Math.max(nC, 1), stepIdx = 0;
+function bump() {
+stepIdx++;
+var f = totalSteps ? stepIdx / totalSteps : 1;
+setCounter(Math.round(dmg * Math.sqrt(f)));
+}
+var i, el;
+for (i = 0; i < nD; i++) (function(idx, tt) {
+steps.push(setTimeout(function() {
+var tray2 = $("dice-tray");
+var el2 = tray2 ? tray2.querySelectorAll(".die")[idx] : null;
+if (el2) { el2.classList.remove("score-hop61"); void el2.offsetWidth; el2.classList.add("score-hop61"); }
+scoreTick61(520 + idx * 55); scoreNoise61();
+setChips(Math.round(chips * (idx + 1) / nD));
+bump();
+}, tt));
+})(i, t + i * dieStep);
+t += (nD - 1) * dieStep + 330;
+if (nC) {
+for (i = 0; i < nC; i++) (function(idx, tt) {
+steps.push(setTimeout(function() {
+var bar2 = $("charm-bar");
+var el2 = bar2 ? bar2.querySelectorAll(".charm-slot:not(.empty-slot)")[idx] : null;
+if (el2) { el2.classList.remove("score-pop61"); void el2.offsetWidth; el2.classList.add("score-pop61"); }
+scoreTick61(880 + idx * 70);
+setChips(chips);
+bump();
+}, tt));
+})(i, t + i * charmStep);
+t += (nC - 1) * charmStep + 340;
+} else {
+steps.push(setTimeout(function() { scoreTick61(980); setChips(chips); bump(); }, t));
+t += 300;
+}
+/* 蓄力：总伤害冒火变大，低音爬升 */
+steps.push(setTimeout(function() {
+if (dd) dd.classList.add("score-fire61");
+if (pd) pd.classList.add("score-fire61");
+setCounter(dmg);
+try {
+if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) AU.tone(160, AU.ctx.currentTime, 0.46, "sawtooth", 0.04, 660);
+} catch (e) {}
+}, t));
+steps.push(setTimeout(fire, t + 500));
+/* 兜底：万一某个定时器丢了，3.4 秒内必须把这一击打出去 */
+steps.push(setTimeout(fire, 3400));
 };
 </script>
 </body>
