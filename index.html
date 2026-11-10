@@ -1660,6 +1660,7 @@ body{overscroll-behavior:none}
 <span class="bt-charms-lbl"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA8CAYAAADFXvyQAAAAnUlEQVR4nO3QsQ2AMAxFQUagoKVmABZnDLagZQuYIEWURLbgnvRbS75p6tQyr0+m9fqrW9EggAABApRp6SDu60y1MDhAgAABAvQDoGPfqgYIECBAgAABAgQIECBAgNqBRg8QIECAAAEaB1S6M/o+IECAAAEC1P7A6AECBAgQIECAAAECBAjQl4Bq4aIWBlEqGgQQIECAMi3aQ5Kk+F7bKBFZ/4XfkQAAAABJRU5ErkJggg==> 符咒 <b id="bt-charm-count">0 / 8</b></span>
 <div class="charm-bar" id="charm-bar"></div>
 </div>
+<div class="fever63" id="fever63"><span class="fever63-lbl"><img class=pxi src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABCCAYAAAD0dpAhAAAA3UlEQVR4nO3WsVHFMBBAwV8CASkxBZBRyq+SkugEEofSvBEYjM2+mct1m5xut4N6fHj6GM1R7/lzAYoARYAiQBGgrRnE+/11OP8ODlAEKAIUAYoART8NdHpQQBGgCFAEKAK0tQqxCnT6bwGgCFAEKAIUAYpWF3t7eR7O6SFmAYoARYAiQBGgrb0gAAECNAxQBCgCFM0eurowIECAhgGKAEWAdoa47PkHBAgQIEAXAtrrzK8OIECAAAEC9Ptwp4eYBSgCFAGKAEWAvthsgb3m6P2+HaAIUAQoAhRdFegTMNxt6zpq+7gAAAAASUVORK5CYII=> 狂热</span><div class="fever63-track"><i id="fever63-fill"></i></div><b id="fever63-num">0 / 30</b></div>
 <div class="charm-detail" id="charm-detail" hidden></div>
 </div>
 <div class="arena" id="arena">
@@ -1825,7 +1826,7 @@ body{overscroll-behavior:none}
 </table>
 <p class="sub" style="margin-top:10px">特殊骰：火骰（点数 6 时 +5 筹码）· 毒骰（点数 1 时给敌人上 2 层毒）· 冰骰（偶数点 +2 护甲）· 水骰（偶数点 +4 筹码）· 土骰（点数 ≥4 时 +2 护甲）· 暗骰（点数 1 时 +10 筹码）· 光骰（奇数点 +3 筹码）· 灌铅骰（更容易摇出大点数）· 百变骰（结算时自动当最合适的点数）。保底：连续两回合没打出三条以上，下一摇必出一颗 6。</p>
 <p class="sub" style="margin-top:6px"><b>元素克制：</b>特殊骰带元素（金木水火土冰光暗），敌人也有属性。克制关系：金克木、木克土、土克水、水克火、火克金、冰克火、光克暗、暗克光。每颗克制敌人属性的骰子，让本次伤害 +2% × 元素强化等级（用「元素精华」升级，奖励、商店、跳过奖励都能拿到）。<b>嘲讽反击：</b>你每次对敌人造成伤害，敌人都会立刻反击（2 + 层数点，可被护甲挡下）并出言嘲讽，然后才轮到敌人回合——别贪刀，先留护甲。</p>
-<p class="sub" style="margin-top:6px"><b>奖励可反悔：</b>所有奖励在真正确认之前都可以返回再想想——点数核心 / 祝福点开只是先看，选完目标或点随机才算确认，之前点「先不选」就原样返回；抽符咒翻卡前可以取消，换骰 / 移骰点下骰子前可以返回重选那三张奖励牌；商店里取消会当场退钱。只是想查看效果，完全不会被坑。<b>元素精华面板：</b>战斗界面下方有专门的元素精华面板（等级条 Lv.1–6、每颗克制骰 +2%×等级、当前对敌克制骰数量），顶部状态栏也常驻显示元素等级。<b>骰子数量：</b>骰子数量只通过骰灵牌调整——「增骰」+1（上限 8 颗）、「灭骰」−1（下限 3 颗）；战斗奖励三选一不再增减骰数，原来的「骰子扩编 / 骰子精简」已替换为「重摇核心」（每回合重摇 +1）和「锻造材料包」（随机材料 ×2），避免和骰灵牌与流派构筑冲突。每次三选一还有 1 次免费刷新机会。按骰数计分的符咒联动不变：「骰海符」（每颗骰乘数 +1）、「骰潮符」（多于 5 颗时每多 1 颗 +7 筹码）、「精锐符」（少于 5 颗时每少 1 颗乘数 +3）——骰子数量本身就是一条流派。组合判定已适配多颗骰子（6 颗同点按五条计、双三条按葫芦计、任意 5 连点按大顺计）。<b>单骰强化：</b>战斗奖励会随机刷出「单骰强化」——随机指定你的一颗骰子装上共鸣核心（出招 +6 筹码）/ 重锤纹（按该骰点数 ×2 加筹码）/ 六感纹（35% 概率直接定格上限点数，更容易出 6）/ 乘子纹（该骰点数 ≥5 时乘数 +1，至多 +2）之一；奖励仍是全随机三选一。<b>强度匹配与 TTK：</b>Boss 生命与攻击意图翻倍，玩家生命 100 起（角色不同有增减，见选人界面）；所有敌人与掠夺战路人的强度都按你当前的构筑（用你的骰组实测出的期望伤害）动态匹配——普通敌人约能扛你 3 次平均出招、精英约 5 次、Boss 7 次以上，构筑越强敌人越厚，一招秒基本绝迹；满血时战斗奖励与跳过奖励不再刷疗伤类选项。</p>
+<p class="sub" style="margin-top:6px"><b>奖励可反悔：</b>所有奖励在真正确认之前都可以返回再想想——点数核心 / 祝福点开只是先看，选完目标或点随机才算确认，之前点「先不选」就原样返回；抽符咒翻卡前可以取消，换骰 / 移骰点下骰子前可以返回重选那三张奖励牌；商店里取消会当场退钱。只是想查看效果，完全不会被坑。<b>元素精华面板：</b>战斗界面下方有专门的元素精华面板（等级条 Lv.1–6、每颗克制骰 +2%×等级、当前对敌克制骰数量），顶部状态栏也常驻显示元素等级。<b>骰子数量：</b>骰子数量只通过骰灵牌调整——「增骰」+1（上限 8 颗）、「灭骰」−1（下限 3 颗）；战斗奖励三选一不再增减骰数，原来的「骰子扩编 / 骰子精简」已替换为「重摇核心」（每回合重摇 +1）和「锻造材料包」（随机材料 ×2），避免和骰灵牌与流派构筑冲突。每次三选一还有 1 次免费刷新机会。按骰数计分的符咒联动不变：「骰海符」（每颗骰乘数 +1）、「骰潮符」（多于 5 颗时每多 1 颗 +7 筹码）、「精锐符」（少于 5 颗时每少 1 颗乘数 +3）——骰子数量本身就是一条流派。组合判定已适配多颗骰子（6 颗同点按五条计、双三条按葫芦计、任意 5 连点按大顺计）。<b>单骰强化：</b>战斗奖励会随机刷出「单骰强化」——随机指定你的一颗骰子装上共鸣核心（出招 +6 筹码）/ 重锤纹（按该骰点数 ×2 加筹码）/ 六感纹（35% 概率直接定格上限点数，更容易出 6）/ 乘子纹（该骰点数 ≥5 时乘数 +1，至多 +2）之一；奖励仍是全随机三选一。<b>强度匹配与 TTK：</b>Boss 生命与攻击意图翻倍，玩家生命 100 起（角色不同有增减，见选人界面）；所有敌人与掠夺战路人的强度都按你当前的构筑（用你的骰组实测出的期望伤害）动态匹配——普通敌人约扛 2.15 次平均出招、精英约 3.4 次、Boss 约 5.2 次，构筑越强敌人越厚；匹配按平均伤害算，天胡一手（五条 + 金骰 + 狂热）照样能秒，伤害数字永远全额显示不按剩余血量截断，击杀溢出的部分按 200:1 折进狂热槽（单次上限 +10）；满血时战斗奖励与跳过奖励不再刷疗伤类选项。</p>
 <p class="sub" style="margin-top:6px"><b>祝福（原星球牌）：</b>每个牌型可永久升级，每级按牌型增加筹码与乘数 +1，上方「强化」栏会显示等级。<b>点数强化：</b>某个点数每颗额外 +筹码，摇到越多加得越多。<b>强化改自选：</b>跳过奖励、战斗奖励、商店、休息冥想、奇遇和战利品里的祝福 / 点数强化都不再随机发放——每次都会让你二选一：<b>自己指定</b>一个牌型或点数，只 +1 份，精准；或<b>保留随机</b>，随机到的那个直接 +2 份，量翻倍但不能挑。元素强化等级、重摇次数、诅咒命中率这类只有一个总等级、无从指定的，仍是确定 +1。<b>符咒收藏：</b>点右上角「符咒收藏」查看全部符咒卡牌，可花 14 金币复制一张（效果叠加）、或摧毁一张返 4 金币；「扩界符」让骰子上限 +1（最高 7）、「缩界符」让上限 −1（最低 4，范围窄更容易凑组合）。<b>Boss：</b>每场 Boss 战随机发动一种异能（每回合清空你的护甲 / 夺走符咒 / 封印特殊骰与克制 / 摧毁一颗骰子 / 剥夺一种祝福 / 抢金币）。<b>Boss 二形态：</b>Boss 被你击败的那一刻，有 40% 概率（飞升 5 为 65%）不当场倒下，而是当场变身（有专门的变身过场）满血复活成第二形态继续战斗：随机为血条翻倍、攻击翻倍或元素翻倍（反击翻倍、你的克制加成减半）；每场 Boss 战最多变身一次，没触发就是真的击败了。<b>金币：</b>胜利金币为 5 + 深度加成（精英/Boss 另有加成），利息每 5 金币 +1、上限 5（飞升 4 上限 3）——金币不再溢出，得算着花。<b>跳过：</b>普通战斗可跳过并二选一领取跳过奖励，精英/Boss 不可跳。</p>
 <p class="sub" style="margin-top:6px"><b>符咒顺序计分（小丑牌式）：</b>全游戏共 89 张符咒（新增被动极品「绝境护符」——每场战斗 1 次挡下致命一击留 1 点生命；「嗜血符」——每次攻击按伤害 1% 吸血，至多 3 点；「血怒符」——生命上限越低、当前血量越残，出招乘数越高：上限每低于 80 十点 +12%，已损失生命每 1% 再 +0.6%，薄血残血流的核心符，和献祭/血契压上限是天作之合，和回上限奖励则互相拆台）。出招时先算组合的（筹码 × 乘数），再让符咒<b>按持有顺序从左到右逐张结算</b>：加筹码、加乘数的符放在前面，翻倍符（倍增符 ×2、琉璃符 ×3、豹子王、先手符）放在后面，前面攒的乘数会被一起翻倍——同一套符咒，顺序不同，伤害能差出一大截。在「符咒收藏」里用左右箭头调位；「镜像符」会复制它左边相邻符咒的计分效果，所以把它放在大符咒右边。「琉璃符」乘数 ×3 但每次出招有 1/4 概率碎裂。</p>
 <p class="sub" style="margin-top:6px"><b>黑店赌局：</b>商店里可和老板对赌，注额完全自定义（多少钱都行），赢了的奖金留在手里可以接着押（还有「乘胜追击」），不是一赌一结——骰盅对决（老板先摇先开，你再自己摇盅、想摇几次摇几次、自己开盅，3 颗比总点赢赔双倍）、21 点（逐张发牌动画、老板一张暗牌，要牌/停牌/双倍，Blackjack 赔 2.5 倍）、德州扑克（你的底牌由你亲手翻：慢慢搓开或直接全开，公共牌逐张亮出，可跟进、加注唬人或弃牌，7 选 5 完整牌型）。老板会说话：你赢了他酸你，你输了他损你，你没钱了他会嘲讽你——没钱又不服气，可以在赌场当铺把骰子和符咒按购买价的 60% 低价卖给他换赌本（骰子至少留 3 颗）。<b>生命上限交易：</b>祭坛、血月和「血契摊」都不再扣当前生命，而是永久扣/加生命上限：例如 -10 上限换骰子计分最终伤害 ×2（高攻低防），或 +14 上限换计分 ×0.8（高防低攻）。<b>业力与 Debuff：</b>抢劫或对战掠夺其他创塔者会涨业力（每次 +15%~20%）；战斗中每回合开始按业力概率掷骰，Boss 可借业力给你挂上元素 Debuff（火=流血、冰=眩晕、水=迟缓、木=缠毒、金=破甲、土=重压、光=致盲、暗=虚弱诅咒）。Debuff 会显示在你的人物和敌人身上（流血时出牌前人物会泛红滴血），且不会自动消失：只能在完成一层挑战后去商店买精华液（22 金）消除，或在奇遇里找医生付 30 金消除——注意精华液<b>一次只能净化一种效果</b>，身上有几种就得买几次。同行创塔者有很多种：受伤的旅人、妙手医生、锦袍富商、符咒收藏家、元素导师、创塔者阿七……帮他们（给钱、净化、搭手）回报按你的付出和当前层数算，往往物超所值；而所有掠夺（抢旅人的卷轴、抢阿七、劫医生的药箱、抢富商的钱匣、抢收藏家的符咒、抽导师的元素精华，乃至和阿七堂堂正正对战）现在都是<b>掠夺战</b>：和打 Boss 一样在战斗舞台上真打——对方也是创塔者，和你一样掷属性骰、算组合、用自己的符咒（他的骰组和符咒会显示在名牌上），只是带着伤开局：血量不满，还中了流血＋麻痹（眩晕）等 Debuff，流血让他在自己回合开始掉血、麻痹会让他跳过回合。路人的实力随深度整体变强，但每个人开战时还会再掷一次实力：可能比你弱得多（弱小可欺）、势均力敌、深藏不露，甚至是恐怖强敌——开战日志和名牌会给出实力评估，战利品按实力加成（弱小 0.6 倍 → 恐怖 2.2 倍，收藏家抢到的符咒 1~3 张、导师的精华 1~2 级都看对方档位）。赢了照旧掠夺他最值钱的东西并涨业力；<b>输了不会死亡</b>，但反被掠夺：随机掉落一件物品（符咒被抢走 / 一颗骰子被打飞或打碎元素 / 祝福被打散 / 钱袋被扯走 35%），业力 +15%，还会染上一种元素 Debuff。反过来，每次战胜敌人后有 30% 概率出现「元素诅咒仪式」：选一种元素 Debuff 尝试埋给下一个敌人，命中率初始 2%，每次强化 +1%（12 金）。<b>伪装 Boss：</b>奇遇里可能撞上 Boss 伪装的神秘路人，这条路没有绕开的选项——揭穿他之后，他会当场扯下斗篷变身为本幕 Boss 的模样，强制开战。赢了 +40 金币 + 祝福卷轴（自选牌型 +1 级，或随机牌型 +2 级）+ 一张随机极品符咒（史诗，如绝境护符、嗜血符这类被动神符）；输了不死亡，但扣走 70% 金币，并抽 2 张品质随机的符咒。战斗中可以逃跑，但逃跑的代价是【胆小】Debuff：攻击力 -50%、金币全部掉光、生命上限 -10、生命只剩 10 点——塔里讨厌胆小的勇者，连精华液都只肯一次净化它一种效果。<b>符咒卡槽：</b>页面顶部就是小丑牌式卡槽，卡面、稀有度和效果说明都看得见；点两张卡互换位置或直接拖拽换位，计分顺序立刻重算。新符咒「复刻符」会复制前一张符咒的计分效果，摆在强符后面等于白嫖一张。</p>
@@ -12025,6 +12026,673 @@ loadGameFrom = function(i) { _lg62(i); try { plot62(); } catch (e) {} };
 var _sr62 = startRun;
 startRun = function(classId) { _sr62(classId); try { plot62(); } catch (e) {} };
 try { plot62(); } catch (e) {}
+</script>
+<style>
+/* v63: 狂热槽 / 金骰 / 符咒连锁链光 / 逐骰·整手标记 / 里程碑爆点 */
+.fever63{display:flex;align-items:center;gap:8px;margin-top:5px;color:#E8DFC8}
+.fever63-lbl{font-size:11.5px;font-weight:700;white-space:nowrap;color:#B8AC93}
+.fever63-track{flex:1;height:10px;background:#241B33;border:2px solid #0B0910;box-shadow:inset 0 0 0 1px #3B2D55}
+.fever63-track i{display:block;height:100%;width:0;background:#E05A3A;transition:width .13s ease}
+.fever63.full .fever63-track i{background:#EFC94C}
+.fever63.full .fever63-lbl{color:#EFC94C}
+.fever63 b{font-size:12px;font-variant-numeric:tabular-nums;color:#E8DFC8;white-space:nowrap}
+@keyframes goldFlash63{0%{box-shadow:0 0 0 3px #EFC94C,0 0 22px rgba(239,201,76,.95)}100%{box-shadow:0 0 0 1px rgba(239,201,76,.25)}}
+.die.gold63{animation:goldFlash63 .55s ease;border-color:#EFC94C!important;background:#4A3A10!important}
+.charm-slot.gold63{animation:goldFlash63 .55s ease;border-color:#EFC94C!important}
+@keyframes chainFlow63{0%{box-shadow:-14px 0 0 -4px rgba(239,201,76,0),0 0 0 2px #EFC94C}45%{box-shadow:0 0 18px rgba(239,201,76,.95),0 0 0 3px #EFC94C}100%{box-shadow:14px 0 0 -4px rgba(239,201,76,0),0 0 0 1px rgba(239,201,76,.3)}}
+.charm-slot.chain63{animation:chainFlow63 .38s ease;border-color:#EFC94C!important;z-index:2}
+@keyframes burst63{0%{transform:scale(1)}40%{transform:scale(1.38)}100%{transform:scale(1)}}
+.score-burst63{display:inline-block;animation:burst63 .3s ease;color:#EFC94C!important}
+.cs-scope63{position:absolute;right:2px;bottom:1px;font-size:8px;line-height:1;color:#B8AC93;letter-spacing:.02em}
+.battle-topbar .charm-slot{position:relative}
+@media (prefers-reduced-motion: reduce){.die.gold63,.charm-slot.gold63,.charm-slot.chain63,.score-burst63{animation:none!important}.fever63-track i{transition:none}}
+</style>
+<script>
+"use strict";
+/* ================= v63：六种计分链全上（逐骰 / 两类符咒 / 重触发 / 牌型共鸣 / 符咒连锁 / 狂热槽 + 里程碑金骰） =================
+做法（老哥定版：先让玩家爽，数值不砍，敌人血量按真实伤害找补）：
+- computeAttack 最外层再包一层：先走完原有全部结算拿到基础伤害 a.dmg，
+  再由 buildPlan63() 按当前手牌「确定性」地排出一条计分链（逐骰 tick、
+  逐骰符咒连响、整手符咒、6/钢/朱印重触发、相邻符咒连锁 +50%、牌型
+  按等级共鸣回响、金骰翻倍、狂热固定加分），链条加成直接进 a.dmg，
+  所以预览（renderPreview 与骰侧面板同源）与实战天然一致。
+- 金骰选点：种子局用种子码 + 本手签名派生（不消耗种子主流，预览
+  反复重算结果不变；同一种子同一手必出金在同一跳）；非种子局用
+  本手签名哈希，同样保证预览 = 实战。
+- 狂热槽 S.fever63：一局内跨回合、跨战斗攒（击杀溢出也喂它，见下），
+  每 tick 涨 1 格（牌型 Lv≥4 每 tick +1、≥7 再 +1），满 30 本轮触发：
+  剩余 tick 提速一倍、音调升八度，结算末尾加本轮总伤害 15% 的固定
+  加分（只加一次），触发后清零。老存档没有这个字段时缺省 0。
+- 动画：接管 v61 的出招包装，按 plan.ticks 逐跳播放（音调 520Hz 起
+  每 tick +30 上限 1200，间隔 90ms→40ms 随链长加速，狂热段再减半；
+  每 10 跳亮音；里程碑 500/1000/2000/5000 只叮+爆不加伤；最后总伤
+  害冒火 + 重击音），播完才走原 doAttack 结算一次（与 v61 相同）。
+- 敌人血量（scaledEnemy）：改按「真实每回合伤害」算——用 computeAttack
+  本身蒙特卡洛实测当前 build 的平均一击（含全部链条），血量 =
+  max(深度公式血量, 真实伤害 × 锚点 2.15/3.4/5.2)，删掉原来
+  800/1200/2400 的死上限，只留 999999 防 bug 上限。
+- 击杀溢出：伤害数字永远全额显示（computeAttack 从不按敌人剩余
+  血量截断，预览同样全额）；击杀那一击多出的伤害按 200:1 折成
+  狂热格（单次上限 +10），喂给下一场战斗的狂热槽。 */
+var PERDIE63 = { sixes: 1, odd: 1, even: 1, big: 1, small: 1, wildc: 1, elemc: 1, elemcore46: 1 };
+try { Object.keys(TALISMANS).forEach(function(id) { TALISMANS[id].scope63 = PERDIE63[id] ? "die" : "hand"; }); } catch (e) {}
+function fever63() {
+if (typeof S === "undefined" || !S) return 0;
+var f = S.fever63;
+if (typeof f !== "number" || !isFinite(f)) f = 0;
+S.fever63 = Math.max(0, Math.min(30, Math.floor(f)));
+return S.fever63;
+}
+function perDieChips63(id, d) {
+if (!d) return 0;
+switch (id) {
+case "sixes": return d.face === 6 ? 3 : 0;
+case "odd": return d.face % 2 === 1 ? 2 : 0;
+case "even": return d.face % 2 === 0 ? 2 : 0;
+case "big": return d.face >= 5 ? 3 : 0;
+case "small": return d.face <= 2 ? 4 : 0;
+case "wildc": return d.type === "wild" ? 6 : 0;
+case "elemc": return (DIE_TYPES[d.type] && DIE_TYPES[d.type].element) ? 2 : 0;
+case "elemcore46": var el = DIE_TYPES[d.type] && DIE_TYPES[d.type].element; return (el && typeof S !== "undefined" && S && S.enemy && COUNTERS[el] === S.enemy.element) ? 4 : 0;
+}
+return 0;
+}
+function partDice63(key) {
+var dice = (typeof S !== "undefined" && S && S.dice) || [];
+var faces = dice.map(function(d) { return d.face; });
+var out = dice.map(function(d) { return d.type === "wild"; });
+var counts = {};
+faces.forEach(function(f) { counts[f] = (counts[f] || 0) + 1; });
+var groups = Object.keys(counts).map(function(k) { return { v: +k, n: counts[k] }; }).sort(function(a, b) { return b.n - a.n || b.v - a.v; });
+function markVal(v) { dice.forEach(function(d, i) { if (d.face === v) out[i] = true; }); }
+if (key === "five" || key === "four" || key === "three") { if (groups[0]) markVal(groups[0].v); }
+else if (key === "fullhouse") { out = dice.map(function() { return true; }); }
+else if (key === "twopair") { groups.forEach(function(g) { if (g.n === 2) markVal(g.v); }); }
+else if (key === "pair") { var pr = groups.filter(function(g) { return g.n === 2; })[0]; if (pr) markVal(pr.v); else if (groups[0]) markVal(groups[0].v); }
+else if (key === "bigstr" || key === "smallstr") {
+var uniq = Object.keys(counts).map(Number).sort(function(a, b) { return a - b; });
+var run = null, need = key === "bigstr" ? 5 : 4;
+for (var s0 = 1; s0 <= 3; s0++) { var ok = true; for (var k2 = 0; k2 < need; k2++) if (uniq.indexOf(s0 + k2) < 0) ok = false; if (ok) run = s0; }
+if (run !== null) dice.forEach(function(d, i) { if (d.face >= run && d.face < run + need) out[i] = true; });
+else out = dice.map(function() { return true; });
+}
+else if (key === "high") { markVal(Math.max.apply(null, faces)); }
+else out = dice.map(function() { return true; });
+return out;
+}
+function resolveEff63(idx) {
+var tals = (typeof S !== "undefined" && S && S.talismans) || [];
+var id = tals[idx];
+if (id === "copyPrev") {
+for (var j = idx - 1; j >= 0; j--) { if (tals[j] !== "copyPrev" && tals[j] !== "brainstorm46") return tals[j]; }
+return null;
+}
+if (id === "brainstorm46") {
+var f = tals[0];
+if (f && f !== "brainstorm46" && f !== "copyPrev") return f;
+return null;
+}
+return id;
+}
+function planSig63(key) {
+if (typeof S === "undefined" || !S) return "";
+return S.dice.map(function(d) { return d.type + d.face + (d.steel ? "s" : "") + (d.seal || "") + (d.locked ? "L" : ""); }).join(",") + "|" + (S.talismans || []).join(",") + "|" + key + "|" + (S.turn || 0) + "|" + (S.enemy ? S.enemy.id : "") + "|" + fever63();
+}
+function goldPick63(sig, n) {
+var h;
+if (typeof SEED56 !== "undefined" && SEED56.on) h = seededRng(seedHash56(SEED56.code + "|gold63|" + sig))();
+else h = (hashStr(sig + "|gold63") % 10000) / 10000;
+return Math.floor(h * n);
+}
+function buildPlan63(a) {
+if (!a || !a.combo || !(a.dmg > 0) || typeof S === "undefined" || !S || !S.enemy || !S.dice || !S.dice.length) return null;
+var combo = a.combo, key = combo.key;
+var lv = 1, bb = { chips: 0, mult: 0 };
+try { bb = blessingBonus(key); lv = bb.lv || 1; } catch (e) {}
+var preChips = (combo.chips || 0) + (combo.partSum || 0);
+try { preChips += diceChipBonuses(); } catch (e) {}
+var preMult = combo.mult || 1;
+var parts = partDice63(key);
+var dieChips = S.dice.map(function(d) {
+var c = d.face + ((S.faceBonus && S.faceBonus[d.face]) || 0);
+if (d.buff && d.buff.kind === "chips") c += (d.buff.val || 6);
+if (d.buff && d.buff.kind === "power") c += d.face * 2;
+if (d.seal === "red") c += d.face;
+if (d.dbl) c += d.face;
+if (d.gale) c += d.face;
+return c;
+});
+var slots = (S.talismans || []).map(function(id, idx) {
+var eff = resolveEff63(idx);
+var info = { id: id, eff: eff, triggered: false, effectDmg: 0, matched: [] };
+if (!eff || !TALISMANS[eff]) return info;
+if (PERDIE63[eff]) {
+S.dice.forEach(function(d, i) { var v = perDieChips63(eff, d); if (v > 0 && parts[i]) { info.matched.push(i); info.effectDmg += v * (a.mult || 1); } });
+info.triggered = info.matched.length > 0;
+} else {
+try {
+var st = { chips: preChips, mult: preMult };
+var note = charmApply(eff, st, key);
+if (note) { info.triggered = true; info.effectDmg = Math.max(0, Math.round(st.chips * st.mult - preChips * preMult)); }
+} catch (e) {}
+}
+return info;
+});
+var ticks = [], baseTicks = [];
+function pushBase(tick, weight) { tick.amt = 0; ticks.push(tick); baseTicks.push({ tick: tick, w: weight }); }
+var retriggerCount = 0;
+S.dice.forEach(function(d, i) {
+if (!parts[i]) return;
+pushBase({ kind: "die", die: i }, 3);
+slots.forEach(function(s, idx) { if (PERDIE63[s.eff] && s.matched.indexOf(i) >= 0) pushBase({ kind: "charm", slot: idx, die: i }, 1); });
+if (d.face === 6 || d.steel || d.seal === "red") { ticks.push({ kind: "retrigger", die: i, amt: Math.max(1, Math.round(dieChips[i] * (a.mult || 1))) }); retriggerCount++; }
+});
+slots.forEach(function(s, idx) { if (!PERDIE63[s.eff] && s.triggered) pushBase({ kind: "charm", slot: idx }, 2); });
+var sumW = 0; baseTicks.forEach(function(b) { sumW += b.w; });
+if (!baseTicks.length) { var t0 = { kind: "die", die: 0, amt: a.dmg }; ticks.unshift(t0); baseTicks.push({ tick: t0, w: 1 }); sumW = 1; }
+var assigned = 0;
+baseTicks.forEach(function(b, bi) {
+if (bi === baseTicks.length - 1) b.tick.amt = a.dmg - assigned;
+else { b.tick.amt = Math.floor(a.dmg * b.w / sumW); assigned += b.tick.amt; }
+if (b.tick.amt < 0) b.tick.amt = 0;
+});
+var chainCount = 0;
+for (var ci = 1; ci < slots.length; ci++) {
+if (slots[ci - 1].triggered && slots[ci].triggered && slots[ci].effectDmg > 0) {
+var camt = Math.max(1, Math.floor(slots[ci].effectDmg * 0.5));
+ticks.push({ kind: "chain", slot: ci, amt: camt });
+chainCount++;
+}
+}
+var echoes = lv <= 3 ? 1 : lv <= 6 ? 2 : lv <= 9 ? 3 : 4;
+var perEcho = Math.max(0, Math.round((bb.chips || 0) * (a.mult || 1) + (a.chips || 0) * (bb.mult || 0)));
+if (perEcho > 0) for (var ei = 0; ei < echoes; ei++) ticks.push({ kind: "echo", amt: perEcho });
+else echoes = 0;
+var goldTick = -1, goldExtra = 0;
+var cands = [];
+ticks.forEach(function(t, i) { if (t.amt > 0) cands.push(i); });
+if (cands.length) {
+goldTick = cands[goldPick63(planSig63(key), cands.length) % cands.length];
+goldExtra = ticks[goldTick].amt;
+ticks[goldTick].amt += goldExtra;
+ticks[goldTick].gold = true;
+}
+var subtotal = 0;
+ticks.forEach(function(t) { subtotal += t.amt; });
+var T = ticks.length;
+var gain = 1 + (lv >= 4 ? 1 : 0) + (lv >= 7 ? 1 : 0);
+var fStart = fever63(), fAfter = fStart + T * gain;
+var triggers = fAfter >= 30;
+var feverFrom = triggers ? (fStart >= 30 ? 0 : Math.ceil((30 - fStart) / gain)) : -1;
+var feverBonus = triggers ? Math.floor(subtotal * 0.15) : 0;
+if (feverBonus > 0) ticks.push({ kind: "fever", amt: feverBonus });
+return { ticks: ticks, dmg: subtotal + feverBonus, base: a.dmg, lv: lv, echoes: echoes, perEcho: perEcho, retriggerCount: retriggerCount, chainCount: chainCount, goldTick: goldTick, goldExtra: goldExtra, tickCount: T, gain: gain, feverStart: fStart, feverAfter: fAfter, feverTriggers: triggers, feverFromTick: feverFrom, feverBonus: feverBonus };
+}
+/* ---------- computeAttack 最外层：链条加成进伤害（预览 = 实战） ---------- */
+var _ca63 = computeAttack;
+computeAttack = function() {
+var a = _ca63();
+try {
+if (!a || typeof S === "undefined" || !S || !S.enemy || S.over || !(a.dmg > 0)) return a;
+var plan = buildPlan63(a);
+if (!plan) return a;
+a.score63 = plan;
+a.dmg = plan.dmg;
+var notes = a.notes || (a.notes = []);
+if (plan.goldTick >= 0) notes.push("金骰：第 " + (plan.goldTick + 1) + " 跳翻倍（+" + plan.goldExtra + "）");
+if (plan.retriggerCount) notes.push("连锁重触发 ×" + plan.retriggerCount);
+if (plan.chainCount) notes.push("符咒连锁 ×" + plan.chainCount + "（后符 +50%）");
+if (plan.echoes) notes.push("牌型共鸣 Lv." + plan.lv + " 回响 ×" + plan.echoes);
+if (plan.feverTriggers) notes.unshift("狂热爆发！本轮固定加分 +" + plan.feverBonus + "（总伤害 15%）");
+if (window.__inAttack46 && window.__attack63 && !S.score63Committed) {
+S.score63Committed = true;
+S.fever63 = plan.feverTriggers ? 0 : Math.min(30, plan.feverAfter);
+S.score63LastKill = { net: Math.max(0, plan.dmg - Math.min(S.enemy.armor || 0, plan.dmg)), hpBefore: S.enemy.hp };
+}
+} catch (e) {}
+return a;
+};
+/* ---------- 真实伤害测血量：敌人血量 = max(深度公式, 真实伤害 × 锚点) ---------- */
+function measureReal63(enemyId) {
+if (typeof S === "undefined" || !S || !S.dice || !S.dice.length || !ENEMIES[enemyId]) return (typeof measurePower === "function") ? measurePower() : 50;
+var def = ENEMIES[enemyId];
+var sig = buildSignature() + "|real63|" + enemyId + "|" + fever63() + "|" + (S.depth || 0) + "|" + (S.turn || 0);
+if (S._real63 && S._real63.sig === sig) return S._real63.val;
+var savedDice = S.dice.map(function(d) { return { face: d.face, locked: d.locked }; });
+var savedTurn = S.turn, savedUsed = S.rerollsUsed, savedEnemy = S.enemy, savedFx = S.bossEffect;
+var blindHad = !!(S.debuffs && S.debuffs.indexOf("blind") >= 0);
+if (blindHad) S.debuffs.splice(S.debuffs.indexOf("blind"), 1);
+S.enemy = { id: enemyId, hp: 999999, maxHp: 999999, baseMaxHp: 999999, armor: 0, poison: 0, intents: def.intents, element: def.element, form2: false, formElem: false, formName: "", isBoss: !!def.isBoss };
+S.bossEffect = null;
+S.turn = 2; S.rerollsUsed = 0;
+var rng = seededRng(hashStr(sig));
+var cap = currentCap();
+var total = 0, N = 16;
+for (var it = 0; it < N; it++) {
+S.dice.forEach(function(d) {
+d.locked = false;
+if (d.buff && d.buff.kind === "sixth" && rng() < 0.35) { d.face = cap; return; }
+if (d.type === "loaded") { var arr = [Math.max(1, cap - 3), Math.max(1, cap - 2), Math.max(1, cap - 1), cap, cap, cap]; d.face = arr[Math.floor(rng() * 6)]; }
+else d.face = 1 + Math.floor(rng() * cap);
+});
+var av = 0;
+try { var atk = _ca63 ? computeAttack() : null; av = atk && atk.dmg ? atk.dmg : 0; } catch (e) {}
+total += av;
+}
+S.dice.forEach(function(d, i) { d.face = savedDice[i].face; d.locked = savedDice[i].locked; });
+S.turn = savedTurn; S.rerollsUsed = savedUsed; S.enemy = savedEnemy; S.bossEffect = savedFx;
+if (blindHad && S.debuffs.indexOf("blind") < 0) S.debuffs.push("blind");
+var val = Math.max(10, Math.round(total / N * (blindHad ? 0.85 : 1)));
+S._real63 = { sig: sig, val: val };
+return val;
+}
+var _se63 = scaledEnemy;
+scaledEnemy = function(id, kindHint) {
+var orig = _se63(id, kindHint);
+var def = ENEMIES[id];
+if (!def || typeof S === "undefined" || !S) return orig;
+var depth = S.depth || 0, cyc = (S.actCycle || 1) - 1;
+var isBoss = kindHint ? kindHint === "boss" : (!!def.isBoss || !!(S.node && S.node.kind === "boss" && S.node.enemyId === id));
+var isElite = kindHint ? kindHint === "elite" : !!(S.node && S.node.kind === "elite" && S.node.enemyId === id);
+var depthHp = Math.min(depth, 40) * 0.10 + Math.max(0, depth - 40) * 0.02;
+var hpMul = (1 + depthHp + cyc * 0.55) * ((S.ascension >= 1) ? 1.15 : 1);
+if (isBoss) hpMul *= 1.5;
+var hpBase = Math.round(def.hp * hpMul * 0.88);
+var turns = isBoss ? 5.2 : isElite ? 3.4 : 2.15;
+var real = 0;
+try { real = measureReal63(id); } catch (e) {}
+var hp = Math.max(hpBase, Math.round(real * turns));
+if (!(hp > 0)) hp = hpBase;
+if (hp > 999999) hp = 999999;
+return { hp: hp, intents: orig.intents };
+};
+/* ---------- 击杀溢出 → 狂热（200:1，单次上限 +10） ---------- */
+var _wc63 = winCombat;
+winCombat = function() {
+var lk = (typeof S !== "undefined" && S) ? S.score63LastKill : null;
+_wc63();
+try {
+if (lk && typeof S !== "undefined" && S) {
+S.score63LastKill = null;
+var over = lk.net - lk.hpBefore;
+if (over > 0) {
+var gain = Math.min(10, Math.floor(over / 200));
+if (gain > 0) { S.fever63 = Math.min(30, fever63() + gain); if (typeof log === "function") log(" 击杀溢出 " + over + " 点伤害，按 200:1 折成狂热 +" + gain + " 格，攒给下一场。", "strong"); }
+}
+}
+} catch (e) {}
+};
+var _et63 = enemyTurn;
+enemyTurn = function() { if (typeof S !== "undefined" && S) S.score63LastKill = null; _et63(); };
+var _ct63 = counterAttack;
+counterAttack = function(done) { if (typeof S !== "undefined" && S) S.score63LastKill = null; _ct63(done); };
+var _sb63 = startBattle;
+startBattle = function(id) { if (typeof S !== "undefined" && S) { S.score63Committed = false; S.score63LastKill = null; fever63(); } _sb63(id); };
+var _st63 = startTurn;
+startTurn = function(first) { _st63(first); if (typeof S !== "undefined" && S) { S.score63Committed = false; S.score63LastKill = null; } };
+/* ---------- 狂热槽 UI + 符咒逐骰/整手标记 ---------- */
+function paintFever63(cur) {
+var box = $("fever63"), fill = $("fever63-fill"), num = $("fever63-num");
+if (!box || !fill || !num) return;
+var f = (typeof cur === "number") ? Math.max(0, Math.min(30, Math.floor(cur))) : fever63();
+fill.style.width = (f / 30 * 100) + "%";
+num.textContent = f >= 30 ? "狂热待发！" : f + " / 30";
+box.classList.toggle("full", f >= 30);
+}
+var _ra63 = renderAll;
+renderAll = function() { _ra63(); try { paintFever63(); } catch (e) {} };
+var _rcb63 = renderCharmBar;
+renderCharmBar = function() {
+_rcb63();
+try {
+var bar = $("charm-bar"); if (!bar || typeof S === "undefined" || !S) return;
+var slots = bar.querySelectorAll(".charm-slot:not(.empty-slot)");
+Array.prototype.forEach.call(slots, function(el, idx) {
+var id = (S.talismans || [])[idx]; if (!id || !TALISMANS[id]) return;
+var tag = document.createElement("span");
+tag.className = "cs-scope63";
+tag.textContent = PERDIE63[id] ? "逐骰" : "整手";
+el.appendChild(tag);
+el.title = TALISMANS[id].desc + (PERDIE63[id] ? "（逐骰型：跟着每颗命中的骰子连响）" : "（整手型：每回合结算一次）");
+});
+} catch (e) {}
+};
+/* ---------- 计分链动画（接管 v61 包装，播完才结算） ---------- */
+function tickTone63(freq, bright) {
+try {
+if (typeof AU === "undefined" || !AU || !AU.ctx || AU.muted || AU.sfxMuted) return;
+AU.tone(freq, AU.ctx.currentTime, 0.06, "square", 0.05);
+if (bright) AU.tone(Math.min(2400, freq * 1.5), AU.ctx.currentTime, 0.09, "square", 0.045);
+AU.noiseAt(AU.ctx.currentTime, 0.025, 0.03, 2600, 1700);
+} catch (e) {}
+}
+var scoreAnim63 = false;
+var _da63 = doAttack;
+doAttack = function() {
+if (scoreAnim63) return;
+if (typeof S === "undefined" || !S || S.busy || S.over || !S.enemy || S.stunnedThisTurn) { _da63(); return; }
+if (typeof REDUCED_MOTION !== "undefined" && REDUCED_MOTION) { _da63(); return; }
+var a = null;
+try { a = computeAttack(); } catch (e) {}
+var plan = a && a.score63;
+if (!plan || !plan.ticks || !plan.ticks.length || !(a.dmg > 0)) { _da63(); return; }
+var tray = $("dice-tray"), bar = $("charm-bar");
+var diceEls = tray ? Array.prototype.slice.call(tray.querySelectorAll(".die")) : [];
+var charmEls = bar ? Array.prototype.slice.call(bar.querySelectorAll(".charm-slot:not(.empty-slot)")) : [];
+if (!diceEls.length) { _da63(); return; }
+scoreAnim63 = true;
+S.busy = true;
+var atkBtn = $("btn-attack"); if (atkBtn) atkBtn.disabled = true;
+var dd = $("dsp-dmg"), pd = $("pv-dmg");
+var fired = false, timers = [];
+function finish() {
+if (fired) return; fired = true;
+timers.forEach(function(x) { clearTimeout(x); });
+scoreAnim63 = false;
+S.busy = false;
+if (atkBtn) atkBtn.disabled = false;
+if (dd) dd.classList.remove("score-fire61");
+if (pd) pd.classList.remove("score-fire61");
+var rm = (typeof REDUCED_MOTION !== "undefined") ? REDUCED_MOTION : false;
+try { REDUCED_MOTION = true; _da63(); } catch (e) {}
+try { REDUCED_MOTION = rm; } catch (e) {}
+}
+function setCounter(v) {
+if (dd) { dd.textContent = v; dd.classList.remove("score-bump61"); void dd.offsetWidth; dd.classList.add("score-bump61"); }
+if (pd) pd.textContent = v;
+}
+var ticks = plan.ticks, T = Math.max(1, plan.tickCount);
+var cum = 0, milestones = [500, 1000, 2000, 5000], mi = 0;
+var feverOn = false;
+function step(i) {
+if (fired) return;
+if (i >= ticks.length) {
+if (dd) dd.classList.add("score-fire61");
+if (pd) pd.classList.add("score-fire61");
+setCounter(plan.dmg);
+try { if (typeof AU !== "undefined" && AU) AU.sfx("heavyHit"); } catch (e) {}
+try { if (a.dmg >= 80 && window.sfx) sfx("boom"); } catch (e) {}
+try { fxShake(); } catch (e) {}
+timers.push(setTimeout(finish, 500));
+timers.push(setTimeout(finish, 3400));
+return;
+}
+var tk = ticks[i];
+if (plan.feverFromTick >= 0 && i === plan.feverFromTick && !feverOn) {
+feverOn = true;
+try {
+if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) { var t0 = AU.ctx.currentTime; [523, 659, 784, 1047].forEach(function(f, k) { AU.tone(f, t0 + k * 0.07, 0.16, "square", 0.06); }); }
+} catch (e) {}
+try { paintFever63(30); } catch (e) {}
+var fb = $("fever63"); if (fb) fb.classList.add("full");
+}
+var freq = Math.min(1200, 520 + 30 * i);
+if (feverOn) freq *= 2;
+tickTone63(freq, i % 10 === 9);
+var el = null;
+if (tk.kind === "die" || tk.kind === "retrigger") {
+el = diceEls[tk.die];
+if (el) { el.classList.remove("score-hop61"); void el.offsetWidth; el.classList.add("score-hop61"); }
+if (tk.kind === "retrigger") { try { fxFloat("再打一次！", el, "crit"); } catch (e) {} }
+} else if (tk.kind === "charm" || tk.kind === "chain") {
+el = charmEls[tk.slot];
+if (el) { el.classList.remove("score-pop61"); void el.offsetWidth; el.classList.add("score-pop61"); if (tk.kind === "chain") { el.classList.remove("chain63"); void el.offsetWidth; el.classList.add("chain63"); } }
+} else if (tk.kind === "echo") {
+try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) AU.tone(90, AU.ctx.currentTime, 0.3, "sawtooth", 0.07, 45); } catch (e) {}
+try { fxShake(); } catch (e) {}
+}
+if (tk.gold) {
+if (el) { el.classList.remove("gold63"); void el.offsetWidth; el.classList.add("gold63"); }
+try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) { var tg = AU.ctx.currentTime; AU.tone(1568, tg, 0.08, "square", 0.06); AU.tone(2093, tg + 0.07, 0.16, "square", 0.06); } } catch (e) {}
+}
+cum += tk.amt;
+setCounter(cum);
+while (mi < milestones.length && cum >= milestones[mi]) {
+mi++;
+try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) AU.tone(1568, AU.ctx.currentTime, 0.14, "sine", 0.07); } catch (e) {}
+if (dd) { dd.classList.remove("score-burst63"); void dd.offsetWidth; dd.classList.add("score-burst63"); }
+}
+try { paintFever63(plan.feverTriggers && feverOn ? 30 : plan.feverStart + (i + 1) * plan.gain); } catch (e) {}
+var p = T > 1 ? i / (T - 1) : 1;
+var interval = 90 - 50 * p;
+if (feverOn) interval /= 2;
+if (T > 50) interval *= 50 / T;
+timers.push(setTimeout(function() { step(i + 1); }, Math.max(16, interval)));
+}
+timers.push(setTimeout(function() { step(0); }, 140));
+timers.push(setTimeout(finish, 6000));
+};
+try { window.SCORE63 = { buildPlan: buildPlan63, measureReal: measureReal63, fever: fever63, perDie: PERDIE63 }; } catch (e) {}
+try { fever63(); paintFever63(); } catch (e) {}
+</script>
+<script>
+"use strict";
+/* ================= v63b：狂热落盘加固 + 精英蓄力/变招 + 败者补偿「命运眷顾」 =================
+1) 狂热落盘加固：v63 的狂热推进原本只挂在 computeAttack 的实战标记
+   上，教程战实测没落盘。这里改成双保险：出招前由 doAttack 包装登记
+   本轮计划（_pend63），伤害一落地（renderAll 检测到敌人生命+护甲
+   池下降 / 回合推进 / 敌人消失）就把狂热推进落盘，谁先到都行，
+   score63Committed 保证只落一次。击杀记录也在出招前登记，溢出折
+   狂热不再依赖实战标记。
+2) 精英蓄力 + 半血变招（只对精英节点，Boss 不用这套）：
+   - 蓄力：第 3 / 6 / 9… 回合开始时精英亮出蓄力意图（敌人名牌红字
+     徽章 + 意图行明示 + 日志），它下回合的意图效果翻强（攻击
+     ×1.8 / 护甲 ×2），敌人行动后恢复原值。玩家有一整回合叠甲、
+     爆发或用道具应对。
+   - 变招：精英生命首次降到一半以下时变一次招（二选一：护甲
+     +15% 最大生命，或意图表反转且首个攻击意图 +3），日志与名牌
+     都会标明。只是小一号的变化，绝不是满血复活——那是 Boss
+     二形态的专利。
+3) 命运眷顾（败者补偿）：同一个 Boss（按区域/村/层 + 敌人 id 存
+   档键）连败计数存 localStorage（dice-spire-bosspity-v1）。连败
+   2 次后，第三次挑战该 Boss 开局生命 -10%，并在日志里以「命运
+   眷顾」明示；补偿只生效一次、用后计数清零、不叠加；打赢任意
+   一次该 Boss，计数同样清零。 */
+/* ---------- 狂热落盘：出招登记 + renderAll 检测 ---------- */
+var _da63b = doAttack;
+doAttack = function() {
+try {
+if (typeof S !== "undefined" && S && !S.busy && !S.over && S.enemy && !S.stunnedThisTurn && !S._pend63) {
+var a = computeAttack();
+var pl = a && a.score63;
+if (pl && a.dmg > 0) {
+S._pend63 = { pool: S.enemy.hp + (S.enemy.armor || 0), turn: S.turn, battle: S._battle63 || 0, triggers: pl.feverTriggers, after: pl.feverAfter };
+S.score63LastKill = { net: Math.max(0, pl.dmg - Math.min(S.enemy.armor || 0, pl.dmg)), hpBefore: S.enemy.hp };
+}
+}
+} catch (e) {}
+_da63b();
+};
+/* ---------- 精英 / Boss 战场状态 ---------- */
+var PITY63_KEY = "dice-spire-bosspity-v1";
+function pityLoad63() { try { var r = localStorage.getItem(PITY63_KEY); var o = r ? JSON.parse(r) : {}; return (o && typeof o === "object" && !Array.isArray(o)) ? o : {}; } catch (e) { return {}; } }
+function pitySave63(o) { try { localStorage.setItem(PITY63_KEY, JSON.stringify(o)); } catch (e) {} }
+function bossKey63() {
+if (typeof S === "undefined" || !S || !S.enemy) return null;
+var id = S.enemy.id;
+if (S.mode === "endless") return "en" + (S.endlessWave || 1) + "|" + id;
+if (S.region === "village") return "v" + (S.village || 1) + "t" + (S.tier || 0) + "|" + id;
+if (S.region === "tower") return "tw" + (S.towerFloor || 1) + "|" + id;
+if (S.region === "summit") return "sm|" + id;
+return "x|" + id;
+}
+var _sb63b = startBattle;
+startBattle = function(id) {
+_sb63b(id);
+try {
+if (typeof S === "undefined" || !S) return;
+S._pend63 = null;
+S.elite63 = (S.node && S.node.kind === "elite" && S.enemy && !S.tutorial && !S.robbery) ? { armed: false, phase: false, scaledIt: null, scaledV: 0 } : null;
+S.bossKey63 = (S.node && S.node.kind === "boss" && S.enemy) ? bossKey63() : null;
+if (S.bossKey63 && S.enemy.hp > 1) {
+var store = pityLoad63();
+if ((store[S.bossKey63] || 0) >= 2) {
+var cut = S.enemy.maxHp - Math.ceil(S.enemy.maxHp * 0.9);
+if (cut > 0) {
+S.enemy.hp -= cut;
+if (typeof log === "function") log(" 命运眷顾：命运记着你与【" + ENEMIES[S.enemy.id].name + "】的两次败绩——这一次，它开局生命 -10%（-" + cut + " 点，只此一次）。", "strong");
+}
+store[S.bossKey63] = 0;
+pitySave63(store);
+renderAll();
+}
+}
+} catch (e) {}
+};
+/* ---------- 精英蓄力：回合开始亮意图，敌人行动后恢复 ---------- */
+var _st63b = startTurn;
+startTurn = function(first) {
+_st63b(first);
+try {
+if (typeof S === "undefined" || !S) return;
+if (S._pend63 && S.score63Committed) S._pend63 = null;
+} catch (e) {}
+};
+var _et63b = enemyTurn;
+enemyTurn = function() {
+_et63b();
+try {
+var e = (typeof S !== "undefined" && S) ? S.elite63 : null;
+if (e && e.armed && e.scaledIt) {
+e.scaledIt.v = e.scaledV;
+e.armed = false; e.scaledIt = null;
+renderAll();
+}
+} catch (e) {}
+};
+/* ---------- 精英名牌：蓄力 / 变招都要看得见 ---------- */
+var _re63b = renderEnemy;
+renderEnemy = function() {
+_re63b();
+try {
+if (typeof S === "undefined" || !S || !S.enemy) return;
+var e = S.elite63; if (!e) return;
+var badges = $("enemy-badges"); if (!badges) return;
+if (e.armed) {
+badges.innerHTML += '<span class="badge bossfx">精英蓄力：下回合重击（意图已变强）——叠甲 / 爆发 / 用道具应对</span>';
+var intEl = $("enemy-intent");
+if (intEl) intEl.innerHTML += ' <b style="color:#E05A3A">蓄力中，下回合重击！</b>';
+}
+if (e.phase) badges.innerHTML += '<span class="badge bossfx">精英已变招（半血）</span>';
+} catch (e) {}
+};
+/* ---------- renderAll：狂热落盘检测 + 精英半血变招 ---------- */
+var _ra63b = renderAll;
+renderAll = function() {
+_ra63b();
+try {
+if (typeof S === "undefined" || !S) return;
+var p = S._pend63;
+if (p && !S.score63Committed) {
+var pool = S.enemy ? (S.enemy.hp + (S.enemy.armor || 0)) : -1;
+if (pool < p.pool && p.battle === (S._battle63 || 0)) {
+S.score63Committed = true;
+S.fever63 = p.triggers ? 0 : Math.min(30, p.after);
+S._pend63 = null;
+if (typeof paintFever63 === "function") paintFever63();
+}
+}
+var e = S.elite63;
+if (e && S.enemy && !S.over && !e.armed && (S.turn || 0) > 0 && (S.turn || 0) % 3 === 0) {
+var its0 = S.enemy.intents || [];
+if (its0.length) {
+var ix0 = (S.intentIdx || 0) % its0.length;
+var it0 = its0[ix0];
+e.armed = true; e.scaledIt = it0; e.scaledV = it0.v;
+if (it0.t.indexOf("atk") === 0) it0.v = Math.max(1, Math.round(it0.v * 1.8));
+else it0.v = it0.v * 2;
+if (typeof log === "function") log(" 【精英蓄力】" + ENEMIES[S.enemy.id].name + " 摆开架势开始蓄力——下回合将使出重击（意图已变强）！这一回合：叠甲、爆发，或用道具应对。", "bad");
+renderEnemy();
+}
+}
+if (e && !e.phase && S.enemy && !S.over && S.enemy.hp > 0 && S.enemy.maxHp > 0 && S.enemy.hp <= S.enemy.maxHp / 2) {
+e.phase = true;
+if (R() < 0.5) {
+var arm = Math.max(4, Math.round(S.enemy.maxHp * 0.15));
+S.enemy.armor = (S.enemy.armor || 0) + arm;
+if (typeof log === "function") log(" 【精英变招】" + ENEMIES[S.enemy.id].name + " 半血变招：披甲自保，护甲 +" + arm + "。", "bad");
+} else {
+var its2 = S.enemy.intents || [];
+if (its2.length > 1) { its2.reverse(); var f0 = its2[0]; if (f0 && f0.t.indexOf("atk") === 0) f0.v += 3; }
+if (typeof log === "function") log(" 【精英变招】" + ENEMIES[S.enemy.id].name + " 半血变招：换了一套招式——看好新的意图再出手。", "bad");
+}
+renderEnemy();
+}
+} catch (e) {}
+};
+/* ---------- 命运眷顾：败绩计数 / 胜利清零 ---------- */
+var _go63b = gameOver;
+gameOver = function(won) {
+try {
+if (!won && typeof S !== "undefined" && S && !S.over && S.bossKey63) {
+var st = pityLoad63();
+st[S.bossKey63] = Math.min(2, (st[S.bossKey63] || 0) + 1);
+pitySave63(st);
+}
+} catch (e) {}
+_go63b(won);
+};
+var _wc63b = winCombat;
+winCombat = function() {
+try {
+if (typeof S !== "undefined" && S && S.bossKey63 && S.enemy && S.enemy.isBoss) {
+var st = pityLoad63();
+if (st[S.bossKey63]) { st[S.bossKey63] = 0; pitySave63(st); }
+}
+} catch (e) {}
+_wc63b();
+};
+</script>
+<script>
+"use strict";
+/* ================= v63c：出招按钮重绑（与 v57 修主菜单按钮同一类问题） =================
+主脚本里 $("btn-attack").addEventListener("click", doAttack) 是在所有
+包装脚本之前绑定的，抓的是最原始的 doAttack 函数对象——按钮点击会
+绕过此后每一层 doAttack 包装（v46 的实战标记、v61 的计分动画、
+v63 的链条动画与狂热落盘全都不会触发，伤害靠 computeAttack 的
+全局包装才显得正常）。探针实测：点击瞬间敌人血量已经扣完，动画
+从未播放。按 v57 修 btn-again / btn-restart-top 的同款办法：克隆
+按钮剥掉旧监听，重绑为调用当前全局 doAttack。 */
+(function() {
+var el = $("btn-attack");
+if (!el || !el.parentNode) return;
+var nb = el.cloneNode(true);
+el.parentNode.replaceChild(nb, el);
+nb.addEventListener("click", function() { doAttack(); });
+})();
+</script>
+<script>
+"use strict";
+/* ================= v63d：狂热提交收口（预览 == 实战的结构保证） =================
+探针实测抓到预览 != 实战：狂热待触发的一手，预览含狂热加分，
+实打却没有——伤害在基础攻击重算前，狂热值已被提前清零；跨场
+还出现过陈旧登记在下一场误落盘。最终修法是把提交收成一条路：
+1) computeAttack 里的实战提交（12249 行）加 __attack63 门，而
+   这道门在本段里永不置真——该路径就此退役（保留代码与注释，
+   防止以后有人再打开它造成双路提交）。
+2) 唯一提交路径 = v63b 的 pend63 登记提交：出招时登记本轮计划
+   （带战斗序号 _battle63），只有在同一场战斗里、敌人生命+护甲
+   池真的下降（= 本次伤害落地）后的 renderAll 才落盘。基础攻击
+   计算伤害时狂热值无人能动，实打必然等于点击时的计划 = 预览。
+3) 每次真实出招先把 score63Committed 复位，保证抢劫战这类不走
+   startBattle/startTurn 的战斗也能正常落盘；新战斗开始时作废
+   上一场没消费的登记，杜绝跨场误触发。 */
+window.__attack63 = false;
+var _da63d = doAttack;
+doAttack = function() {
+try {
+if (typeof S !== "undefined" && S && !S.busy && !S.over && S.enemy && !S.stunnedThisTurn) S.score63Committed = false;
+} catch (e) {}
+_da63d();
+};
+var _st63d = startTurn;
+startTurn = function(first) { window.__attack63 = false; _st63d(first); };
+var _sb63d = startBattle;
+startBattle = function(id) {
+window.__attack63 = false;
+try { if (typeof S !== "undefined" && S) { S._battle63 = (S._battle63 || 0) + 1; S._pend63 = null; } } catch (e) {}
+_sb63d(id);
+};
 </script>
 </body>
 </html>
