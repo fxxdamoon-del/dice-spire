@@ -12451,6 +12451,7 @@ var charmEls = bar ? Array.prototype.slice.call(bar.querySelectorAll(".charm-slo
 if (!diceEls.length) { _da63(); return; }
 scoreAnim63 = true;
 S.busy = true;
+try { centerStart69(); } catch (e) {}
 var atkBtn = $("btn-attack"); if (atkBtn) atkBtn.disabled = true;
 var dd = $("dsp-dmg"), pd = $("pv-dmg");
 var fired = false, timers = [];
@@ -12462,6 +12463,7 @@ S.busy = false;
 if (atkBtn) atkBtn.disabled = false;
 if (dd) dd.classList.remove("score-fire61");
 if (pd) pd.classList.remove("score-fire61");
+try { centerEnd69(); } catch (e) {}
 var rm = (typeof REDUCED_MOTION !== "undefined") ? REDUCED_MOTION : false;
 try { REDUCED_MOTION = true; _da63(); } catch (e) {}
 try { REDUCED_MOTION = rm; } catch (e) {}
@@ -12479,6 +12481,7 @@ if (i >= ticks.length) {
 if (dd) dd.classList.add("score-fire61");
 if (pd) pd.classList.add("score-fire61");
 setCounter(plan.dmg);
+try { centerSlam69(plan.dmg); } catch (e) {}
 try { if (typeof AU !== "undefined" && AU) AU.sfx("heavyHit"); } catch (e) {}
 try { if (a.dmg >= 80 && window.sfx) sfx("boom"); } catch (e) {}
 try { fxShake(); } catch (e) {}
@@ -12531,6 +12534,7 @@ try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted
 }
 cum += tk.amt;
 setCounter(cum);
+try { centerTick69(tk, cum, feverOn, i); } catch (e) {}
 while (mi < milestones.length && cum >= milestones[mi]) {
 mi++;
 try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) AU.tone(1568, AU.ctx.currentTime, 0.14, "sine", 0.07); } catch (e) {}
@@ -12911,6 +12915,96 @@ text = text.replace(/\d{9,}/g, function(m0) { return fmtBig68(parseInt(m0, 10));
 } catch (e) {}
 return _fx68(text, targetEl, cls);
 };
+</script>
+<style>
+/* v69: 中央蹦分——计分链动画时，战斗舞台正中央蹦分 + 累计总分常驻 */
+#center-pop69{position:absolute;inset:0;pointer-events:none;z-index:30;display:none}
+#center-pop69.on{display:block}
+#cp-total69{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-weight:900;font-size:48px;line-height:1;color:#EFC94C;white-space:nowrap;text-shadow:3px 0 0 #0B0910,-3px 0 0 #0B0910,0 3px 0 #0B0910,0 -3px 0 #0B0910,3px 3px 0 #0B0910,-3px -3px 0 #0B0910,-3px 3px 0 #0B0910,3px -3px 0 #0B0910,0 12px 24px rgba(11,9,16,.6)}
+#cp-total69.bump69{animation:cpBump69 .18s ease}
+@keyframes cpBump69{0%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-60%) scale(1.15)}100%{transform:translate(-50%,-50%) scale(1)}}
+#cp-total69.slam69{animation:cpSlam69 .45s cubic-bezier(.2,1.6,.35,1) forwards;color:#FFD968;text-shadow:3px 0 0 #0B0910,-3px 0 0 #0B0910,0 3px 0 #0B0910,0 -3px 0 #0B0910,3px 3px 0 #0B0910,-3px -3px 0 #0B0910,-3px 3px 0 #0B0910,3px -3px 0 #0B0910,0 0 18px rgba(255,150,40,.95),0 0 34px rgba(255,80,0,.7),0 12px 24px rgba(11,9,16,.6)}
+@keyframes cpSlam69{0%{transform:translate(-50%,-50%) scale(1)}35%{transform:translate(-50%,-50%) scale(1.5)}60%{transform:translate(-50%,-44%) scale(1.3)}100%{transform:translate(-50%,-50%) scale(1.36)}}
+.cp-pop69{position:absolute;left:50%;top:50%;font-weight:900;line-height:1;color:#FFE9A8;white-space:nowrap;--jx:0px;text-shadow:2px 0 0 #0B0910,-2px 0 0 #0B0910,0 2px 0 #0B0910,0 -2px 0 #0B0910,2px 2px 0 #0B0910,-2px -2px 0 #0B0910,-2px 2px 0 #0B0910,2px -2px 0 #0B0910,0 6px 14px rgba(11,9,16,.55);animation:cpPop69 .45s ease-out forwards}
+@keyframes cpPop69{0%{opacity:0;transform:translate(calc(-50% + var(--jx)),-50%) scale(.5)}16%{opacity:1;transform:translate(calc(-50% + var(--jx)),-66%) scale(1.2)}42%{opacity:1;transform:translate(calc(-50% + var(--jx)),-102%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--jx)),-158%) scale(.95)}}
+.cp-pop69.sz-xl{font-size:42px}
+.cp-pop69.sz-lg{font-size:34px}
+.cp-pop69.sz-md{font-size:27px}
+.cp-pop69.sz-sm{font-size:20px;color:#E8DFC8}
+.cp-pop69.echo{color:#CBB7F2}
+.cp-pop69.gold{color:#FFD968;text-shadow:2px 0 0 #0B0910,-2px 0 0 #0B0910,0 2px 0 #0B0910,0 -2px 0 #0B0910,2px 2px 0 #0B0910,-2px -2px 0 #0B0910,-2px 2px 0 #0B0910,2px -2px 0 #0B0910,0 0 14px rgba(239,201,76,.9)}
+.cp-pop69.hot,.cp-pop69.fever{color:#FFB347;text-shadow:2px 0 0 #0B0910,-2px 0 0 #0B0910,0 2px 0 #0B0910,0 -2px 0 #0B0910,2px 2px 0 #0B0910,-2px -2px 0 #0B0910,-2px 2px 0 #0B0910,2px -2px 0 #0B0910,0 0 16px rgba(255,120,30,.95),0 0 26px rgba(255,60,0,.6)}
+@media (max-width:560px){#cp-total69{font-size:37px}.cp-pop69.sz-xl{font-size:33px}.cp-pop69.sz-lg{font-size:27px}.cp-pop69.sz-md{font-size:22px}.cp-pop69.sz-sm{font-size:17px}}
+@media (prefers-reduced-motion: reduce){#cp-total69.bump69,#cp-total69.slam69,.cp-pop69{animation:none!important}}
+</style>
+<script>
+"use strict";
+/* ================= v69：中央蹦分（老哥定版：爽点砸在舞台正中央） =================
+只加表现，不动数值 / 预览 / 结算：钩子挂在 v63 计分链动画的 step()
+里，与 tick 音同一步同步触发——每一跳在战斗舞台（#battle-stage）
+正中央蹦出这一跳的加分（缩放弹出 + 上浮，0.45 秒淡出），中央同时
+常驻一个累计总分大字，每一跳把新数加进去并往上跳一下；链走完结
+算时总分重重一砸（放大 + 火光，配合已有 heavyHit 重击音与屏震），
+随后随原 finish() 流程收起。狂热中蹦字转橙红火光（与音调升八度、
+加速同一步切换）；金骰翻倍跳金光更亮，回响跳淡紫。数字走全站
+Fusion Pixel 像素字体，金字配 #0B0910 粗描边，21 色暗像素风。
+减动效时 v63 直接出招、本层不出现（沿用已有规则）；动画不可跳过
+的规则不变。 */
+function cp69Layer() {
+var stage = $("battle-stage");
+if (!stage) return null;
+var layer = $("center-pop69");
+if (!layer) {
+layer = document.createElement("div");
+layer.id = "center-pop69";
+var tot = document.createElement("div");
+tot.id = "cp-total69";
+tot.textContent = "0";
+layer.appendChild(tot);
+stage.appendChild(layer);
+}
+return layer;
+}
+function centerStart69() {
+var layer = cp69Layer(); if (!layer) return;
+Array.prototype.slice.call(layer.querySelectorAll(".cp-pop69")).forEach(function(p) { p.remove(); });
+var tot = $("cp-total69");
+if (tot) { tot.textContent = "0"; tot.classList.remove("bump69"); tot.classList.remove("slam69"); }
+layer.classList.add("on");
+}
+function centerTick69(tk, cum, feverOn, idx) {
+var layer = $("center-pop69");
+if (!layer || !layer.classList.contains("on")) return;
+var tot = $("cp-total69");
+if (tot) {
+tot.textContent = fmtBig68(cum);
+tot.classList.remove("bump69"); void tot.offsetWidth; tot.classList.add("bump69");
+}
+if (!tk || !(tk.amt > 0)) return;
+var pop = document.createElement("div");
+var sz = tk.amt >= 200 ? "sz-xl" : tk.amt >= 50 ? "sz-lg" : tk.amt >= 10 ? "sz-md" : "sz-sm";
+pop.className = "cp-pop69 " + sz;
+if (tk.kind === "echo2") pop.classList.add("echo");
+if (tk.gold) pop.classList.add("gold");
+if (tk.kind === "fever") pop.classList.add("fever");
+else if (feverOn) pop.classList.add("hot");
+pop.textContent = "+" + fmtBig68(tk.amt);
+pop.style.setProperty("--jx", ((((idx || 0) * 37) % 5) - 2) * 13 + "px");
+layer.appendChild(pop);
+setTimeout(function() { pop.remove(); }, 560);
+}
+function centerSlam69(dmg) {
+var tot = $("cp-total69"); if (!tot) return;
+tot.textContent = fmtBig68(dmg);
+tot.classList.remove("bump69"); void tot.offsetWidth; tot.classList.add("slam69");
+}
+function centerEnd69() {
+var layer = $("center-pop69"); if (!layer) return;
+layer.classList.remove("on");
+Array.prototype.slice.call(layer.querySelectorAll(".cp-pop69")).forEach(function(p) { p.remove(); });
+var tot = $("cp-total69");
+if (tot) { tot.classList.remove("bump69"); tot.classList.remove("slam69"); }
+}
 </script>
 </body>
 </html>
