@@ -13107,6 +13107,23 @@ return _fx68(text, targetEl, cls);
 .cp-pop69.ohbig79{animation:cpScatter79 .36s ease-out forwards}
 @keyframes cpScatter79{0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}12%{opacity:1;transform:translate(calc(-50% + var(--dx76,0px)*.3),calc(-50% + var(--dy76,-34px)*.3)) scale(1.22)}36%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx76,0px)),calc(-50% + var(--dy76,-34px)*1.25)) scale(.94)}}
 @media (prefers-reduced-motion: reduce){.die.overheat74,.die.overheat74::before,.die.overheat74::after,#dice-tray::before,.cp-pop69.ohgo74,.cp-pop69.scatter76,.cp-pop69.ohbig79{animation:none!important}}
+/* v80: 中央总数冒火——过热开始（phaseB74 调 overheatOn74，伤害 >200 才有）
+   时，舞台正中央的累计总数（#cp-total69）同步点火：数字带热辉光 +
+   身后一圈像素火焰（::before，同 v78 的 4px 粗像素块 / crispEdges /
+   palette 火色，台阶跳帧 flicker 沿用 ohFlame78）+ 辉光晕（::after）
+   + 像素火星（.cp-spark80，JS 按步生成）+ 抖动/脉冲（cpFireShake80）。
+   强度由总数上的 --ohfx80（0.25 → 1）驱动，与骰子火势 --oh74 同步
+   （overheatHeat74 每步同调 cpFireHeat80）；砸下 / 取消 / 收尾走
+   overheatStop74 → cpFireStop80 全部熄火冷却。200 以下无过热、无火。
+   只改表现层：阈值 / 步长 / 音调 / 飘字 / 预览 / 结算一律不动。 */
+#cp-total69.ohfire80{--ohfx80:.25;z-index:0;color:#FFDF7E;text-shadow:3px 0 0 #0B0910,-3px 0 0 #0B0910,0 3px 0 #0B0910,0 -3px 0 #0B0910,3px 3px 0 #0B0910,-3px -3px 0 #0B0910,-3px 3px 0 #0B0910,3px -3px 0 #0B0910,0 0 calc(8px + 18px*var(--ohfx80,.25)) rgba(217,123,63,calc(.55 + .35*var(--ohfx80,.25))),0 0 calc(20px + 32px*var(--ohfx80,.25)) rgba(168,50,50,calc(.4 + .35*var(--ohfx80,.25))),0 12px 24px rgba(11,9,16,.6);animation:cpFireShake80 calc(.17s - .08s*var(--ohfx80,.25)) steps(2,end) infinite}
+@keyframes cpFireShake80{0%{transform:translate(-50%,-50%) scale(1)}25%{transform:translate(calc(-50% + 1px + 2px*var(--ohfx80,.25)),calc(-50% - 1px)) scale(calc(1 + .04*var(--ohfx80,.25)))}50%{transform:translate(calc(-50% - 1px - 2px*var(--ohfx80,.25)),-50%) scale(calc(1 + .07*var(--ohfx80,.25)))}75%{transform:translate(-50%,calc(-50% + 1px)) scale(calc(1 + .03*var(--ohfx80,.25)))}100%{transform:translate(-50%,-50%) scale(1)}}
+#cp-total69.ohfire80::before{content:"";position:absolute;left:50%;bottom:36%;width:calc(150% + 40%*var(--ohfx80,.25));height:calc(125% + 65%*var(--ohfx80,.25));transform:translateX(-50%);transform-origin:50% 100%;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2096%2040%27%20shape-rendering%3D%27crispEdges%27%3E%3Crect%20x%3D%270%27%20y%3D%2736%27%20width%3D%2796%27%20height%3D%274%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%270%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%270%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%270%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%270%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%274%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%274%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%274%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%274%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%278%27%20y%3D%2712%27%20width%3D%274%27%20height%3D%2728%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%278%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%278%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%278%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2712%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2712%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2712%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2712%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2716%27%20y%3D%278%27%20width%3D%274%27%20height%3D%2732%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2716%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2716%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2720%27%20y%3D%270%27%20width%3D%274%27%20height%3D%2740%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2720%27%20y%3D%2712%27%20width%3D%274%27%20height%3D%2728%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2720%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2720%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2724%27%20y%3D%2712%27%20width%3D%274%27%20height%3D%2728%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2724%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2724%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2724%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2728%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2728%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2728%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2728%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2732%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2732%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2732%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2732%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2736%27%20y%3D%274%27%20width%3D%274%27%20height%3D%2736%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2736%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2736%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2736%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2740%27%20y%3D%270%27%20width%3D%274%27%20height%3D%2740%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2740%27%20y%3D%2712%27%20width%3D%274%27%20height%3D%2728%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2740%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2740%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2744%27%20y%3D%278%27%20width%3D%274%27%20height%3D%2732%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2744%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2744%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2744%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2748%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2748%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2748%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2748%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2752%27%20y%3D%2712%27%20width%3D%274%27%20height%3D%2728%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2752%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2752%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2752%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2756%27%20y%3D%270%27%20width%3D%274%27%20height%3D%2740%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2756%27%20y%3D%2712%27%20width%3D%274%27%20height%3D%2728%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2756%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2756%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2760%27%20y%3D%274%27%20width%3D%274%27%20height%3D%2736%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2760%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2760%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2760%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2764%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2764%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2764%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2764%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2768%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2768%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2768%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2768%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%278%27%20width%3D%274%27%20height%3D%2732%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%2716%27%20width%3D%274%27%20height%3D%2724%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2776%27%20y%3D%2712%27%20width%3D%274%27%20height%3D%2728%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2776%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2776%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2776%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2780%27%20y%3D%2720%27%20width%3D%274%27%20height%3D%2720%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2780%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2780%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2780%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2784%27%20y%3D%2724%27%20width%3D%274%27%20height%3D%2716%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2784%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2784%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2784%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2788%27%20y%3D%2728%27%20width%3D%274%27%20height%3D%2712%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2788%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2788%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2788%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3Crect%20x%3D%2792%27%20y%3D%2732%27%20width%3D%274%27%20height%3D%278%27%20fill%3D%27%23a83232%27%2F%3E%3Crect%20x%3D%2792%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23d97b3f%27%2F%3E%3Crect%20x%3D%2792%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23c9a227%27%2F%3E%3Crect%20x%3D%2792%27%20y%3D%2736%27%20width%3D%274%27%20height%3D%274%27%20fill%3D%27%23e3cf9e%27%2F%3E%3C%2Fsvg%3E");background-size:100% 100%;background-repeat:no-repeat;image-rendering:pixelated;opacity:calc(.55 + .45*var(--ohfx80,.25));animation:ohFlame78 .34s steps(3,end) infinite alternate;pointer-events:none;z-index:-1}
+#cp-total69.ohfire80::after{content:"";position:absolute;left:50%;top:50%;width:calc(165% + 50%*var(--ohfx80,.25));height:calc(200% + 70%*var(--ohfx80,.25));transform:translate(-50%,-50%);box-shadow:0 0 calc(24px + 40px*var(--ohfx80,.25)) rgba(217,123,63,calc(.35 + .4*var(--ohfx80,.25))),0 0 calc(8px + 16px*var(--ohfx80,.25)) rgba(201,162,39,calc(.3 + .3*var(--ohfx80,.25)));animation:cpGlowPulse80 .5s steps(2,end) infinite alternate;pointer-events:none;z-index:-2}
+@keyframes cpGlowPulse80{from{opacity:.7}to{opacity:1}}
+.cp-spark80{position:absolute;width:5px;height:5px;pointer-events:none;z-index:31;animation:cpSpark80 .55s steps(4,end) forwards}
+@keyframes cpSpark80{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}18%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--sx80,0px)),calc(-50% + var(--sy80,-46px))) scale(1)}}
+@media (prefers-reduced-motion: reduce){#cp-total69.ohfire80,#cp-total69.ohfire80::before,#cp-total69.ohfire80::after,.cp-spark80{animation:none!important}}
 </style>
 <script>
 "use strict";
@@ -13198,16 +13215,67 @@ var tray = $("dice-tray"); if (!tray) return;
 tray.style.setProperty("--oh74", "0.25");
 var dice = tray.querySelectorAll(".die");
 Array.prototype.forEach.call(dice, function(d) { d.classList.add("overheat74"); });
+try { cpFireOn80(); } catch (e) {}
 }
 function overheatHeat74(h) {
 var tray = $("dice-tray"); if (!tray) return;
 tray.style.setProperty("--oh74", Math.max(0, Math.min(1, h)).toFixed(3));
+try { cpFireHeat80(h); } catch (e) {}
 }
 function overheatStop74() {
 var tray = $("dice-tray"); if (!tray) return;
 tray.style.removeProperty("--oh74");
 var dice = tray.querySelectorAll(".die.overheat74");
 Array.prototype.forEach.call(dice, function(d) { d.classList.remove("overheat74"); });
+try { cpFireStop80(); } catch (e) {}
+}
+/* ================= v80：中央总数冒火（老哥定版） =================
+过热开始（overheatOn74，仅伤害 >200 的 phaseB74 会调）时，舞台正
+中央的累计总数 #cp-total69 同步点火：.ohfire80 给数字热辉光、身后
+像素火焰 + 辉光晕 + 抖动/脉冲（CSS 见上方 v80 样式）；每步
+overheatHeat74 同调 cpFireHeat80，把 --ohfx80 随过热进度 0.25 → 1
+推高（与骰子火势 --oh74 同步），并按热度概率甩出像素火星
+（.cp-spark80，palette 火色方块，绕总数升起淡出，同屏封顶 24）。
+砸下（centerSlam69 先调 overheatStop74）/ 取消 / 收尾一律走
+cpFireStop80：摘类、撤变量、清火星，全部熄火冷却。200 以下不进
+过热，中央总数无火。只加表现：阈值 / 步长 / 音调 / 飘字 / 骰子像素
+火 / 预览 / 结算全不动，总数文本仍由原流程写、与预览一致。 */
+var cpSparkCols80 = ["#d97b3f", "#c9a227", "#e3cf9e", "#a83232"];
+function cpFireOn80() {
+var tot = $("cp-total69"); if (!tot) return;
+tot.classList.add("ohfire80");
+tot.style.setProperty("--ohfx80", "0.25");
+}
+function cpFireHeat80(h) {
+var tot = $("cp-total69"); if (!tot || !tot.classList.contains("ohfire80")) return;
+var hv = Math.max(0, Math.min(1, h));
+tot.style.setProperty("--ohfx80", hv.toFixed(3));
+cpSparks80(hv);
+}
+function cpFireStop80() {
+var tot = $("cp-total69");
+if (tot) { tot.classList.remove("ohfire80"); tot.style.removeProperty("--ohfx80"); }
+var layer = $("center-pop69");
+if (layer) Array.prototype.slice.call(layer.querySelectorAll(".cp-spark80")).forEach(function(s) { s.remove(); });
+}
+function cpSparks80(h) {
+var layer = $("center-pop69"); if (!layer || !layer.classList.contains("on")) return;
+if (layer.querySelectorAll(".cp-spark80").length > 24) return;
+var n = Math.random() < 0.35 + h * 0.6 ? 1 : 0;
+if (h > 0.65 && Math.random() < 0.45) n++;
+for (var i = 0; i < n; i++) {
+var s = document.createElement("div");
+s.className = "cp-spark80";
+var szp = Math.random() < 0.3 ? 7 : Math.random() < 0.5 ? 4 : 5;
+s.style.width = szp + "px"; s.style.height = szp + "px";
+s.style.backgroundColor = cpSparkCols80[Math.floor(Math.random() * cpSparkCols80.length)];
+s.style.left = "calc(50% + " + Math.round((Math.random() * 2 - 1) * (60 + 70 * h)) + "px)";
+s.style.top = "calc(50% + " + Math.round((Math.random() * 2 - 1) * 26 - 6) + "px)";
+s.style.setProperty("--sx80", Math.round((Math.random() * 2 - 1) * 30) + "px");
+s.style.setProperty("--sy80", "-" + Math.round(30 + Math.random() * 44 + 26 * h) + "px");
+layer.appendChild(s);
+setTimeout(function() { s.remove(); }, 620);
+}
 }
 function splitCancel73() {
 splitRun73++;
