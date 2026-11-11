@@ -13071,6 +13071,17 @@ return _fx68(text, targetEl, cls);
 .cp-pop69.hot,.cp-pop69.fever{color:#FFB347;text-shadow:2px 0 0 #0B0910,-2px 0 0 #0B0910,0 2px 0 #0B0910,0 -2px 0 #0B0910,2px 2px 0 #0B0910,-2px -2px 0 #0B0910,-2px 2px 0 #0B0910,2px -2px 0 #0B0910,0 0 16px rgba(255,120,30,.95),0 0 26px rgba(255,60,0,.6)}
 @media (max-width:560px){#cp-total69{font-size:37px}.cp-pop69.sz-xl{font-size:33px}.cp-pop69.sz-lg{font-size:27px}.cp-pop69.sz-md{font-size:22px}.cp-pop69.sz-sm{font-size:17px}}
 @media (prefers-reduced-motion: reduce){#cp-total69.bump69,#cp-total69.slam69,.cp-pop69{animation:none!important}}
+/* v74: 过热——总伤害超过 200 后 +1 阶段，骰子盘里的骰子冒火抖动。
+   火焰/辉光/抖动只落在骰子本身：火焰舌在骰子上沿上方舔起（不遮点数），
+   强度由骰盘上的 --oh74（0..1）驱动，随 +1 加速一路烧旺、抖烈；
+   砸下（centerSlam69）或取消时 overheatStop74 摘掉，骰子冷却。 */
+.die.overheat74{position:relative;border-color:#FF7A2A;box-shadow:0 0 calc(10px + 24px*var(--oh74,.3)) rgba(255,110,20,.75),0 0 calc(4px + 12px*var(--oh74,.3)) rgba(255,60,0,.85),0 4px 10px rgba(11,9,16,.3);animation:ohShake74 calc(.15s - .08s*var(--oh74,.3)) linear infinite}
+@keyframes ohShake74{0%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(calc(1px + 2px*var(--oh74,.3)),calc(-1px - 1px*var(--oh74,.3))) rotate(.9deg)}50%{transform:translate(calc(-1px - 2px*var(--oh74,.3)),calc(1px + 1px*var(--oh74,.3))) rotate(-.9deg)}75%{transform:translate(calc(1px + 1px*var(--oh74,.3)),calc(1px + 2px*var(--oh74,.3))) rotate(.6deg)}100%{transform:translate(0,0) rotate(0deg)}}
+.die.overheat74::after{content:"";position:absolute;left:50%;bottom:86%;width:16px;height:calc(15px + 15px*var(--oh74,.3));transform:translateX(-50%);background:linear-gradient(to top,#FF5A00 0%,#FF8A1E 45%,#FFC93C 78%,rgba(255,220,120,0) 100%);clip-path:polygon(50% 0,72% 34%,88% 58%,80% 88%,64% 100%,36% 100%,20% 88%,12% 58%,28% 34%);opacity:calc(.55 + .45*var(--oh74,.3));animation:ohFlame74 .26s ease-in-out infinite alternate;pointer-events:none;z-index:5}
+@keyframes ohFlame74{from{transform:translateX(-50%) scaleY(.82) scaleX(1.07) skewX(-3deg)}to{transform:translateX(-50%) scaleY(1.14) scaleX(.93) skewX(3deg)}}
+.cp-pop69.ohgo74{animation:ohPop74 .24s ease-out forwards}
+@keyframes ohPop74{0%{opacity:0;transform:translate(calc(-50% + var(--jx)),-50%) scale(.6)}25%{opacity:1;transform:translate(calc(-50% + var(--jx)),-74%) scale(1.12)}100%{opacity:0;transform:translate(calc(-50% + var(--jx)),-124%) scale(.95)}}
+@media (prefers-reduced-motion: reduce){.die.overheat74,.die.overheat74::after,.cp-pop69.ohgo74{animation:none!important}}
 </style>
 <script>
 "use strict";
@@ -13130,6 +13141,7 @@ layer.appendChild(pop);
 setTimeout(function() { pop.remove(); }, 560);
 }
 function centerSlam69(dmg) {
+try { overheatStop74(); } catch (e) {}
 var tot = $("cp-total69"); if (!tot) return;
 tot.textContent = fmtBig68(dmg);
 tot.classList.remove("bump69"); void tot.offsetWidth; tot.classList.add("slam69");
@@ -13151,10 +13163,31 @@ if (tot) { tot.classList.remove("bump69"); tot.classList.remove("slam69"); }
 放大带火光砸下。拆分只是显示方式：预览与实际伤害仍是 T 本身，
 大数字走 v68 的 fmtBig68 压缩，块与总数同口径。 */
 var splitTimers73 = [], splitRun73 = 0;
+/* v74 过热阈值（定版 200）：总伤害 T ≤ 200 走 v73 随机拆分原样；
+   T > 200 进入过热——先随机拆分到 200，再 +1 加速叠加（见
+   centerPlaySplit73 内的 phaseB74），骰子同步冒火抖动。 */
+var OH74_MIN = 200;
+function overheatOn74() {
+var tray = $("dice-tray"); if (!tray) return;
+tray.style.setProperty("--oh74", "0.25");
+var dice = tray.querySelectorAll(".die");
+Array.prototype.forEach.call(dice, function(d) { d.classList.add("overheat74"); });
+}
+function overheatHeat74(h) {
+var tray = $("dice-tray"); if (!tray) return;
+tray.style.setProperty("--oh74", Math.max(0, Math.min(1, h)).toFixed(3));
+}
+function overheatStop74() {
+var tray = $("dice-tray"); if (!tray) return;
+tray.style.removeProperty("--oh74");
+var dice = tray.querySelectorAll(".die.overheat74");
+Array.prototype.forEach.call(dice, function(d) { d.classList.remove("overheat74"); });
+}
 function splitCancel73() {
 splitRun73++;
 splitTimers73.forEach(function(x) { clearTimeout(x); });
 splitTimers73 = [];
+try { overheatStop74(); } catch (e) {}
 }
 function splitCount73(T) {
 if (T <= 1) return 1;
@@ -13195,7 +13228,8 @@ if (!layer) { done(); return; }
 if (!layer.classList.contains("on")) centerStart69();
 var T = Math.floor(total);
 if (!(T > 0)) { done(); return; }
-var chunks = splitDmg73(T);
+var over74 = T > OH74_MIN;
+var chunks = splitDmg73(over74 ? OH74_MIN : T);
 var run = ++splitRun73;
 var cumSplit = 0;
 chunks.forEach(function(c, j) {
@@ -13224,11 +13258,56 @@ var freq = Math.min(1200, 520 + 30 * (base + j));
 if (fever) freq *= 2;
 try { tickTone63(freq, (base + j) % 10 === 9); } catch (e) {}
 if (j === chunks.length - 1) {
+if (over74) {
+splitTimers73.push(setTimeout(function() { if (run === splitRun73) phaseB74(); }, 70));
+} else {
 splitTimers73.push(setTimeout(function() { if (run === splitRun73) done(); }, 70));
+}
 }
 }, 120 + j * 45);
 splitTimers73.push(tm);
 });
+/* v74 过热第二段：累计已到 200，从这里起只按 +1 叠加到 T。
+   间隔从 30ms 起每步 ×0.94 加速、下限 8ms；音调沿第一段的爬升
+   继续往上且爬得更快（每步 +90Hz，第一段是 +30Hz/块）；骰子
+   同步冒火抖动，火势 --oh74 随已用时推进（0.25 → 1）。+1 段
+   按计划用时封顶约 2 秒：到时还没加完就收尾，余数由砸下
+   （centerSlam69 显示的正是 T）一次补齐，总数仍分毫不差。 */
+function phaseB74() {
+if (run !== splitRun73) return;
+if (T - cumSplit <= 0) { done(); return; }
+try { overheatOn74(); } catch (e) {}
+var pop = document.createElement("div");
+pop.className = "cp-pop69 sz-sm hot";
+pop.textContent = "+1";
+layer.appendChild(pop);
+var k = 0, elapsed = 0, dt = 30;
+function ohStep() {
+if (run !== splitRun73) { pop.remove(); return; }
+cumSplit += 1; k++;
+var fever = false;
+try { fever = !!(opts.isFever && opts.isFever()); } catch (e) {}
+var tot = $("cp-total69");
+if (tot) {
+tot.textContent = fmtBig68(cumSplit);
+if (k % 5 === 1) { tot.classList.remove("bump69"); void tot.offsetWidth; tot.classList.add("bump69"); }
+}
+pop.style.setProperty("--jx", ((((k * 37) % 5) - 2) * 10) + "px");
+pop.classList.remove("ohgo74"); void pop.offsetWidth; pop.classList.add("ohgo74");
+var base = 0;
+try { base = opts.pitchBase ? (opts.pitchBase() | 0) : 0; } catch (e) {}
+var freq = Math.min(1800, 520 + 30 * (base + chunks.length) + 90 * k);
+if (fever) freq = Math.min(2400, freq * 2);
+try { tickTone63(freq, k % 10 === 9); } catch (e) {}
+try { overheatHeat74(0.25 + 0.75 * Math.min(1, elapsed / 2000)); } catch (e) {}
+if (cumSplit >= T) { pop.remove(); done(); return; }
+elapsed += dt;
+if (elapsed >= 2000) { pop.remove(); done(); return; }
+dt = Math.max(8, dt * 0.94);
+splitTimers73.push(setTimeout(ohStep, dt));
+}
+ohStep();
+}
 }
 </script>
 <script>
