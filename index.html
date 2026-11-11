@@ -1644,6 +1644,21 @@ runs; the v70 script at the end of body drives the bar and fades it out. */
 #boot70 .b70-pct{margin-top:11px;font-size:14px;color:#B8AC93}
 @media (max-width:560px){#boot70 .b70-title{font-size:34px}}
 @media (prefers-reduced-motion: reduce){#boot70{transition:none}#boot70 .b70-fill{transition:none}}
+/* ================= v71: SAVE CODE （存档码 导出 / 导入） ================= */
+.btn-home-savecode{appearance:none;font-family:inherit;font-size:15px;font-weight:800;letter-spacing:.06em;padding:11px 22px;color:#14101D;background:linear-gradient(180deg,#EFC94C,#C9A227);border:2px solid #0B0910;border-radius:10px;box-shadow:0 4px 0 rgba(11,9,16,.55);cursor:pointer;display:block;margin:12px auto 0}
+.btn-home-savecode:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(11,9,16,.55)}
+#savecode-overlay{z-index:94}
+.sc-ta{width:100%;box-sizing:border-box;background:#14101D;color:#E8DFC8;border:2px solid #3B2D55;border-radius:10px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.6;word-break:break-all;resize:vertical;margin-top:8px}
+.sc-ta:focus{outline:none;border-color:#C9A227}
+.sc-msg{font-size:13px;line-height:1.65;margin-top:8px;color:#B8AC93}
+.sc-msg.err{color:#E05A3A}
+.sc-msg.ok{color:#5B8A4E}
+.sc-fp{font-size:13px;color:#B8AC93;margin-top:8px}
+.sc-fp b{color:#EFC94C;letter-spacing:.14em;font-size:15px}
+.sc-confirm{border:2px solid #C9A227;background:#2A2140;border-radius:12px;padding:12px 14px;margin-top:10px}
+.sc-confirm p{margin:0 0 10px;font-size:13.5px;line-height:1.7}
+.sc-toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translate(-50%,-16px);z-index:300;background:#223526;color:#E8DFC8;border:2px solid #C9A227;border-radius:12px;padding:12px 18px;font-size:14.5px;line-height:1.6;max-width:min(520px,90vw);text-align:center;box-shadow:0 12px 28px rgba(11,9,16,.55);opacity:0;pointer-events:none;transition:opacity .35s ease,transform .35s ease}
+.sc-toast.show{opacity:1;transform:translate(-50%,0)}
 </style>
 <script>
 /* v71 img fallback: if an absolute asset URL fails (host not yet synced /
@@ -2166,6 +2181,7 @@ v70 script once the first-screen images have loaded. -->
 <button class="btn-tut-level" id="btn-tut-level" type="button"><img class=pxi src=https://dice-spire.pages.dev/assets/px-book.png> 教程关卡 · 先练一局</button>
 <button class="btn-start-big" id="btn-start" type="button">START GAME</button>
 <button class="btn-resume-run hidden" id="btn-resume-run" type="button" style="display:none">继续本局</button>
+<button class="btn-home-savecode" id="btn-home-savecode" type="button"><img class=pxi src=https://dice-spire.pages.dev/assets/px-lock.png> 存档码 · 备份 / 换机恢复</button>
 <div class="home-continue hidden" id="home-continue"><h3>继续游戏</h3><div id="home-saves"></div></div>
 <p class="home-hint"><img class=pxi src=https://dice-spire.pages.dev/assets/px-book.png> 在角落：长按速览规则，点开看完整版 · <img class=pxi src=https://dice-spire.pages.dev/assets/px-menu.png> 菜单里有局外进度与 5 个存档位</p>
 </div>
@@ -2213,8 +2229,44 @@ v70 script once the first-screen images have loaded. -->
 <button class="btn" id="btn-menu-enh" type="button"><img class=pxi src=https://dice-spire.pages.dev/assets/px-spark.png> 强化一览</button>
 <button class="btn" id="btn-menu-collection" type="button"><img class=pxi src=https://dice-spire.pages.dev/assets/px-card.png> 符咒收藏</button>
 <button class="btn" id="btn-menu-home" type="button"><img class=pxi src=https://dice-spire.pages.dev/assets/px-home.png> 回主菜单</button>
+<button class="btn gold" id="btn-menu-savecode" type="button"><img class=pxi src=https://dice-spire.pages.dev/assets/px-lock.png> 存档码</button>
 <button class="btn primary" id="btn-menu-close" type="button">关闭</button>
 </div>
+</div>
+</div>
+
+<!-- SAVE CODE (v71: export / import, no backend) -->
+<div class="menu-overlay" id="savecode-overlay" role="dialog" aria-label="存档码">
+<div class="menu-box">
+<h2><img class=pxi src=https://dice-spire.pages.dev/assets/px-lock.png> 存档码</h2>
+<p class="sub" style="margin:2px 0 0">存档只存在这台设备的浏览器里，清缓存、换手机、重装都会丢。把存档编成一串码收好（存备忘录、发给自己都行），在新设备上粘贴导入就能恢复。码里不含任何设备信息，换设备、换浏览器都能用。</p>
+<h3 style="margin:16px 0 0;font-family:'Noto Serif SC',serif">导出存档码</h3>
+<p class="sub" style="margin:2px 0 0">这串码包含：<b>局外进度</b>（解锁、累计战绩）+ <b>5 个存档位</b>（1 号位就是当前对局）+ 教程与设置等本机进度。</p>
+<div class="actions" style="justify-content:flex-start;margin-top:10px"><button class="btn primary" id="sc-gen" type="button">生成存档码</button></div>
+<div class="sc-msg" id="sc-export-msg"></div>
+<div id="sc-export-box" style="display:none">
+<textarea class="sc-ta" id="sc-export-text" readonly rows="5" aria-label="存档码（只读）"></textarea>
+<div class="sc-fp">核对指纹：<b id="sc-fingerprint">—</b><span style="margin-left:8px">导入时对一下，开头一致就是同一份存档。</span></div>
+<div class="actions" style="justify-content:flex-start;margin-top:10px"><button class="btn gold" id="sc-copy" type="button">复制存档码</button></div>
+<div class="sc-msg" id="sc-copy-msg"></div>
+</div>
+<h3 style="margin:18px 0 0;font-family:'Noto Serif SC',serif">导入存档码</h3>
+<p class="sub" style="margin:2px 0 0">粘贴存档码（空白和换行会自动去掉）。会先校验：码不对、损坏、版本不合都会直接报错，<b>不会动你现在的存档</b>；导入前还会自动备份当前存档，导错了能恢复。</p>
+<textarea class="sc-ta" id="sc-import-text" rows="5" placeholder="把存档码粘贴到这里" aria-label="粘贴存档码"></textarea>
+<div class="actions" style="justify-content:flex-start;margin-top:10px"><button class="btn primary" id="sc-import-btn" type="button">校验并导入</button></div>
+<div class="sc-msg" id="sc-import-msg"></div>
+<div class="sc-confirm" id="sc-confirm-box" style="display:none">
+<p id="sc-confirm-text"></p>
+<div class="actions" style="justify-content:flex-start">
+<button class="btn primary" id="sc-confirm-yes" type="button">确认覆盖并导入</button>
+<button class="btn" id="sc-confirm-no" type="button">取消</button>
+</div>
+</div>
+<div class="sc-confirm" id="sc-backup-box" style="display:none;border-color:#3B2D55">
+<p id="sc-backup-info" style="margin:0 0 10px;font-size:13.5px;line-height:1.7"></p>
+<div class="actions" style="justify-content:flex-start"><button class="btn" id="sc-restore-backup" type="button">恢复导入前备份</button></div>
+</div>
+<div class="actions" style="margin-top:16px"><button class="btn" id="sc-close" type="button">关闭</button></div>
 </div>
 </div>
 
@@ -13122,6 +13174,229 @@ if (pa70 < 2) next();
 }
 next();
 }
+})();
+</script>
+<script>
+/* ================= v71: 存档码（导出 / 导入，无后端） =================
+存档只存 localStorage，清缓存 / 换设备就丢。v71 把全部游戏存档
+（dice-spire-* 各键 + 5 档位键 shoushou-saves-v1，1 号位即当前对局）
+合成一个 JSON，deflate 压缩（不支持时退回未压缩）后转 base64url，
+码头带版本标记 DS71 与 FNV-1a 校验和，粘错码能被识别、绝不静默应用。
+导入顺序：校验 →（会覆盖时）确认 → 先备份当前存档到
+dice-spire-savecode-backup-v1 → 写入 → 刷新（reload）让进度立刻可见，
+恢复内容经一次性提示键在刷新后以 toast 告知。码内无任何设备信息。 */
+(function() {
+"use strict";
+var PREFIX71 = "DS71";
+var BACKUP71 = "dice-spire-savecode-backup-v1";
+var NOTE71 = "dice-spire-savecode-note-v1";
+var SAVEKEY71 = "shoushou-saves-v1";
+var METAKEY71 = "dice-spire-meta-v1";
+function g71(id) { return document.getElementById(id); }
+function collect71() {
+var out = {};
+try {
+for (var i = 0; i < localStorage.length; i++) {
+var k = localStorage.key(i);
+if (!k || k === BACKUP71 || k === NOTE71) continue;
+if (k.indexOf("dice-spire-") === 0 || k === SAVEKEY71) {
+var v = localStorage.getItem(k);
+if (v !== null && v !== undefined) out[k] = String(v);
+}
+}
+} catch (e) {}
+return out;
+}
+function fnv71(str) { var h = 0x811c9dc5; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); } return ("0000000" + (h >>> 0).toString(16)).slice(-8); }
+function b64enc71(bytes) { var s = ""; var CH = 0x8000; for (var i = 0; i < bytes.length; i += CH) { s += String.fromCharCode.apply(null, bytes.subarray(i, i + CH)); } return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+function b64dec71(str) { var b = str.replace(/-/g, "+").replace(/_/g, "/"); while (b.length % 4) b += "="; var bin = atob(b); var out = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out; }
+function pipe71(bytes, StreamClass, type) {
+var buf = new Blob([bytes]).stream().pipeThrough(new StreamClass(type));
+return new Response(buf).arrayBuffer().then(function(ab) { return new Uint8Array(ab); });
+}
+function encode71(keysObj) {
+var bytes = new TextEncoder().encode(JSON.stringify({ v: 1, keys: keysObj }));
+function finish(flag, packed) { var b64 = b64enc71(packed); return PREFIX71 + flag + "." + b64 + "." + fnv71(flag + "." + b64); }
+if (typeof CompressionStream !== "undefined") {
+return pipe71(bytes, CompressionStream, "deflate").then(function(packed) { return finish("z", packed); }, function() { return finish("u", bytes); });
+}
+return Promise.resolve(finish("u", bytes));
+}
+function fingerprint71(code) { var parts = String(code || "").split("."); return parts.length > 1? parts[1].slice(0, 8): "—"; }
+function parsePayload71(buf) {
+var text, obj;
+try { text = new TextDecoder().decode(buf); } catch (e) { throw new Error("存档码解码失败。现有存档没有被改动。"); }
+try { obj = JSON.parse(text); } catch (e) { throw new Error("存档码内容损坏，读不出存档数据。现有存档没有被改动。"); }
+if (!obj || typeof obj !== "object") throw new Error("存档码内容不对。现有存档没有被改动。");
+if (obj.v !== 1) throw new Error("存档码版本不兼容（数据版本 " + obj.v + "）。现有存档没有被改动。");
+var keys = obj.keys;
+if (!keys || typeof keys !== "object" || Array.isArray(keys)) throw new Error("存档码里没有存档数据。现有存档没有被改动。");
+var clean = {}, n = 0;
+for (var k in keys) {
+if (!Object.prototype.hasOwnProperty.call(keys, k)) continue;
+if (k === BACKUP71 || k === NOTE71) continue;
+if (k.indexOf("dice-spire-") !== 0 && k !== SAVEKEY71) throw new Error("存档码里含有不认识的数据，已拒绝导入。现有存档没有被改动。");
+if (typeof keys[k] !== "string") throw new Error("存档码内容损坏。现有存档没有被改动。");
+clean[k] = keys[k]; n++;
+}
+if (!n || (!(METAKEY71 in clean) && !(SAVEKEY71 in clean))) throw new Error("存档码里没有局外进度和存档位数据。现有存档没有被改动。");
+return clean;
+}
+function decode71(code) {
+var clean = String(code || "").replace(/\s+/g, "");
+if (!clean) throw new Error("先把存档码粘贴进来。");
+var vm = /^DS(\d+)/.exec(clean);
+if (vm && vm[1] !== "71") throw new Error("存档码版本不兼容：这是 DS" + vm[1] + " 的存档码，本游戏只认 DS71。现有存档没有被改动。");
+var m = /^DS71([zu])\.([A-Za-z0-9_-]+)\.([0-9a-f]{8})$/.exec(clean);
+if (!m) throw new Error("这不是一串有效的存档码：格式不对，可能复制时缺了一截。现有存档没有被改动。");
+if (fnv71(m[1] + "." + m[2]) !== m[3]) throw new Error("校验失败：存档码已损坏或复制不完整（指纹 " + m[2].slice(0, 8) + " 对不上）。现有存档没有被改动。");
+var bytes;
+try { bytes = b64dec71(m[2]); } catch (e) { throw new Error("存档码解码失败。现有存档没有被改动。"); }
+if (m[1] === "z") {
+if (typeof DecompressionStream === "undefined") return Promise.reject(new Error("当前浏览器太旧，无法解压这串存档码。请在导出端换个较新的浏览器重新生成。现有存档没有被改动。"));
+return pipe71(bytes, DecompressionStream, "deflate").then(parsePayload71, function() { throw new Error("存档码解压失败，可能已损坏。现有存档没有被改动。"); });
+}
+return Promise.resolve(parsePayload71(bytes));
+}
+function describe71(keys) {
+var parts = [], slots = 0, hasRun = false;
+if (keys[METAKEY71]) parts.push("局外进度");
+if (keys[SAVEKEY71]) {
+try { var arr = JSON.parse(keys[SAVEKEY71]); if (Array.isArray(arr)) arr.forEach(function(s, i) { if (s) { slots++; if (i === 0) hasRun = true; } }); } catch (e) {}
+if (slots) parts.push(slots + " 个存档位" + (hasRun? "（含 1 号位的当前对局）": ""));
+}
+return { text: parts.length? parts.join(" + "): "无存档数据", slots: slots, meta: !!keys[METAKEY71] };
+}
+function apply71(newKeys, noteText) {
+/* 先把当前存档整体备份，再写入新数据；最后刷新让进度立刻可见。 */
+var cur = collect71();
+try { localStorage.setItem(BACKUP71, JSON.stringify({ t: Date.now(), keys: cur })); } catch (e) {}
+Object.keys(cur).forEach(function(k) { try { localStorage.removeItem(k); } catch (e) {} });
+Object.keys(newKeys).forEach(function(k) { try { localStorage.setItem(k, newKeys[k]); } catch (e) {} });
+try { localStorage.setItem(NOTE71, noteText); } catch (e) {}
+try { location.reload(); } catch (e) {}
+}
+function refreshBackupRow71() {
+var box = g71("sc-backup-box"); if (!box) return;
+var raw = null;
+try { raw = localStorage.getItem(BACKUP71); } catch (e) {}
+if (!raw) { box.style.display = "none"; return; }
+var when = "", cnt = 0;
+try { var o = JSON.parse(raw); if (o && o.t) when = new Date(o.t).toLocaleString(); if (o && o.keys) cnt = Object.keys(o.keys).length; } catch (e) {}
+if (!cnt) { box.style.display = "none"; return; }
+g71("sc-backup-info").textContent = "有一份导入前的自动备份" + (when? "（" + when + "）": "") + "。如果刚导入的存档不对，可以恢复它（恢复前会再把当前存档存为新备份）。";
+var b = g71("sc-restore-backup");
+if (b) { delete b.dataset.armed; b.textContent = "恢复导入前备份"; }
+box.style.display = "block";
+}
+function openSaveCode71() {
+var mo = g71("menu-overlay"); if (mo) mo.classList.remove("show");
+refreshBackupRow71();
+var ov = g71("savecode-overlay"); if (ov) ov.classList.add("show");
+}
+function showToast71(text) {
+var d = document.createElement("div");
+d.className = "sc-toast";
+d.textContent = text;
+document.body.appendChild(d);
+setTimeout(function() { d.classList.add("show"); }, 30);
+setTimeout(function() { d.classList.remove("show"); setTimeout(function() { if (d.parentNode) d.parentNode.removeChild(d); }, 500); }, 7000);
+}
+/* ---------- wiring ---------- */
+var homeBtn = g71("btn-home-savecode");
+if (homeBtn) homeBtn.addEventListener("click", openSaveCode71);
+var menuBtn = g71("btn-menu-savecode");
+if (menuBtn) menuBtn.addEventListener("click", openSaveCode71);
+var closeBtn = g71("sc-close");
+if (closeBtn) closeBtn.addEventListener("click", function() { var ov = g71("savecode-overlay"); if (ov) ov.classList.remove("show"); });
+var genBtn = g71("sc-gen");
+if (genBtn) genBtn.addEventListener("click", function() {
+try { if (typeof autoSaveGame === "function") autoSaveGame(); } catch (e) {}
+var keys = collect71();
+var msg = g71("sc-export-msg");
+if (!Object.keys(keys).length) { msg.className = "sc-msg err"; msg.textContent = "当前没有任何存档数据可导出，先打一局再来。"; return; }
+msg.className = "sc-msg"; msg.textContent = "正在生成…";
+encode71(keys).then(function(code) {
+g71("sc-export-text").value = code;
+g71("sc-fingerprint").textContent = fingerprint71(code);
+g71("sc-export-box").style.display = "block";
+g71("sc-copy-msg").textContent = "";
+msg.className = "sc-msg ok";
+msg.textContent = "已生成：包含 " + describe71(keys).text + "。把整串码保存好，别漏字符。";
+}, function() { msg.className = "sc-msg err"; msg.textContent = "生成失败，请再试一次。"; });
+});
+var copyBtn = g71("sc-copy");
+if (copyBtn) copyBtn.addEventListener("click", function() {
+var ta = g71("sc-export-text"); var code = ta.value; var msg = g71("sc-copy-msg");
+if (!code) return;
+function fallback() {
+ta.focus(); ta.select();
+try { ta.setSelectionRange(0, code.length); } catch (e) {}
+var ok = false;
+try { ok = document.execCommand("copy"); } catch (e) {}
+msg.className = "sc-msg " + (ok? "ok": "");
+msg.textContent = ok? "已复制到剪贴板，去新设备粘贴导入即可。": "自动复制失败，已全选存档码：长按选中的文字点「拷贝」，或按 Ctrl+C 手动复制。";
+}
+if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(function() { msg.className = "sc-msg ok"; msg.textContent = "已复制到剪贴板，去新设备粘贴导入即可。"; }, fallback);
+else fallback();
+});
+var pending71 = null;
+var importBtn = g71("sc-import-btn");
+if (importBtn) importBtn.addEventListener("click", function() {
+var raw = g71("sc-import-text").value;
+var msg = g71("sc-import-msg");
+var conf = g71("sc-confirm-box");
+conf.style.display = "none"; pending71 = null;
+msg.className = "sc-msg"; msg.textContent = "正在校验…";
+Promise.resolve().then(function() { return decode71(raw); }).then(function(keys) {
+pending71 = keys;
+var inc = describe71(keys);
+var cur = collect71(); var curD = describe71(cur);
+var fp = fingerprint71(String(raw).replace(/\s+/g, ""));
+if (!cur[METAKEY71] && !curD.slots) {
+msg.className = "sc-msg ok"; msg.textContent = "校验通过（指纹 " + fp + "），当前没有会丢的进度，直接导入…";
+apply71(keys, "存档码导入成功，已恢复：" + inc.text + "。");
+return;
+}
+g71("sc-confirm-text").textContent = "校验通过（指纹 " + fp + "）。导入内容：" + inc.text + "。这会覆盖你当前的：" + curD.text + "。导入前会自动备份当前存档，导错了可以在本面板恢复。确定导入？";
+conf.style.display = "block";
+msg.className = "sc-msg ok"; msg.textContent = "校验通过，请确认是否覆盖当前存档。";
+}, function(err) {
+msg.className = "sc-msg err";
+msg.textContent = (err && err.message)? err.message: "存档码无效。现有存档没有被改动。";
+});
+});
+var yesBtn = g71("sc-confirm-yes");
+if (yesBtn) yesBtn.addEventListener("click", function() {
+if (!pending71) return;
+var inc = describe71(pending71);
+apply71(pending71, "存档码导入成功，已恢复：" + inc.text + "。");
+});
+var noBtn = g71("sc-confirm-no");
+if (noBtn) noBtn.addEventListener("click", function() {
+pending71 = null;
+g71("sc-confirm-box").style.display = "none";
+var msg = g71("sc-import-msg"); msg.className = "sc-msg"; msg.textContent = "已取消导入，现有存档没有被改动。";
+});
+var restoreBtn = g71("sc-restore-backup");
+if (restoreBtn) restoreBtn.addEventListener("click", function() {
+if (!restoreBtn.dataset.armed) {
+restoreBtn.dataset.armed = "1"; restoreBtn.textContent = "确认恢复？再点一次";
+setTimeout(function() { delete restoreBtn.dataset.armed; restoreBtn.textContent = "恢复导入前备份"; }, 3000);
+return;
+}
+var raw = null;
+try { raw = localStorage.getItem(BACKUP71); } catch (e) {}
+var keys = null;
+try { var o = JSON.parse(raw); if (o && o.keys && typeof o.keys === "object") keys = o.keys; } catch (e) {}
+if (!keys) { var msg = g71("sc-import-msg"); msg.className = "sc-msg err"; msg.textContent = "备份读不出来，无法恢复。现有存档没有被改动。"; return; }
+apply71(keys, "已恢复到导入前的存档：" + describe71(keys).text + "。");
+});
+/* 刷新后的一次性恢复提示 */
+try {
+var note = localStorage.getItem(NOTE71);
+if (note) { localStorage.removeItem(NOTE71); showToast71(note); }
+} catch (e) {}
 })();
 </script>
 </body>
