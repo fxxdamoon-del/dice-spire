@@ -13183,8 +13183,8 @@ if (tot) { tot.classList.remove("bump69"); tot.classList.remove("slam69"); }
 大数字走 v68 的 fmtBig68 压缩，块与总数同口径。 */
 var splitTimers73 = [], splitRun73 = 0;
 /* v74 过热阈值（定版 200）：总伤害 T ≤ 200 走 v73 随机拆分原样；
-   T > 200 进入过热——先随机拆分到 200，再 +1 加速叠加（见
-   centerPlaySplit73 内的 phaseB74），骰子同步冒火抖动。 */
+   T > 200 进入过热——先随机拆分到 200，再按步长加速叠加（见
+   centerPlaySplit73 内的 phaseB74，v77 步长缩放），骰子同步冒火抖动。 */
 var OH74_MIN = 200;
 function overheatOn74() {
 var tray = $("dice-tray"); if (!tray) return;
@@ -13260,6 +13260,7 @@ if (!layer) { done(); return; }
 if (!layer.classList.contains("on")) centerStart69();
 var T = Math.floor(total);
 if (!(T > 0)) { done(); return; }
+var splitStart77 = Date.now(); /* v77：整次伤害显示的起点，8 秒总封顶用 */
 var over74 = T > OH74_MIN;
 var chunks = splitDmg73(over74 ? OH74_MIN : T);
 var run = ++splitRun73;
@@ -13299,25 +13300,41 @@ splitTimers73.push(setTimeout(function() { if (run === splitRun73) done(); }, 70
 }, 120 + j * 45);
 splitTimers73.push(tm);
 });
-/* v74 过热第二段：累计已到 200，从这里起只按 +1 叠加到 T。
-   间隔从 30ms 起每步 ×0.94 加速、下限 8ms；音调沿第一段的爬升
-   继续往上且爬得更快（每步 +90Hz，第一段是 +30Hz/块）；骰子
-   同步冒火抖动，火势 --oh74 随已用时推进（0.25 → 1）。+1 段
-   按计划用时封顶约 2 秒：到时还没加完就收尾，余数由砸下
-   （centerSlam69 显示的正是 T）一次补齐，总数仍分毫不差。 */
+/* v77 过热第二段（步长缩放 + 总时长封顶）：累计已到 200，从这里起
+   按步长叠加到 T，步长 = max(1, floor(T / 250))——T=500 步长 2、
+   T=1000 步长 4、T=2000 步长 8、T=10000 步长 40；飘字显示的就是
+   实际步长，最后一步只补余数，总数精确等于 T，不再中途截断、
+   不靠砸下补齐。步数基本恒定在 150–250 步：间隔从 30ms 起每步
+   ×0.94 加速、下限 8ms；音调沿第一段的爬升继续往上且爬得更快
+   （每步 +90Hz，第一段是 +30Hz/块）；骰子同步冒火抖动，火势
+   --oh74 随进度推进（0.25 → 1）。整体伤害显示（随机拆分 + 过热
+   + 砸下）总时长封顶 8 秒：步长缩放后常规伤害约 4–5 秒；万一
+   伤害极大、按步长算步数仍多到预计超时，步长再放大压缩步数，
+   保证 8 秒内加完、砸下。 */
 function phaseB74() {
 if (run !== splitRun73) return;
 if (T - cumSplit <= 0) { done(); return; }
 try { overheatOn74(); } catch (e) {}
+var rem77 = T - cumSplit;
+var step77 = Math.max(1, Math.floor(T / 250));
+var steps77 = Math.ceil(rem77 / step77);
+/* 8 秒总封顶：本次显示已用时 + 过热段预计用时（步数 × 约 14ms
+   平均间隔）不得超过约 7.6 秒，超时就放大步长、压缩步数。 */
+var used77 = Date.now() - splitStart77;
+var budget77 = Math.max(600, 7600 - used77);
+var maxSteps77 = Math.max(1, Math.floor(budget77 / 14));
+if (steps77 > maxSteps77) { step77 = Math.ceil(rem77 / maxSteps77); steps77 = Math.ceil(rem77 / step77); }
+var ohBig77 = step77 >= 20;
 var pop = document.createElement("div");
-pop.className = "cp-pop69 sz-sm hot scatter76";
-pop.textContent = "+1";
-scatter76(pop, 20);
+pop.className = "cp-pop69 " + (ohBig77 ? "sz-md" : "sz-sm") + " hot scatter76";
+pop.textContent = "+" + fmtBig68(Math.min(step77, rem77));
+scatter76(pop, ohBig77 ? 27 : 20);
 layer.appendChild(pop);
-var k = 0, elapsed = 0, dt = 30;
+var k = 0, dt = 30;
 function ohStep() {
 if (run !== splitRun73) { pop.remove(); return; }
-cumSplit += 1; k++;
+var inc77 = Math.min(step77, T - cumSplit);
+cumSplit += inc77; k++;
 var fever = false;
 try { fever = !!(opts.isFever && opts.isFever()); } catch (e) {}
 var tot = $("cp-total69");
@@ -13325,17 +13342,16 @@ if (tot) {
 tot.textContent = fmtBig68(cumSplit);
 if (k % 5 === 1) { tot.classList.remove("bump69"); void tot.offsetWidth; tot.classList.add("bump69"); }
 }
-scatter76(pop, 20);
+pop.textContent = "+" + fmtBig68(inc77);
+scatter76(pop, ohBig77 ? 27 : 20);
 pop.classList.remove("scatter76"); void pop.offsetWidth; pop.classList.add("scatter76");
 var base = 0;
 try { base = opts.pitchBase ? (opts.pitchBase() | 0) : 0; } catch (e) {}
 var freq = Math.min(1800, 520 + 30 * (base + chunks.length) + 90 * k);
 if (fever) freq = Math.min(2400, freq * 2);
 try { tickTone63(freq, k % 10 === 9); } catch (e) {}
-try { overheatHeat74(0.25 + 0.75 * Math.min(1, elapsed / 2000)); } catch (e) {}
+try { overheatHeat74(0.25 + 0.75 * Math.min(1, k / steps77)); } catch (e) {}
 if (cumSplit >= T) { pop.remove(); done(); return; }
-elapsed += dt;
-if (elapsed >= 2000) { pop.remove(); done(); return; }
 dt = Math.max(8, dt * 0.94);
 splitTimers73.push(setTimeout(ohStep, dt));
 }
