@@ -12591,9 +12591,13 @@ if (pd) pd.textContent = fmtBig68(v);
 var ticks = plan.ticks, T = Math.max(1, plan.tickCount);
 var cum = 0, milestones = [500, 1000, 2000, 5000], mi = 0;
 var feverOn = false;
-function step(i) {
-if (fired) return;
-if (i >= ticks.length) {
+/* v73：中央蹦数改走随机拆分计数——总伤害拆成随机小块，与记分链
+   并行逐块蹦出+响；结算砸下改由 trySlam73 统一触发：记分链走完
+   且拆分块全部出完（累计 == 总伤害）后才放大带火光砸下。 */
+var chainDone73 = false, splitDone73 = false, slammed73 = false, curStep73 = 0;
+function trySlam73() {
+if (slammed73 || fired || !chainDone73 || !splitDone73) return;
+slammed73 = true;
 if (dd) dd.classList.add("score-fire61");
 if (pd) pd.classList.add("score-fire61");
 setCounter(plan.dmg);
@@ -12603,8 +12607,23 @@ try { if (a.dmg >= 80 && window.sfx) sfx("boom"); } catch (e) {}
 try { fxShake(); } catch (e) {}
 timers.push(setTimeout(finish, 500));
 timers.push(setTimeout(finish, 3400));
+}
+try {
+centerPlaySplit73(plan.dmg, {
+pitchBase: function() { return curStep73; },
+isFever: function() { return feverOn; },
+onDone: function() { splitDone73 = true; trySlam73(); }
+});
+} catch (e) { splitDone73 = true; }
+function step(i) {
+if (fired) return;
+if (i >= ticks.length) {
+/* v73：链尾不再直接砸下，标记链完后由 trySlam73 等拆分块出完统一砸 */
+chainDone73 = true;
+trySlam73();
 return;
 }
+curStep73 = i;
 var tk = ticks[i];
 if (plan.feverFromTick >= 0 && i === plan.feverFromTick && !feverOn) {
 feverOn = true;
@@ -12650,7 +12669,7 @@ try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted
 }
 cum += tk.amt;
 setCounter(cum);
-try { centerTick69(tk, cum, feverOn, i); } catch (e) {}
+/* v73：中央不再按记分 tick 蹦整块增量，改走随机拆分计数（centerPlaySplit73） */
 while (mi < milestones.length && cum >= milestones[mi]) {
 mi++;
 try { if (typeof AU !== "undefined" && AU && AU.ctx && !AU.muted && !AU.sfxMuted) AU.tone(1568, AU.ctx.currentTime, 0.14, "sine", 0.07); } catch (e) {}
@@ -13083,6 +13102,7 @@ return layer;
 }
 function centerStart69() {
 var layer = cp69Layer(); if (!layer) return;
+try { splitCancel73(); } catch (e) {}
 Array.prototype.slice.call(layer.querySelectorAll(".cp-pop69")).forEach(function(p) { p.remove(); });
 var tot = $("cp-total69");
 if (tot) { tot.textContent = "0"; tot.classList.remove("bump69"); tot.classList.remove("slam69"); }
@@ -13115,11 +13135,100 @@ tot.textContent = fmtBig68(dmg);
 tot.classList.remove("bump69"); void tot.offsetWidth; tot.classList.add("slam69");
 }
 function centerEnd69() {
+try { splitCancel73(); } catch (e) {}
 var layer = $("center-pop69"); if (!layer) return;
 layer.classList.remove("on");
 Array.prototype.slice.call(layer.querySelectorAll(".cp-pop69")).forEach(function(p) { p.remove(); });
 var tot = $("cp-total69");
 if (tot) { tot.classList.remove("bump69"); tot.classList.remove("slam69"); }
+}
+/* ================= v73：随机拆分伤害显示（老哥定版） =================
+总伤害 T 在结算显示时拆成随机小块（每块 ≥1、全块之和恰好等于 T），
+块数随 T 量级变多、封顶 24；中央逐块蹦出（间隔约 45ms，快而密），
+每块响一声 tick，音调沿 v63 记分链的爬升（520 + 30×步数）继续往上、
+不重置；中央累计总数跟着一块一块往上加。块出完后由调用方
+（v63 doAttack 包装的 trySlam73）等记分链也走完，再按 v69 方式
+放大带火光砸下。拆分只是显示方式：预览与实际伤害仍是 T 本身，
+大数字走 v68 的 fmtBig68 压缩，块与总数同口径。 */
+var splitTimers73 = [], splitRun73 = 0;
+function splitCancel73() {
+splitRun73++;
+splitTimers73.forEach(function(x) { clearTimeout(x); });
+splitTimers73 = [];
+}
+function splitCount73(T) {
+if (T <= 1) return 1;
+var mag = Math.floor(Math.log10(T));
+var n = 16 + (mag - 2) * 2 + Math.floor(Math.random() * 9) - 4;
+if (n > 24) n = 24;
+if (n > T) n = T;
+if (n < 1) n = 1;
+return n;
+}
+function splitDmg73(T) {
+T = Math.floor(T);
+if (!(T > 0)) return [];
+if (T === 1) return [1];
+var n = splitCount73(T);
+var chunks = [], i;
+for (i = 0; i < n; i++) chunks.push(1);
+var rem = T - n, guard = 0;
+while (rem > 0 && guard++ < 100000) {
+var idx = Math.floor(Math.random() * n);
+var add = 1 + Math.floor(Math.random() * Math.max(1, Math.ceil(rem / 3)));
+if (add > rem) add = rem;
+chunks[idx] += add;
+rem -= add;
+}
+for (i = chunks.length - 1; i > 0; i--) {
+var j = Math.floor(Math.random() * (i + 1));
+var t = chunks[i]; chunks[i] = chunks[j]; chunks[j] = t;
+}
+return chunks;
+}
+function centerPlaySplit73(total, opts) {
+opts = opts || {};
+var finished = false;
+function done() { if (finished) return; finished = true; if (opts.onDone) { try { opts.onDone(); } catch (e) {} } }
+var layer = cp69Layer();
+if (!layer) { done(); return; }
+if (!layer.classList.contains("on")) centerStart69();
+var T = Math.floor(total);
+if (!(T > 0)) { done(); return; }
+var chunks = splitDmg73(T);
+var run = ++splitRun73;
+var cumSplit = 0;
+chunks.forEach(function(c, j) {
+var tm = setTimeout(function() {
+if (run !== splitRun73) return;
+cumSplit += c;
+var fever = false;
+try { fever = !!(opts.isFever && opts.isFever()); } catch (e) {}
+var tot = $("cp-total69");
+if (tot) {
+tot.textContent = fmtBig68(cumSplit);
+tot.classList.remove("bump69"); void tot.offsetWidth; tot.classList.add("bump69");
+}
+var pop = document.createElement("div");
+var frac = c / T;
+var sz = frac >= 0.22 ? "sz-xl" : frac >= 0.13 ? "sz-lg" : frac >= 0.06 ? "sz-md" : "sz-sm";
+pop.className = "cp-pop69 " + sz;
+if (fever) pop.classList.add("hot");
+pop.textContent = "+" + fmtBig68(c);
+pop.style.setProperty("--jx", ((((j * 53) % 5) - 2) * 15) + "px");
+layer.appendChild(pop);
+setTimeout(function() { pop.remove(); }, 560);
+var base = 0;
+try { base = opts.pitchBase ? (opts.pitchBase() | 0) : 0; } catch (e) {}
+var freq = Math.min(1200, 520 + 30 * (base + j));
+if (fever) freq *= 2;
+try { tickTone63(freq, (base + j) % 10 === 9); } catch (e) {}
+if (j === chunks.length - 1) {
+splitTimers73.push(setTimeout(function() { if (run === splitRun73) done(); }, 70));
+}
+}, 120 + j * 45);
+splitTimers73.push(tm);
+});
 }
 </script>
 <script>
