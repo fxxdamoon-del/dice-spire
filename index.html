@@ -170,7 +170,7 @@ appearance: none;
 .die:hover { transform: translateY(-2px);}
 .die.locked { border-color: var(--gold); transform: translateY(-7px); box-shadow: 0 10px 16px rgba(20,16,28,0.22);}
 .die.fate-target { border-color: var(--accent); animation: pulse 0.9s ease infinite alternate;}
-@keyframes pulse { from { box-shadow: 0 0 0 0 rgba(176,51,39,0.0);} to { box-shadow: 0 0 0 6px rgba(176,51,39,0.25);}}
+@keyframes pulse { from { box-shadow: 0 0 0 0 rgba(168,50,50,0.0);} to { box-shadow: 0 0 0 6px rgba(168,50,50,0.25);}}
 .die.rolling { animation: shake .38s ease;}
 @keyframes shake { 0%,100% { transform: rotate(0);} 25% { transform: rotate(-9deg) translateY(-4px);} 55% { transform: rotate(8deg);} 80% { transform: rotate(-5deg) translateY(2px);}}
 .die[data-type="fire"] { background: #f2ead8; border-color: #8a84a0; color: #a83232;}
@@ -252,7 +252,7 @@ details.rules td:last-child, details.rules th:last-child { text-align: right; fo
 .arena { position: relative; border-radius: 14px; padding: 16px 14px 14px; overflow: hidden;
 background:
  radial-gradient(420px 180px at 82% 0%, rgba(201,162,39,.22), transparent 65%),
- radial-gradient(360px 200px at 8% 100%, rgba(176,51,39,.14), transparent 60%),
+ radial-gradient(360px 200px at 8% 100%, rgba(168,50,50,.14), transparent 60%),
  linear-gradient(180deg, var(--panel-2), var(--panel));
 border: 1px solid var(--line);
 }
@@ -285,7 +285,7 @@ background: repeating-linear-gradient(90deg, var(--ink) 0 26px, transparent 26px
 @keyframes dmgFloat { 0%{ transform:translateY(8px) scale(.6); opacity:0;} 18%{ transform:translateY(-6px) scale(1.18); opacity:1;} 100%{ transform:translateY(-56px) scale(1); opacity:0;} }
 .projectile { position:absolute; width:26px; height:26px; border-radius:50%; z-index:6; pointer-events:none;
 background: radial-gradient(circle at 35% 35%, #f2ead8, var(--gold) 45%, var(--accent)); box-shadow:0 0 18px 6px rgba(201,162,39,.55); transition: left .38s cubic-bezier(.5,-0.1,.7,.4), top .38s cubic-bezier(.5,-0.1,.7,.4), transform .38s ease;}
-.projectile.dark { background: radial-gradient(circle at 35% 35%, #f2ead8, #4a1e6e 48%, #241f30); box-shadow:0 0 18px 6px rgba(91,67,130,.5);}
+.projectile.dark { background: radial-gradient(circle at 35% 35%, #f2ead8, #4a1e6e 48%, #241f30); box-shadow:0 0 18px 6px rgba(74,30,110,.5);}
 /* --- Dice tumbling: jump + spin + suspense --- */
 .die.rolling { animation: dieJumpSpin .95s cubic-bezier(.25,1.25,.4,1)!important;}
 @keyframes dieJumpSpin { 0%{ transform:translateY(0) rotate(0) scale(1);} 14%{ transform:translateY(-46px) rotate(140deg) scale(1.12);} 30%{ transform:translateY(-8px) rotate(300deg) scale(.94);} 46%{ transform:translateY(-34px) rotate(430deg) scale(1.08);} 62%{ transform:translateY(2px) rotate(540deg) scale(.96);} 78%{ transform:translateY(-16px) rotate(640deg) scale(1.04);} 100%{ transform:translateY(0) rotate(720deg) scale(1);} }
@@ -368,7 +368,7 @@ background: repeating-conic-gradient(from 0deg, rgba(201,162,39,.28) 0deg 12deg,
 .arena{ padding:0!important; background:linear-gradient(180deg,#1f5c38 0%,#1f5c38 38%,#5b5470 72%,#5b5470 100%)!important; border-color:#1f5c38!important; color:#f2ead8;}
 @media (prefers-color-scheme:dark){ .arena{background:linear-gradient(180deg,#14101c 0%,#1f5c38 45%,#1f5c38 100%)!important;} }
 .arena::before{ inset:auto -5% -10px -5%!important; height:86px!important; opacity:.35!important; background: radial-gradient(ellipse at 20% 100%, #3fae6a 0 28%, transparent 29%), radial-gradient(ellipse at 80% 100%, #3fae6a 0 26%, transparent 27%), linear-gradient(180deg,transparent,rgba(20,16,28,.28))!important; clip-path:none!important;}
-.arena::after{ content:""; position:absolute; right:12px; top:10px; width:22px; height:22px; background:url(https://dice-spire.pages.dev/assets/px-moon.png) center/contain no-repeat; image-rendering:pixelated; opacity:.9; filter:drop-shadow(0 2px 8px rgba(232,223,200,.6));}
+.arena::after{ content:""; position:absolute; right:12px; top:10px; width:22px; height:22px; background:url(https://dice-spire.pages.dev/assets/px-moon.png) center/contain no-repeat; image-rendering:pixelated; opacity:.9; filter:drop-shadow(0 2px 8px rgba(227,207,158,.6));}
 .stage-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 14px 0; position:relative; z-index:2;}
 .stage-act{ font-family:"Noto Serif SC",serif; font-weight:900; font-size:13px; letter-spacing:.08em; background:#f2ead8; color:#8a6d1f; padding:5px 12px; border-radius:99px; border:1px solid rgba(20,16,28,.2); box-shadow:0 2px 0 rgba(20,16,28,.25);}
 .stage-scene{ font-size:12px; color:#f2ead8; opacity:.9;}
@@ -404,13 +404,13 @@ background: repeating-conic-gradient(from 0deg, rgba(201,162,39,.28) 0deg 12deg,
 .fighter-enemy .badges{ justify-content:center; margin-top:4px;}
 .vs-center{ display:flex; flex-direction:column; align-items:center; gap:10px; padding-bottom:86px;}
 .vs-center .vs-chip{ width:52px; height:52px; border-radius:50%; background:#f2ead8; border:2px solid #1f5c38; display:grid; place-items:center; margin:0; box-shadow:0 4px 0 rgba(20,16,28,.3); animation:none; font-size:18px; color:#5e1f24;}
-.turn-pill{ font-size:11.5px; font-weight:700; letter-spacing:.04em; background:rgba(20,16,28,.45); color:#f2ead8; border:1px solid rgba(232,223,200,.35); padding:5px 9px; border-radius:99px; white-space:nowrap; backdrop-filter:blur(4px);}
+.turn-pill{ font-size:11.5px; font-weight:700; letter-spacing:.04em; background:rgba(20,16,28,.45); color:#f2ead8; border:1px solid rgba(227,207,158,.35); padding:5px 9px; border-radius:99px; white-space:nowrap; backdrop-filter:blur(4px);}
 .slash-fx{ position:absolute; width:74px; height:74px; pointer-events:none; z-index:7; opacity:0;}
 .slash-fx.show{ animation: slashPop .42s ease forwards;}
 @keyframes slashPop{ 0%{opacity:0; transform:scale(.6) rotate(-18deg)} 30%{opacity:1; transform:scale(1.15) rotate(8deg)} 100%{opacity:0; transform:scale(1.3) rotate(16deg) translateY(-8px)} }
 .turn-flash{ position:absolute; inset:0; z-index:8; display:none; place-items:center; pointer-events:none; background:linear-gradient(90deg,transparent,rgba(20,16,28,.55),transparent);}
 .turn-flash.show{ display:grid; animation: turnFlashBg .95s ease forwards;}
-.turn-flash span{ font-family:"Noto Serif SC",serif; font-weight:900; font-size:30px; letter-spacing:.18em; color:#f2ead8; text-shadow:0 3px 0 rgba(20,16,28,.45),0 0 24px rgba(232,223,200,.7); animation: turnText .95s cubic-bezier(.2,1.2,.3,1) forwards; text-align:center; line-height:1.2;}
+.turn-flash span{ font-family:"Noto Serif SC",serif; font-weight:900; font-size:30px; letter-spacing:.18em; color:#f2ead8; text-shadow:0 3px 0 rgba(20,16,28,.45),0 0 24px rgba(227,207,158,.7); animation: turnText .95s cubic-bezier(.2,1.2,.3,1) forwards; text-align:center; line-height:1.2;}
 .turn-flash small{ display:block; font-family:"Noto Sans SC",sans-serif; font-size:13px; letter-spacing:.08em; font-weight:500; opacity:.9; margin-top:6px;}
 @keyframes turnFlashBg{ 0%{opacity:0} 18%{opacity:1} 78%{opacity:1} 100%{opacity:0} }
 @keyframes turnText{ 0%{transform:translateX(-28px) scale(.9); opacity:0} 22%{transform:translateX(0) scale(1.05); opacity:1} 30%{transform:scale(1)} 100%{transform:translateX(10px); opacity:0} }
@@ -550,11 +550,11 @@ real game — home entry above START GAME, banner chip inside the battle */
 .charm-card.unowned h4{color:var(--ink-soft)}
 .coll-summary{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 /* boss second form (revive transform) */
-.enemy-art.second-form{ filter:drop-shadow(0 0 18px rgba(176,51,39,.75)) drop-shadow(0 10px 14px rgba(20,16,28,.35))!important;}
+.enemy-art.second-form{ filter:drop-shadow(0 0 18px rgba(168,50,50,.75)) drop-shadow(0 10px 14px rgba(20,16,28,.35))!important;}
 .enemy-art.second-form svg{ filter:saturate(1.35) contrast(1.08);}
 .enemy-art.transforming{ animation: bossTransformShake 1.1s ease!important;}
 @keyframes bossTransformShake{ 0%{transform:scale(1) rotate(0)} 18%{transform:scale(1.18) rotate(-4deg)} 36%{transform:scale(.92) rotate(3deg)} 54%{transform:scale(1.28) rotate(-2deg)} 72%{transform:scale(1.05) rotate(1deg)} 100%{transform:scale(1.12) rotate(0)} }
-.cs-box.transform-box .cs-art svg{ animation: bossTransformArt 1.35s cubic-bezier(.2,1.2,.3,1)!important; filter:drop-shadow(0 0 26px rgba(176,51,39,.85)) drop-shadow(0 14px 22px rgba(20,16,28,.5));}
+.cs-box.transform-box .cs-art svg{ animation: bossTransformArt 1.35s cubic-bezier(.2,1.2,.3,1)!important; filter:drop-shadow(0 0 26px rgba(168,50,50,.85)) drop-shadow(0 14px 22px rgba(20,16,28,.5));}
 @keyframes bossTransformArt{ 0%{transform:scale(.72) rotate(-6deg); opacity:.35; filter:brightness(2.2)} 30%{transform:scale(1.22) rotate(3deg)} 55%{transform:scale(.94) rotate(-2deg)} 78%{transform:scale(1.1)} 100%{transform:scale(1) rotate(0); opacity:1} }
 .cs-box.transform-box .cs-title{ color:#f2ead8;}
 .transform-rule{ display:inline-block; margin-top:6px; padding:5px 14px; border-radius:99px; border:1px solid #C9A227; background:rgba(201,162,39,.16); color:#f2ead8; font-size:13.5px; font-weight:700; line-height:1.6;}
@@ -662,7 +662,7 @@ real game — home entry above START GAME, banner chip inside the battle */
 .map-scene .ms-anim:has(>.node-scene-img){position:absolute;inset:0;animation:none}
 .map-scene .node-scene-img{display:block;width:100%;height:100%;object-fit:cover;image-rendering:pixelated}
 .map-progress i.now{animation:nowPulse 1.1s ease-in-out infinite alternate}
-@keyframes nowPulse{from{box-shadow:0 0 0 0 rgba(176,51,39,.0)}to{box-shadow:0 0 0 4px rgba(176,51,39,.22)}}
+@keyframes nowPulse{from{box-shadow:0 0 0 0 rgba(168,50,50,.0)}to{box-shadow:0 0 0 4px rgba(168,50,50,.22)}}
 /* travel overlay: walking to the next stop */
 .travel-overlay{position:fixed;inset:0;z-index:58;display:none;align-items:center;justify-content:center;padding:16px;background:radial-gradient(700px 420px at 50% 20%,rgba(201,162,39,.13),transparent 60%),rgba(20,16,28,.92)}
 .travel-overlay.show{display:flex}
@@ -701,7 +701,7 @@ real game — home entry above START GAME, banner chip inside the battle */
 .charm-slot .cs-rar{font-size:10px;font-weight:700;margin-top:2px}
 .charm-slot.r-稀有{border-color:#4a1e6e;background:linear-gradient(165deg,#f2ead8,#f2ead8)}
 .charm-slot.r-史诗{border-color:#8b3fd9;background:linear-gradient(165deg,#f2ead8,#f2ead8)}
-.charm-slot.empty-slot{background:rgba(232,223,200,.08);border:2px dashed rgba(232,223,200,.4);color:#f2ead8;box-shadow:none;display:grid;place-items:center;font-size:12px;cursor:default}
+.charm-slot.empty-slot{background:rgba(227,207,158,.08);border:2px dashed rgba(227,207,158,.4);color:#f2ead8;box-shadow:none;display:grid;place-items:center;font-size:12px;cursor:default}
 .charm-detail{font-size:12.5px;line-height:1.6;background:rgba(20,16,28,.28);border-radius:9px;padding:7px 10px;margin-top:6px;min-height:38px}
 .karma-pill{background:#241f30;color:#f2ead8;border:1px solid #4a1e6e;padding:2px 10px;border-radius:99px;font-weight:700}
 .debuff-badge{font-size:12px;padding:2px 9px;border-radius:99px;border:1px solid #a83232;background:#f2ead8;color:#a83232;font-weight:700}
@@ -787,9 +787,9 @@ real game — home entry above START GAME, banner chip inside the battle */
 .hpbar.player>i{background:linear-gradient(90deg,#a83232,#d97b3f)}
 .hpbar>i{background:linear-gradient(90deg,#a83232,#d97b3f)}
 #enemy-intent{display:none!important}
-.fighter-enemy .badges .badge{background:rgba(232,223,200,.92)}
+.fighter-enemy .badges .badge{background:rgba(227,207,158,.92)}
 .attr-icons{display:flex;gap:5px;justify-content:center;margin-top:5px;flex-wrap:wrap;min-height:22px}
-.attr-icon{font-size:14px;background:rgba(20,16,28,.38);border:1px solid rgba(232,223,200,.45);border-radius:99px;padding:1px 8px;cursor:help;line-height:1.5}
+.attr-icon{font-size:14px;background:rgba(20,16,28,.38);border:1px solid rgba(227,207,158,.45);border-radius:99px;padding:1px 8px;cursor:help;line-height:1.5}
 .intent-fx{position:absolute;top:2px;left:50%;transform:translateX(-50%);z-index:9;background:#f2ead8;color:#5e1f24;border:2px solid #1f5c38;border-radius:99px;padding:4px 13px;font-weight:900;font-size:13px;animation:intentFx 1.55s ease forwards;pointer-events:none;white-space:nowrap;box-shadow:0 4px 0 rgba(20,16,28,.3)}
 @keyframes intentFx{0%{opacity:0;transform:translate(-50%,10px) scale(.7)}18%{opacity:1;transform:translate(-50%,0) scale(1.1)}30%{transform:translate(-50%,0) scale(1)}74%{opacity:1}100%{opacity:0;transform:translate(-50%,-16px) scale(.96)}}
 /* --- compact charm slots: small cards on top, tap for details --- */
@@ -820,7 +820,7 @@ real game — home entry above START GAME, banner chip inside the battle */
 .home-screen.show{display:block}
 .home-inner{max-width:580px;margin:0 auto;padding:16px 16px 44px;text-align:center}
 .home-top{display:flex;justify-content:space-between;align-items:center}
-.corner-btn{width:46px;height:46px;border-radius:12px;font-size:21px;background:rgba(232,223,200,.96);border:2px solid #1f5c38;cursor:pointer;box-shadow:0 3px 0 rgba(20,16,28,.3)}
+.corner-btn{width:46px;height:46px;border-radius:12px;font-size:21px;background:rgba(227,207,158,.96);border:2px solid #1f5c38;cursor:pointer;box-shadow:0 3px 0 rgba(20,16,28,.3)}
 .corner-btn:active{transform:scale(.95)}
 .home-art{margin:6px auto 0;max-width:430px}
 .home-art svg{width:100%;height:auto;filter:drop-shadow(0 14px 22px rgba(20,16,28,.35))}
@@ -830,7 +830,7 @@ real game — home entry above START GAME, banner chip inside the battle */
 .btn-start-big:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(20,16,28,.4)}
 .home-continue{margin:22px auto 0;max-width:440px;text-align:left}
 .home-continue h3{font-family:"Noto Serif SC",serif;font-size:15px;margin:0 0 4px;color:#f2ead8;text-shadow:0 2px 5px rgba(20,16,28,.5)}
-.home-hint{font-size:12px;color:rgba(232,223,200,.85);margin-top:18px;text-shadow:0 1px 4px rgba(20,16,28,.5)}
+.home-hint{font-size:12px;color:rgba(227,207,158,.85);margin-top:18px;text-shadow:0 1px 4px rgba(20,16,28,.5)}
 /* --- generic menu overlays (mode / menu / rules) --- */
 .menu-overlay{position:fixed;inset:0;z-index:92;display:none;align-items:flex-start;justify-content:center;padding:16px;background:rgba(20,16,28,.9);overflow-y:auto}
 .menu-overlay.show{display:flex}
@@ -858,7 +858,7 @@ real game — home entry above START GAME, banner chip inside the battle */
 .tip-popover{position:fixed;z-index:120;max-width:272px;background:#1f5c38;color:#f2ead8;border:1px solid #C9A227;border-radius:10px;padding:9px 12px;font-size:13px;line-height:1.65;display:none;pointer-events:none;box-shadow:0 12px 28px rgba(20,16,28,.45)}
 .tip-popover.show{display:block}
 /* --- pixel-island world map --- */
-.world-board{position:relative;height:302px;border-radius:14px;border:2px solid #1f5c38;overflow:hidden;margin-bottom:12px;background:radial-gradient(ellipse 90% 62% at 50% 44%,#8a84a0 0 52%,#8a84a0 53% 58%,#6fb7d9 59% 100%);box-shadow:inset 0 0 0 4px rgba(232,223,200,.14),0 8px 20px rgba(20,16,28,.2)}
+.world-board{position:relative;height:302px;border-radius:14px;border:2px solid #1f5c38;overflow:hidden;margin-bottom:12px;background:radial-gradient(ellipse 90% 62% at 50% 44%,#8a84a0 0 52%,#8a84a0 53% 58%,#6fb7d9 59% 100%);box-shadow:inset 0 0 0 4px rgba(227,207,158,.14),0 8px 20px rgba(20,16,28,.2)}
 .world-board svg.world-path{position:absolute;inset:0;width:100%;height:100%}
 .world-node{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:2;width:66px}
 .wn-icon{display:grid;place-items:center;width:40px;height:40px;margin:0 auto;font-size:21px;background:#f2ead8;border:2px solid #1f5c38;border-radius:12px;box-shadow:0 3px 0 rgba(20,16,28,.3);position:relative}
@@ -915,10 +915,10 @@ frames, or the sheet slides and neighbouring frames bleed into view. */
 .home-hero{position:absolute;left:4%;bottom:0;width:94px;height:94px}
 .home-title{color:#f2ead8;text-shadow:0 4px 0 #5e1f24,0 10px 26px rgba(20,16,28,.8)}
 /* --- aged parchment charm cards --- */
-.charm-slot{background:radial-gradient(ellipse 60% 40% at 18% 12%,rgba(110,85,24,.38),rgba(110,85,24,0) 60%),radial-gradient(ellipse 55% 45% at 88% 92%,rgba(110,85,24,.34),rgba(110,85,24,0) 62%),radial-gradient(ellipse 30% 22% at 70% 18%,rgba(176,51,39,.14),rgba(176,51,39,0) 70%),linear-gradient(163deg,#f2ead8 0%,#e3cf9e 88%,#5b5470 135%);border-color:#8a6d1f;color:#14101c;box-shadow:0 4px 0 rgba(20,16,28,.5),inset 0 0 0 1px rgba(110,85,24,.35),inset 0 0 14px rgba(110,85,24,.42)}
-.charm-slot.r-稀有{border-color:#241f30;box-shadow:0 4px 0 rgba(20,16,28,.5),inset 0 0 0 1px rgba(44,74,102,.45),inset 0 0 14px rgba(44,74,102,.38),0 0 10px rgba(111,168,201,.35)}
-.charm-slot.r-史诗{border-color:#4a1e6e;box-shadow:0 4px 0 rgba(20,16,28,.5),inset 0 0 0 1px rgba(91,67,130,.5),inset 0 0 14px rgba(91,67,130,.4),0 0 12px rgba(138,99,201,.5)}
-.charm-slot.empty-slot{background:rgba(232,223,200,.07);color:#8a84a0}
+.charm-slot{background:radial-gradient(ellipse 60% 40% at 18% 12%,rgba(110,85,24,.38),rgba(110,85,24,0) 60%),radial-gradient(ellipse 55% 45% at 88% 92%,rgba(110,85,24,.34),rgba(110,85,24,0) 62%),radial-gradient(ellipse 30% 22% at 70% 18%,rgba(168,50,50,.14),rgba(168,50,50,0) 70%),linear-gradient(163deg,#f2ead8 0%,#e3cf9e 88%,#5b5470 135%);border-color:#8a6d1f;color:#14101c;box-shadow:0 4px 0 rgba(20,16,28,.5),inset 0 0 0 1px rgba(110,85,24,.35),inset 0 0 14px rgba(110,85,24,.42)}
+.charm-slot.r-稀有{border-color:#241f30;box-shadow:0 4px 0 rgba(20,16,28,.5),inset 0 0 0 1px rgba(44,74,102,.45),inset 0 0 14px rgba(44,74,102,.38),0 0 10px rgba(111,183,217,.35)}
+.charm-slot.r-史诗{border-color:#4a1e6e;box-shadow:0 4px 0 rgba(20,16,28,.5),inset 0 0 0 1px rgba(74,30,110,.5),inset 0 0 14px rgba(74,30,110,.4),0 0 12px rgba(139,63,217,.5)}
+.charm-slot.empty-slot{background:rgba(227,207,158,.07);color:#8a84a0}
 .draw-front{background:radial-gradient(ellipse 60% 40% at 18% 12%,rgba(110,85,24,.38),rgba(110,85,24,0) 60%),radial-gradient(ellipse 55% 45% at 88% 92%,rgba(110,85,24,.34),rgba(110,85,24,0) 62%),linear-gradient(163deg,#f2ead8 0%,#e3cf9e 90%,#5b5470 135%);color:#14101c;border-color:#8a6d1f}
 .draw-front p{color:#241f30}
 .draw-back{background:repeating-linear-gradient(45deg,#241f30 0 14px,#241f30 14px 28px)}
@@ -932,21 +932,21 @@ frames, or the sheet slides and neighbouring frames bleed into view. */
 .pfx{position:absolute;pointer-events:none;z-index:9;background-repeat:no-repeat;image-rendering:pixelated}
 /* --- elemental dice glow --- */
 .die[data-type="fire"]{animation:dieGlowFire 1.5s ease-in-out infinite alternate}
-@keyframes dieGlowFire{from{box-shadow:0 0 9px 2px rgba(224,90,58,.45),0 4px 10px rgba(20,16,28,.4)}to{box-shadow:0 0 18px 5px rgba(224,90,58,.9),0 4px 10px rgba(20,16,28,.4)}}
+@keyframes dieGlowFire{from{box-shadow:0 0 9px 2px rgba(217,123,63,.45),0 4px 10px rgba(20,16,28,.4)}to{box-shadow:0 0 18px 5px rgba(217,123,63,.9),0 4px 10px rgba(20,16,28,.4)}}
 .die[data-type="ice"]{animation:dieGlowIce 1.7s ease-in-out infinite alternate}
-@keyframes dieGlowIce{from{box-shadow:0 0 9px 2px rgba(111,168,201,.45),0 4px 10px rgba(20,16,28,.4)}to{box-shadow:0 0 18px 5px rgba(111,168,201,.9),0 4px 10px rgba(20,16,28,.4)}}
-.die[data-type="water"]{box-shadow:0 0 12px 3px rgba(111,168,201,.4),0 4px 10px rgba(20,16,28,.4)}
+@keyframes dieGlowIce{from{box-shadow:0 0 9px 2px rgba(111,183,217,.45),0 4px 10px rgba(20,16,28,.4)}to{box-shadow:0 0 18px 5px rgba(111,183,217,.9),0 4px 10px rgba(20,16,28,.4)}}
+.die[data-type="water"]{box-shadow:0 0 12px 3px rgba(111,183,217,.4),0 4px 10px rgba(20,16,28,.4)}
 .die[data-type="dark"]{animation:dieGlowDark 1.9s ease-in-out infinite alternate}
-@keyframes dieGlowDark{from{box-shadow:0 0 10px 3px rgba(20,16,28,.65),0 0 14px 4px rgba(91,67,130,.35)}to{box-shadow:0 0 16px 7px rgba(20,16,28,.95),0 0 24px 9px rgba(91,67,130,.55)}}
+@keyframes dieGlowDark{from{box-shadow:0 0 10px 3px rgba(20,16,28,.65),0 0 14px 4px rgba(74,30,110,.35)}to{box-shadow:0 0 16px 7px rgba(20,16,28,.95),0 0 24px 9px rgba(74,30,110,.55)}}
 .die[data-type="light"]{box-shadow:0 0 13px 3px rgba(201,162,39,.55),0 4px 10px rgba(20,16,28,.4)}
 .die[data-type="earth"]{box-shadow:0 0 11px 3px rgba(201,162,39,.45),0 4px 10px rgba(20,16,28,.4)}
-.die[data-type="poison"]{box-shadow:0 0 11px 3px rgba(91,138,78,.55),0 4px 10px rgba(20,16,28,.4)}
+.die[data-type="poison"]{box-shadow:0 0 11px 3px rgba(63,174,106,.55),0 4px 10px rgba(20,16,28,.4)}
 .die[data-type="loaded"]{box-shadow:0 0 11px 3px rgba(201,162,39,.5),0 4px 10px rgba(20,16,28,.4)}
-.die[data-type="wild"]{box-shadow:0 0 13px 3px rgba(138,99,201,.6),0 4px 10px rgba(20,16,28,.4)}
+.die[data-type="wild"]{box-shadow:0 0 13px 3px rgba(139,63,217,.6),0 4px 10px rgba(20,16,28,.4)}
 .die.counter-glow{border-color:#c9a227!important;animation:counterPulse .7s ease-in-out infinite alternate!important}
-@keyframes counterPulse{from{box-shadow:0 0 10px 3px rgba(201,162,39,.55),0 0 22px 6px rgba(138,99,201,.35)}to{box-shadow:0 0 20px 8px rgba(201,162,39,.95),0 0 34px 12px rgba(138,99,201,.6)}}
-.mini-die[data-type="fire"]{box-shadow:0 0 9px 2px rgba(224,90,58,.6)}
-.mini-die[data-type="ice"]{box-shadow:0 0 9px 2px rgba(111,168,201,.6)}
+@keyframes counterPulse{from{box-shadow:0 0 10px 3px rgba(201,162,39,.55),0 0 22px 6px rgba(139,63,217,.35)}to{box-shadow:0 0 20px 8px rgba(201,162,39,.95),0 0 34px 12px rgba(139,63,217,.6)}}
+.mini-die[data-type="fire"]{box-shadow:0 0 9px 2px rgba(217,123,63,.6)}
+.mini-die[data-type="ice"]{box-shadow:0 0 9px 2px rgba(111,183,217,.6)}
 .mini-die[data-type="dark"]{box-shadow:0 0 10px 4px rgba(20,16,28,.8)}
 .mini-die[data-type="light"]{box-shadow:0 0 9px 2px rgba(201,162,39,.55)}
 @media (prefers-reduced-motion: reduce) {
@@ -982,7 +982,7 @@ no neighbouring-frame bleed. */
 .pcard.imgback{background-image:url(https://dice-spire.pages.dev/assets/card-back.png);background-size:cover;background-position:center;color:#c9a227}
 .pcard.imgback small{position:absolute;left:0;right:0;bottom:2px;text-align:center;text-shadow:1px 1px 0 #14101c,-1px 1px 0 #14101c}
 .dicecup .cup-body{background:linear-gradient(180deg,rgba(110,85,24,.25),rgba(31,92,56,.25)),url(https://dice-spire.pages.dev/assets/dice-cup.png) center/auto 112% no-repeat,linear-gradient(180deg,#8a6d1f,#1f5c38);color:transparent;text-shadow:none}
-.gamble-table{background-image:url(https://dice-spire.pages.dev/assets/gambling-table.png);background-size:cover;background-position:center;box-shadow:inset 0 0 0 999px rgba(20,16,29,.42),inset 0 3px 0 rgba(232,223,200,.1),inset 0 -8px 0 rgba(20,16,28,.35)}
+.gamble-table{background-image:url(https://dice-spire.pages.dev/assets/gambling-table.png);background-size:cover;background-position:center;box-shadow:inset 0 0 0 999px rgba(20,16,29,.42),inset 0 3px 0 rgba(227,207,158,.1),inset 0 -8px 0 rgba(20,16,28,.35)}
 .bet-chip-img{width:18px;height:18px;vertical-align:-4px;margin-right:4px;image-rendering:pixelated}
 @media (max-width:560px){ .spr-gen{width:106px;height:106px} .spr-gen.spr-boss{width:118px;height:118px} #enemy-art .spr-gen.spr-boss{width:130px;height:130px} }
 
@@ -1035,23 +1035,23 @@ from the same 21-color palette purples (#8b3fd9 / #8b3fd9 / #4a1e6e). */
 .home-stage{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100%,177.78vh);height:max(56.25vw,100%);overflow:hidden}
 .home-art{position:absolute;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;object-fit:cover;object-position:center;image-rendering:pixelated}
 .home-rain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.home-flash{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(183,156,237,.85),rgba(138,99,201,.25) 55%,rgba(138,99,201,0) 80%);opacity:0;pointer-events:none}
+.home-flash{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(207,201,221,.85),rgba(139,63,217,.25) 55%,rgba(139,63,217,0) 80%);opacity:0;pointer-events:none}
 .home-flash.go{animation:flashAnim .7s steps(6) 1}
 @keyframes flashAnim{0%{opacity:0}8%{opacity:.5}16%{opacity:.06}26%{opacity:.38}40%{opacity:0}100%{opacity:0}}
-.bolt{position:absolute;opacity:0;pointer-events:none;filter:drop-shadow(0 0 6px rgba(183,156,237,.9))}
+.bolt{position:absolute;opacity:0;pointer-events:none;filter:drop-shadow(0 0 6px rgba(207,201,221,.9))}
 .bolt.go{animation:boltAnim .7s steps(5) 1}
 @keyframes boltAnim{0%{opacity:0}10%{opacity:.95}20%{opacity:.1}30%{opacity:.8}45%{opacity:0}100%{opacity:0}}
 .bolt-a{left:18%;top:24%;width:3.4%}
 .bolt-b{left:87%;top:14%;width:3%}
-.flame-stream{position:absolute;left:67.7%;top:16.5%;width:5.5%;height:24%;background:linear-gradient(180deg,rgba(183,156,237,.9),rgba(138,99,201,.55) 55%,rgba(138,99,201,0));mix-blend-mode:screen;filter:blur(5px);transform:rotate(-20deg);transform-origin:top center;animation:streamFlick .5s steps(3) infinite alternate;pointer-events:none}
+.flame-stream{position:absolute;left:67.7%;top:16.5%;width:5.5%;height:24%;background:linear-gradient(180deg,rgba(207,201,221,.9),rgba(139,63,217,.55) 55%,rgba(139,63,217,0));mix-blend-mode:screen;filter:blur(5px);transform:rotate(-20deg);transform-origin:top center;animation:streamFlick .5s steps(3) infinite alternate;pointer-events:none}
 @keyframes streamFlick{from{opacity:.35;transform:rotate(-21deg) scaleY(.96)}to{opacity:.8;transform:rotate(-19deg) scaleY(1.04)}}
-.flame-glow{position:absolute;left:53.5%;top:32%;width:16%;height:30%;background:radial-gradient(ellipse at 50% 55%,rgba(183,156,237,.75),rgba(138,99,201,.38) 45%,rgba(138,99,201,0) 72%);mix-blend-mode:screen;filter:blur(6px);animation:flamePulse 1.1s steps(4) infinite alternate;pointer-events:none}
+.flame-glow{position:absolute;left:53.5%;top:32%;width:16%;height:30%;background:radial-gradient(ellipse at 50% 55%,rgba(207,201,221,.75),rgba(139,63,217,.38) 45%,rgba(139,63,217,0) 72%);mix-blend-mode:screen;filter:blur(6px);animation:flamePulse 1.1s steps(4) infinite alternate;pointer-events:none}
 @keyframes flamePulse{from{opacity:.45;transform:scale(1)}to{opacity:.95;transform:scale(1.07)}}
-.mouth-glow{position:absolute;left:68.2%;top:14%;width:4.5%;height:6.5%;background:radial-gradient(circle,rgba(183,156,237,.9),rgba(138,99,201,0) 70%);mix-blend-mode:screen;animation:flamePulse .5s steps(2) infinite alternate;pointer-events:none}
-.sword-glow{position:absolute;left:33.2%;top:61%;width:5%;height:14%;background:radial-gradient(ellipse,rgba(183,156,237,.85),rgba(138,99,201,0) 70%);mix-blend-mode:screen;animation:swordPulse 1.6s steps(3) infinite alternate;pointer-events:none}
+.mouth-glow{position:absolute;left:68.2%;top:14%;width:4.5%;height:6.5%;background:radial-gradient(circle,rgba(207,201,221,.9),rgba(139,63,217,0) 70%);mix-blend-mode:screen;animation:flamePulse .5s steps(2) infinite alternate;pointer-events:none}
+.sword-glow{position:absolute;left:33.2%;top:61%;width:5%;height:14%;background:radial-gradient(ellipse,rgba(207,201,221,.85),rgba(139,63,217,0) 70%);mix-blend-mode:screen;animation:swordPulse 1.6s steps(3) infinite alternate;pointer-events:none}
 @keyframes swordPulse{from{opacity:.35}to{opacity:.9}}
 .flame-embers{position:absolute;left:55%;top:34%;width:13%;height:24%;pointer-events:none}
-.flame-embers i{position:absolute;bottom:0;width:4px;height:4px;background:#8b3fd9;box-shadow:0 0 6px rgba(138,99,201,.9);opacity:0;animation:emberRise 2.6s linear infinite}
+.flame-embers i{position:absolute;bottom:0;width:4px;height:4px;background:#8b3fd9;box-shadow:0 0 6px rgba(139,63,217,.9);opacity:0;animation:emberRise 2.6s linear infinite}
 .flame-embers i:nth-child(1){left:10%;animation-delay:0s}
 .flame-embers i:nth-child(2){left:30%;animation-delay:.4s;animation-duration:2.2s}
 .flame-embers i:nth-child(3){left:50%;animation-delay:.9s;animation-duration:3s}
@@ -1080,12 +1080,12 @@ Home storm-night scene, DICE MASTER title and the START GAME button are
 deliberately NOT touched. */
 /* --- nine-slice frame art (24x24 grid, slice 8, stepped corners) --- */
 :root{
---frame-stone:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' fill='%230B0910' d='M2 0h20v2h2v20h-2v2H2v-2H0V2h2Z M4 4h16v16H4Z'/%3E%3Cpath fill-rule='evenodd' fill='%233B2D55' d='M2 2h20v20H2Z M4 4h16v16H4Z'/%3E%3Crect x='4' y='4' width='16' height='2' fill='%235B4382'/%3E%3Crect x='4' y='4' width='2' height='16' fill='%235B4382'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23C9A227'/%3E%3Crect x='20' y='2' width='2' height='2' fill='%23C9A227'/%3E%3Crect x='2' y='20' width='2' height='2' fill='%23C9A227'/%3E%3Crect x='20' y='20' width='2' height='2' fill='%23C9A227'/%3E%3C/svg%3E");
---frame-parch:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' fill='%230B0910' d='M2 0h20v2h2v20h-2v2H2v-2H0V2h2Z M4 4h16v16H4Z'/%3E%3Cpath fill-rule='evenodd' fill='%236E5518' d='M2 2h20v20H2Z M4 4h16v16H4Z'/%3E%3Crect x='4' y='4' width='16' height='2' fill='%23C9A227'/%3E%3Crect x='4' y='4' width='2' height='16' fill='%23C9A227'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23B03327'/%3E%3Crect x='20' y='2' width='2' height='2' fill='%23B03327'/%3E%3Crect x='2' y='20' width='2' height='2' fill='%23B03327'/%3E%3Crect x='20' y='20' width='2' height='2' fill='%23B03327'/%3E%3C/svg%3E");
+--frame-stone:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' fill='%230B0910' d='M2 0h20v2h2v20h-2v2H2v-2H0V2h2Z M4 4h16v16H4Z'/%3E%3Cpath fill-rule='evenodd' fill='%233B2D55' d='M2 2h20v20H2Z M4 4h16v16H4Z'/%3E%3Crect x='4' y='4' width='16' height='2' fill='%234a1e6e'/%3E%3Crect x='4' y='4' width='2' height='16' fill='%234a1e6e'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23C9A227'/%3E%3Crect x='20' y='2' width='2' height='2' fill='%23C9A227'/%3E%3Crect x='2' y='20' width='2' height='2' fill='%23C9A227'/%3E%3Crect x='20' y='20' width='2' height='2' fill='%23C9A227'/%3E%3C/svg%3E");
+--frame-parch:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' fill='%230B0910' d='M2 0h20v2h2v20h-2v2H2v-2H0V2h2Z M4 4h16v16H4Z'/%3E%3Cpath fill-rule='evenodd' fill='%236E5518' d='M2 2h20v20H2Z M4 4h16v16H4Z'/%3E%3Crect x='4' y='4' width='16' height='2' fill='%23C9A227'/%3E%3Crect x='4' y='4' width='2' height='16' fill='%23C9A227'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23a83232'/%3E%3Crect x='20' y='2' width='2' height='2' fill='%23a83232'/%3E%3Crect x='2' y='20' width='2' height='2' fill='%23a83232'/%3E%3Crect x='20' y='20' width='2' height='2' fill='%23a83232'/%3E%3C/svg%3E");
 --frame-wood:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' fill='%230B0910' d='M2 0h20v2h2v20h-2v2H2v-2H0V2h2Z M4 4h16v16H4Z'/%3E%3Cpath fill-rule='evenodd' fill='%236E5518' d='M2 2h20v20H2Z M4 4h16v16H4Z'/%3E%3Crect x='4' y='4' width='16' height='2' fill='%23B8AC93'/%3E%3Crect x='4' y='4' width='2' height='16' fill='%23B8AC93'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%230B0910'/%3E%3Crect x='20' y='2' width='2' height='2' fill='%230B0910'/%3E%3Crect x='2' y='20' width='2' height='2' fill='%230B0910'/%3E%3Crect x='20' y='20' width='2' height='2' fill='%230B0910'/%3E%3C/svg%3E");
 /* --- material textures (palette colours only) --- */
 --tex-stone:
-radial-gradient(rgba(232,223,200,.07) 1px, rgba(232,223,200,0) 1.6px) 0 0/7px 7px,
+radial-gradient(rgba(227,207,158,.07) 1px, rgba(227,207,158,0) 1.6px) 0 0/7px 7px,
 radial-gradient(rgba(20,16,28,.42) 1px, rgba(20,16,28,0) 1.8px) 3px 4px/9px 9px,
 repeating-linear-gradient(0deg, rgba(20,16,28,.22) 0 2px, rgba(20,16,28,0) 2px 24px),
 repeating-linear-gradient(90deg, rgba(20,16,28,.14) 0 2px, rgba(20,16,28,0) 2px 38px),
@@ -1093,7 +1093,7 @@ linear-gradient(180deg,#241f30,#241f30 62%,#14101c);
 --tex-parch:
 radial-gradient(ellipse 60% 40% at 18% 12%, rgba(110,85,24,.38), rgba(110,85,24,0) 60%),
 radial-gradient(ellipse 55% 45% at 88% 92%, rgba(110,85,24,.34), rgba(110,85,24,0) 62%),
-radial-gradient(ellipse 30% 22% at 70% 18%, rgba(176,51,39,.13), rgba(176,51,39,0) 70%),
+radial-gradient(ellipse 30% 22% at 70% 18%, rgba(168,50,50,.13), rgba(168,50,50,0) 70%),
 radial-gradient(rgba(110,85,24,.16) 1px, rgba(110,85,24,0) 1.6px) 2px 3px/8px 8px,
 repeating-linear-gradient(0deg, rgba(110,85,24,.05) 0 2px, rgba(110,85,24,0) 2px 5px),
 linear-gradient(163deg,#f2ead8 0%,#e3cf9e 92%,#5b5470 135%);
@@ -1108,14 +1108,14 @@ repeating-linear-gradient(0deg, rgba(20,16,28,0) 0 9px, rgba(20,16,28,.55) 9px 1
 repeating-linear-gradient(90deg, rgba(20,16,28,.16) 0 2px, rgba(20,16,28,0) 2px 6px),
 linear-gradient(180deg,#a83232,#5e1f24);
 --tex-wood-gold:
-linear-gradient(180deg, rgba(232,223,200,.25), rgba(232,223,200,0) 42%),
+linear-gradient(180deg, rgba(227,207,158,.25), rgba(227,207,158,0) 42%),
 repeating-linear-gradient(0deg, rgba(20,16,28,0) 0 9px, rgba(20,16,28,.5) 9px 11px),
 repeating-linear-gradient(90deg, rgba(20,16,28,.15) 0 2px, rgba(20,16,28,0) 2px 6px),
 linear-gradient(180deg,#C9A227,#8a6d1f);
 --tex-wood-dark:
-linear-gradient(180deg, rgba(183,156,237,.12), rgba(183,156,237,0) 42%),
+linear-gradient(180deg, rgba(207,201,221,.12), rgba(207,201,221,0) 42%),
 repeating-linear-gradient(0deg, rgba(20,16,28,0) 0 9px, rgba(20,16,28,.65) 9px 11px),
-repeating-linear-gradient(90deg, rgba(232,223,200,.05) 0 2px, rgba(232,223,200,0) 2px 6px),
+repeating-linear-gradient(90deg, rgba(227,207,158,.05) 0 2px, rgba(227,207,158,0) 2px 6px),
 linear-gradient(180deg,#241f30,#14101c);
 }
 /* --- STONE: panels, shop, rewards, menus, HUD --- */
@@ -1124,7 +1124,7 @@ linear-gradient(180deg,#241f30,#14101c);
 .sell-panel,.charm-bar-wrap,details.rules,.tip-popover{
 background:var(--tex-stone);border:3px solid #14101c;border-radius:0;
 border-image-source:var(--frame-stone);border-image-slice:8;border-image-width:9px;border-image-repeat:stretch;
-box-shadow:inset 0 2px 0 rgba(232,223,200,.13),inset 0 -6px 0 rgba(20,16,28,.42),inset 2px 0 0 rgba(232,223,200,.05),0 5px 0 rgba(20,16,28,.5),0 12px 24px rgba(20,16,28,.45);
+box-shadow:inset 0 2px 0 rgba(227,207,158,.13),inset 0 -6px 0 rgba(20,16,28,.42),inset 2px 0 0 rgba(227,207,158,.05),0 5px 0 rgba(20,16,28,.5),0 12px 24px rgba(20,16,28,.45);
 }
 /* stone frame only — these keep their own scene / felt / pattern fills */
 .arena,.scene-stage,.map-scene,.world-board,.draw-back{
@@ -1132,30 +1132,30 @@ border:3px solid #14101c;border-radius:0;
 border-image-source:var(--frame-stone);border-image-slice:8;border-image-width:9px;border-image-repeat:stretch;
 }
 .world-board{border-image-width:11px}
-.gamble-table{border:3px solid #14101c;border-radius:0;border-image-source:var(--frame-wood);border-image-slice:8;border-image-width:8px;border-image-repeat:stretch;box-shadow:inset 0 3px 0 rgba(232,223,200,.1),inset 0 -8px 0 rgba(20,16,28,.35)}
+.gamble-table{border:3px solid #14101c;border-radius:0;border-image-source:var(--frame-wood);border-image-slice:8;border-image-width:8px;border-image-repeat:stretch;box-shadow:inset 0 3px 0 rgba(227,207,158,.1),inset 0 -8px 0 rgba(20,16,28,.35)}
 /* stone insets (rows & sub-panels inside framed panels) */
 .save-row,.menu-meta,.charm-detail,.world-progress{
 background:radial-gradient(rgba(20,16,28,.35) 1px, rgba(20,16,28,0) 1.8px) 2px 3px/9px 9px,linear-gradient(180deg,#14101c,#241f30);
-border:2px solid #14101c;border-radius:0;box-shadow:inset 0 2px 0 rgba(20,16,28,.55),inset 0 -3px 0 rgba(232,223,200,.06);
+border:2px solid #14101c;border-radius:0;box-shadow:inset 0 2px 0 rgba(20,16,28,.55),inset 0 -3px 0 rgba(227,207,158,.06);
 }
 .world-progress{border-image-source:var(--frame-stone);border-image-slice:8;border-image-width:7px;border-image-repeat:stretch;border-width:3px}
 /* --- PARCHMENT: dialogue boxes & charm cards --- */
 .dlg-box,.overlay .box,.charm-card,.draw-front,.charm-slot:not(.empty-slot){
 background:var(--tex-parch);border:3px solid #14101c;border-radius:0;
 border-image-source:var(--frame-parch);border-image-slice:8;border-image-width:9px;border-image-repeat:stretch;
-box-shadow:inset 0 2px 0 rgba(232,223,200,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 12px 24px rgba(20,16,28,.4);
+box-shadow:inset 0 2px 0 rgba(227,207,158,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 12px 24px rgba(20,16,28,.4);
 }
 .dlg-box{color:#14101c}
 .dlg-box .dlg-hint{color:#5b5470}
 .overlay .box{color:#14101c}
 .overlay .box .stats div span{color:#5b5470}
-.charm-slot.r-稀有{box-shadow:inset 0 2px 0 rgba(232,223,200,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 10px rgba(111,168,201,.4)}
-.charm-slot.r-史诗{box-shadow:inset 0 2px 0 rgba(232,223,200,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 12px rgba(138,99,201,.55)}
+.charm-slot.r-稀有{box-shadow:inset 0 2px 0 rgba(227,207,158,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 10px rgba(111,183,217,.4)}
+.charm-slot.r-史诗{box-shadow:inset 0 2px 0 rgba(227,207,158,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 12px rgba(139,63,217,.55)}
 .charm-slot.empty-slot{border-radius:0}
 /* parchment speech & note boxes (small: thick outline, no nine-slice) */
 .boss-say,.scene-bubble,.taunt-bubble,.talisman,.stage-act,.intent,.intent-fx{
 background:var(--tex-parch);border:2px solid #14101c;border-radius:0;color:#14101c;
-box-shadow:inset 0 1px 0 rgba(232,223,200,.5),inset 0 -4px 0 rgba(110,85,24,.3),0 3px 0 rgba(20,16,28,.45);
+box-shadow:inset 0 1px 0 rgba(227,207,158,.5),inset 0 -4px 0 rgba(110,85,24,.3),0 3px 0 rgba(20,16,28,.45);
 }
 .boss-say::before{border-right-color:#8a84a0}
 .scene-bubble,.taunt-bubble{color:#5e1f24}
@@ -1185,12 +1185,12 @@ box-shadow:inset 0 1px 0 rgba(201,162,39,.22),inset 0 -4px 0 rgba(20,16,28,.45),
 /* --- HP bar frames: chunky dark housing, segmented pixel fill --- */
 .bar,.enemy-hpbar,.hpbar{
 border:2px solid #14101c;border-radius:0;background:#14101c;
-box-shadow:inset 0 2px 0 rgba(20,16,28,.8),inset 0 -2px 0 rgba(232,223,200,.08),0 2px 0 rgba(20,16,28,.4);
+box-shadow:inset 0 2px 0 rgba(20,16,28,.8),inset 0 -2px 0 rgba(227,207,158,.08),0 2px 0 rgba(20,16,28,.4);
 }
 .bar>i,.enemy-hpbar>i,.hpbar>i{
 background:
 repeating-linear-gradient(90deg, rgba(20,16,28,.32) 0 2px, rgba(20,16,28,0) 2px 9px),
-linear-gradient(180deg, rgba(232,223,200,.38), rgba(232,223,200,0) 50%),
+linear-gradient(180deg, rgba(227,207,158,.38), rgba(227,207,158,0) 50%),
 linear-gradient(90deg,#5e1f24,#a83232 55%,#d97b3f);
 }
 .ess-lvbar i{border-radius:0;border:2px solid #14101c}
@@ -1198,13 +1198,13 @@ linear-gradient(90deg,#5e1f24,#a83232 55%,#d97b3f);
 /* --- map nodes & small chips: square pixel frames --- */
 .wn-icon{
 background:var(--tex-stone);border:3px solid #14101c;border-radius:0;color:#f2ead8;
-box-shadow:inset 0 2px 0 rgba(232,223,200,.16),inset 0 -4px 0 rgba(20,16,28,.45),0 3px 0 rgba(20,16,28,.5);
+box-shadow:inset 0 2px 0 rgba(227,207,158,.16),inset 0 -4px 0 rgba(20,16,28,.45),0 3px 0 rgba(20,16,28,.5);
 }
 .world-node.done .wn-icon::after{border-radius:0}
 .badge,.gold-pill,.karma-pill,.bonus-chip,.kind-tag,.map-progress i,.turn-pill,.attr-icon,.endless-tag,.rarity,.draw-front .rarity,.stage-rule,.transform-rule{border-radius:0;border-width:2px;border-color:#14101c;box-shadow:0 2px 0 rgba(20,16,28,.4)}
 .gold-pill{background:var(--tex-wood-dark);color:#c9a227}
 .turn-pill{background:#241f30}
-.vs-center .vs-chip{background:var(--tex-parch);border:3px solid #14101c;border-radius:0;box-shadow:inset 0 2px 0 rgba(232,223,200,.5),inset 0 -4px 0 rgba(110,85,24,.3),0 3px 0 rgba(20,16,28,.5)}
+.vs-center .vs-chip{background:var(--tex-parch);border:3px solid #14101c;border-radius:0;box-shadow:inset 0 2px 0 rgba(227,207,158,.5),inset 0 -4px 0 rgba(110,85,24,.3),0 3px 0 rgba(20,16,28,.5)}
 .pcard,.gdice{border:2px solid #14101c;border-radius:0;box-shadow:inset 0 0 0 1px rgba(110,85,24,.35),0 3px 0 rgba(20,16,28,.45)}
 .class-portrait{border:2px solid #14101c;border-radius:0;box-shadow:inset 0 0 0 2px #4a1e6e,inset 0 -8px 0 rgba(20,16,28,.3)}
 .boss-face{border:2px solid #14101c;border-radius:0;background:var(--tex-stone)}
@@ -1286,7 +1286,7 @@ border-width:var(--bw-s);border-image-width:8px;
 /* disabled: value drop + desaturate + ledge gone, same silhouette */
 .btn:disabled,.cs-btn:disabled,.upg-opt:disabled,.btn-ghost:disabled,.gamble-tab:disabled,.bet-chip:disabled,.asc-chip:disabled,.sell-item:disabled{
 opacity:.5;filter:saturate(.3) brightness(.82);cursor:not-allowed;transform:none;
-box-shadow:inset 0 1px 0 rgba(232,223,200,.1),inset 0 -2px 0 rgba(20,16,28,.3),0 1px 0 rgba(20,16,28,.4);
+box-shadow:inset 0 1px 0 rgba(227,207,158,.1),inset 0 -2px 0 rgba(20,16,28,.3),0 1px 0 rgba(20,16,28,.4);
 }
 /* locked: dark veil + gold lock tag in the stepped corner */
 .class-card.locked,.charm-card.locked{position:relative;filter:saturate(.45) brightness(.85)}
@@ -1305,7 +1305,7 @@ box-shadow:0 2px 0 rgba(20,16,28,.55);animation:pxNewBlink 1s steps(1,end) infin
 }
 @keyframes pxNewBlink{0%,55%{background:var(--px-gold-hi)}56%,100%{background:var(--px-gold)}}
 .charm-slot.is-new{animation:pxNewPulse 1s steps(2,end) infinite}
-@keyframes pxNewPulse{0%{box-shadow:inset 0 2px 0 rgba(232,223,200,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 0 0 var(--px-gold-hi)}100%{box-shadow:inset 0 2px 0 rgba(232,223,200,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 0 3px var(--px-gold-hi)}}
+@keyframes pxNewPulse{0%{box-shadow:inset 0 2px 0 rgba(227,207,158,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 0 0 var(--px-gold-hi)}100%{box-shadow:inset 0 2px 0 rgba(227,207,158,.5),inset 0 -6px 0 rgba(110,85,24,.35),0 5px 0 rgba(20,16,28,.5),0 0 0 3px var(--px-gold-hi)}}
 /* focus: hard 2px gold step outline, readable at any size */
 :focus{outline:none}
 :focus-visible{outline:var(--bw-s) solid var(--px-gold-hi);outline-offset:2px}
@@ -1327,7 +1327,7 @@ box-shadow:0 2px 0 rgba(20,16,28,.55);animation:pxNewBlink 1s steps(1,end) infin
 /* slider: 8px inset track, chunky square thumb — pointer + touch */
 .px-range{appearance:none;-webkit-appearance:none;width:168px;max-width:44vw;height:8px;background:#14101c;border:var(--bw-s) solid var(--px-line);box-shadow:inset 0 2px 0 rgba(20,16,28,.85);cursor:pointer;padding:0;margin:0}
 .px-range::-webkit-slider-runnable-track{height:8px;background:transparent}
-.px-range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:24px;margin-top:-10px;background:var(--tex-wood-gold);border:var(--bw-s) solid var(--px-line);box-shadow:inset 0 2px 0 rgba(232,223,200,.35),0 2px 0 rgba(20,16,28,.55);cursor:pointer;border-radius:0}
+.px-range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:24px;margin-top:-10px;background:var(--tex-wood-gold);border:var(--bw-s) solid var(--px-line);box-shadow:inset 0 2px 0 rgba(227,207,158,.35),0 2px 0 rgba(20,16,28,.55);cursor:pointer;border-radius:0}
 .px-range::-moz-range-track{height:8px;background:#14101c;border:var(--bw-s) solid var(--px-line);border-radius:0}
 .px-range::-moz-range-thumb{width:12px;height:20px;background:var(--px-gold);border:var(--bw-s) solid var(--px-line);border-radius:0;box-shadow:0 2px 0 rgba(20,16,28,.55);cursor:pointer}
 .px-range:active::-webkit-slider-thumb{filter:brightness(1.2)}
@@ -1459,7 +1459,7 @@ html.frame-port .home-screen{width:min(520px,56.25vh);left:50%;right:auto;transf
 /* --- menu orientation segmented control --- */
 .set-row-orient{flex-wrap:wrap}
 .px-seg{display:inline-flex;gap:6px;margin-left:auto;flex-wrap:wrap}
-.px-seg button{appearance:none;border:2px solid #14101c;background:#4a1e6e;color:#f2ead8;box-shadow:inset 0 0 0 2px rgba(232,223,200,.14);padding:7px 13px;font:inherit;font-size:13.5px;cursor:pointer;touch-action:manipulation}
+.px-seg button{appearance:none;border:2px solid #14101c;background:#4a1e6e;color:#f2ead8;box-shadow:inset 0 0 0 2px rgba(227,207,158,.14);padding:7px 13px;font:inherit;font-size:13.5px;cursor:pointer;touch-action:manipulation}
 .px-seg button.on{background:#C9A227;color:#14101c;font-weight:700}
 /* ================= v34: LAST PROGRAM-DRAWN FIGURES → REAL GENERATED ART =================
 Altar / dice tomb / blood moon event stages use the real 16:9 generated
@@ -1498,7 +1498,7 @@ charm effects and scoring rules are untouched — layout only. */
 .battle-topbar .preview .formula{font-size:12.5px;color:#8a84a0}
 .battle-topbar .preview .dmg{margin-left:auto;font-size:13px;width:auto;text-align:right}
 .battle-topbar .preview .dmg b{font-size:20px}
-.turn-line{font-size:11.5px;font-weight:700;letter-spacing:.03em;color:#f2ead8;background:rgba(232,223,200,.12);border:1px solid rgba(232,223,200,.3);padding:2px 8px;white-space:nowrap}
+.turn-line{font-size:11.5px;font-weight:700;letter-spacing:.03em;color:#f2ead8;background:rgba(227,207,158,.12);border:1px solid rgba(227,207,158,.3);padding:2px 8px;white-space:nowrap}
 #charm-bar-wrap{background:none;border:none;box-shadow:none;margin:0;padding:0;display:flex;align-items:center;gap:7px;color:#f2ead8}
 .bt-charms-lbl{font-size:11.5px;font-weight:700;white-space:nowrap;color:#8a84a0}
 .bt-charms-lbl b{color:#c9a227}
@@ -1511,7 +1511,7 @@ charm effects and scoring rules are untouched — layout only. */
 .battle-topbar .charm-slot .cs-name{font-size:9px;line-height:1.15;margin-top:1px}
 .battle-topbar .charm-slot .cs-pos{font-size:8px;top:1px;left:3px}
 .battle-topbar .charm-slot.empty-slot{font-size:9px}
-.battle-topbar .charm-detail{margin:0;min-height:0;font-size:11.5px;line-height:1.45;padding:4px 8px;max-height:44px;overflow-y:auto;background:rgba(232,223,200,.08);cursor:pointer}
+.battle-topbar .charm-detail{margin:0;min-height:0;font-size:11.5px;line-height:1.45;padding:4px 8px;max-height:44px;overflow-y:auto;background:rgba(227,207,158,.08);cursor:pointer}
 .charm-detail[hidden]{display:none!important}
 /* stage: no middle column, bigger fighters, freed width goes here */
 .battle-stage{grid-template-columns:1fr 1fr;gap:10px;padding:16px 14px 14px}
@@ -1566,7 +1566,7 @@ never get squeezed and nothing scrolls sideways. */
 .dsp-formula{font-size:12.5px;color:#f2ead8;font-variant-numeric:tabular-nums;line-height:1.45}
 .dsp-notes{font-size:11px;color:#8a84a0;line-height:1.45}
 .dsp-notes:empty{display:none}
-.dsp-dmgrow{display:flex;align-items:baseline;gap:8px;margin-top:5px;border-top:1px dashed rgba(232,223,200,.28);padding-top:6px}
+.dsp-dmgrow{display:flex;align-items:baseline;gap:8px;margin-top:5px;border-top:1px dashed rgba(227,207,158,.28);padding-top:6px}
 .dsp-dmglbl{font-size:12px;color:#8a84a0;white-space:nowrap}
 .dsp-dmgrow b{margin-left:auto;font-size:32px;line-height:1;color:#d97b3f;font-variant-numeric:tabular-nums}
 .dsp-dmgrow b.bump{animation:dspBump .28s ease}
@@ -1620,6 +1620,7 @@ uses the flex-safe sizing (flex:0 0 auto + min-height:100%) so the
 home screen reliably scrolls on iOS WebKit whenever the menu is
 taller than the visible area, and the document behind is scroll-locked
 while any full-screen overlay is up (see the ds-lock script before
+</body>
 </body>), so a swipe can never move the hidden page again. */
 .home-screen{overscroll-behavior:contain}
 .home-inner{flex:0 0 auto;min-height:100%;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
@@ -7462,7 +7463,7 @@ function frame() {
 if (homeShown() && W > 0) {
 var i, d;
 ctx.clearRect(0, 0, W, H);
-ctx.strokeStyle = "rgba(183,156,237,.45)";
+ctx.strokeStyle = "rgba(207,201,221,.45)";
 ctx.lineWidth = 2;
 ctx.beginPath();
 for (i = 0; i < drops.length; i++) {
@@ -10850,14 +10851,14 @@ if (typeof GUIDE46 !== "undefined") GUIDE46.push({ tier: 1, img: "https://dice-s
 .hand-slot .hs-name{font-size:9.5px;font-weight:900;line-height:1.15;margin-top:1px;white-space:nowrap;overflow:hidden}
 .hand-slot .hs-kind{font-size:8px;color:#8a6d1f;line-height:1.1}
 .hand-slot .hs-count{position:absolute;top:-6px;right:-4px;background:#a83232;color:#f2ead8;font-size:9.5px;font-weight:900;line-height:1;padding:2px 4px;border:1px solid #14101c;z-index:2}
-.hand-slot.empty-note{flex:1 1 auto;width:auto;background:rgba(232,223,200,.08);border:2px dashed rgba(232,223,200,.35);color:#8a84a0;box-shadow:none;display:flex;align-items:center;justify-content:center;font-size:10.5px;cursor:default;padding:2px 8px;text-align:center}
+.hand-slot.empty-note{flex:1 1 auto;width:auto;background:rgba(227,207,158,.08);border:2px dashed rgba(227,207,158,.35);color:#8a84a0;box-shadow:none;display:flex;align-items:center;justify-content:center;font-size:10.5px;cursor:default;padding:2px 8px;text-align:center}
 .hand-slot.empty-note:hover{transform:none}
 .battle-topbar .hand-detail{margin:0;min-height:0;font-size:11.5px;line-height:1.45;padding:4px 8px;max-height:64px;overflow-y:auto;background:rgba(201,162,39,.1);color:#f2ead8}
 .hand-detail[hidden]{display:none!important}
 .hand-detail .hand-use-btn{font-size:11.5px;padding:3px 12px;margin-left:8px;vertical-align:middle}
 .hand-detail .clamp2{display:inline}
 /* 顶栏音乐旁的手牌槽（全界面可用） */
-.hud-hand{display:flex;align-items:center;gap:6px;flex:1 1 200px;min-width:150px;background:rgba(232,223,200,.07);border:1px solid rgba(232,223,200,.22);padding:3px 7px}
+.hud-hand{display:flex;align-items:center;gap:6px;flex:1 1 200px;min-width:150px;background:rgba(227,207,158,.07);border:1px solid rgba(227,207,158,.22);padding:3px 7px}
 .hud-hand-lbl{font-size:11.5px;font-weight:700;white-space:nowrap;color:#c9a227}
 .hud-hand-lbl b{color:#f2ead8}
 .hud-hand-bar{display:flex;gap:4px;overflow-x:auto;overflow-y:hidden;flex:1;min-width:0;padding:3px 1px;}
@@ -11689,18 +11690,18 @@ steps.push(setTimeout(fire, 3400));
 .cutscene.letterbox62::before,.cutscene.letterbox62::after{content:"";position:fixed;left:0;right:0;height:7vh;background:#14101c;z-index:5;pointer-events:none}
 .cutscene.letterbox62::before{top:0}.cutscene.letterbox62::after{bottom:0}
 .cutscene.flame62{background:radial-gradient(ellipse at 50% 78%,rgba(122,79,208,.5),rgba(20,16,28,.96) 62%)}
-.cutscene.flame62 .cs-art{filter:drop-shadow(0 0 26px rgba(150,110,230,.85))}
+.cutscene.flame62 .cs-art{filter:drop-shadow(0 0 26px rgba(139,63,217,.85))}
 .wn-story62{position:absolute;top:-7px;right:-4px;background:#241f30;color:#c9a227;border:1.5px solid #C9A227;font-size:9px;font-weight:700;padding:1px 4px;line-height:1.25;z-index:3;letter-spacing:.06em}
 .wn-boss72{font-size:8px;letter-spacing:2.5px;line-height:1.2;margin-top:1px;text-shadow:0 1px 2px rgba(20,16,28,.85)}
 .wn-boss72 i{font-style:normal}
 .wn-boss72 .bp-on{color:#c9a227}
-.wn-boss72 .bp-off{color:rgba(232,223,200,.38)}
-.die.blank62{background:#241f30;border-color:#8b3fd9;color:#8b3fd9;box-shadow:0 0 0 2px rgba(183,156,237,.35),0 0 16px rgba(150,110,230,.8)}
-.die.heat62-1{box-shadow:0 0 7px rgba(150,110,230,.45)}
-.die.heat62-2{box-shadow:0 0 11px rgba(150,110,230,.65);border-color:#8b3fd9}
-@keyframes heatPulse62{0%,100%{box-shadow:0 0 10px rgba(150,110,230,.6)}50%{box-shadow:0 0 20px rgba(183,156,237,.95)}}
+.wn-boss72 .bp-off{color:rgba(227,207,158,.38)}
+.die.blank62{background:#241f30;border-color:#8b3fd9;color:#8b3fd9;box-shadow:0 0 0 2px rgba(207,201,221,.35),0 0 16px rgba(139,63,217,.8)}
+.die.heat62-1{box-shadow:0 0 7px rgba(139,63,217,.45)}
+.die.heat62-2{box-shadow:0 0 11px rgba(139,63,217,.65);border-color:#8b3fd9}
+@keyframes heatPulse62{0%,100%{box-shadow:0 0 10px rgba(139,63,217,.6)}50%{box-shadow:0 0 20px rgba(207,201,221,.95)}}
 .die.heat62-3{border-color:#8b3fd9;animation:heatPulse62 1.6s ease-in-out infinite}
-.die.rolling{filter:drop-shadow(-7px 0 7px rgba(232,223,200,.35)) drop-shadow(7px 0 7px rgba(232,223,200,.18))}
+.die.rolling{filter:drop-shadow(-7px 0 7px rgba(227,207,158,.35)) drop-shadow(7px 0 7px rgba(227,207,158,.18))}
 @keyframes landSquash62{0%{transform:scale(1.14,.82)}55%{transform:scale(.94,1.08)}100%{transform:scale(1)}}
 .die.land{animation:landSquash62 .3s ease}
 .vs-overlay62{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(20,16,28,.85)}
@@ -13262,7 +13263,7 @@ if (layer) Array.prototype.slice.call(layer.querySelectorAll(".cp-spark80")).for
 }
 function cpSparks80(h) {
 var layer = $("center-pop69"); if (!layer || !layer.classList.contains("on")) return;
-if (layer.querySelectorAll(".cp-spark80").length > 24) return;
+if (layer.querySelectorAll(".cp-spark80").length > 14) return;
 var n = Math.random() < 0.35 + h * 0.6 ? 1 : 0;
 if (h > 0.65 && Math.random() < 0.45) n++;
 for (var i = 0; i < n; i++) {
@@ -14220,5 +14221,587 @@ return { x: p.x, y: p.y };
 }
 try { window.OPTIMIZATION_K = OPTIMIZATION_K81; window.softCap81 = softCap81; window.stagePoint81 = stagePoint81; window.HIST81 = HIST81; } catch (e) {}
 </script>
+<style>
+/* ================= v82: 骰子特效重做（Kimi K3.1 Pro 分析落地，P0→P1→P2） =================
+   只改表现层：v81 平衡数值 / 商店 / Boss 变身 / 剧情 / 存档码一律不动。
+   颜色只用 21 色 palette；新图为真实生成的图集（https://dice-spire.pages.dev/assets/fx-flame82.png
+   4 帧火焰 / https://dice-spire.pages.dev/assets/fx-smoke82.png 4 帧烟雾 / https://dice-spire.pages.dev/assets/fx-glow82.png 地面光晕 2 帧），
+   均已量化到 palette、真透明、无损 PNG。无 backdrop-filter、无全屏扭曲。 */
+/* ---------- 基础骰面（B3 紫骰包边）+ 刻孔点数（B4） ---------- */
+.die{position:relative;background:#f2ead8;color:#14101c;border:2px solid #4a1e6e;box-shadow:inset 2px 2px 0 #f2ead8,inset -3px -3px 0 #e3cf9e,0 3px 0 #14101c;transition:transform .15s ease,border-color .15s ease,color .12s ease;isolation:isolate}
+.die .pip{width:8px;height:8px;border-radius:0;background:currentColor;box-shadow:inset 2px 2px 0 rgba(20,16,28,.72),inset -1px -1px 0 rgba(242,234,216,.30),1px 1px 0 #cfc9dd}
+.die.rolling{filter:none!important}
+/* ---------- 地面影子（A4）：独立兄弟元素，不跟骰子飞 ---------- */
+.die-stage{position:relative;display:block;flex:0 0 auto}
+.die-shadow{position:absolute;left:15%;bottom:-3px;width:70%;height:5px;background:#14101c;opacity:.42;pointer-events:none}
+.die-stage.is-rolling .die-shadow{animation:dieGroundShadow82 var(--dur,.96s) linear var(--delay,0s) both}
+@keyframes dieGroundShadow82{0%,100%{transform:scale(1,1);opacity:.42}22%{transform:scale(.55,.72);opacity:.16}43%{transform:scale(1.14,1);opacity:.58}58%{transform:scale(.78,.85);opacity:.28}71%{transform:scale(1.08,1);opacity:.52}83%{transform:scale(.90,.90);opacity:.34}93%{transform:scale(1.04,1);opacity:.50}}
+.land-dust82{position:absolute;width:3px;height:3px;background:#8a84a0;pointer-events:none;z-index:5}
+/* ---------- 待机微动（B1）：静置中的偶尔承重，无悬浮 ---------- */
+.die:not(.locked):not(.counter-glow):not(.rolling82):not(.suspense82):not(.overheat74):not(.gold63):not(.dtouch66):not(.lock-in):not(.lock-out){animation:dieIdle82 4.6s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.53s)}
+@keyframes dieIdle82{0%,76%,100%{transform:translateY(0)}82%{transform:translateY(1px)}88%{transform:translateY(-1px)}94%{transform:translateY(0)}}
+@media (hover:hover){.die:not(.locked):hover{animation:none;transform:translateY(-2px)}}
+.die:active{animation:none;transform:translateY(2px) scale(.96);transition:none}
+.die.locked:active{transform:translateY(-5px) scale(.96)}
+/* ---------- 紫骰结晶纹（B3，::after；锁定时被栓条覆盖、过热时被火焰覆盖） ---------- */
+.die[data-type="normal"]::after,.die:not([data-type])::after{content:"";position:absolute;left:5px;top:5px;width:12px;height:2px;background:#8b3fd9;box-shadow:2px 2px 0 #4a1e6e;opacity:.42;pointer-events:none;z-index:1;animation:veinIdle82 3.6s steps(2,end) infinite;animation-delay:calc(var(--i,0) * -.41s)}
+@keyframes veinIdle82{0%,100%{opacity:.34}50%{opacity:.78}}
+/* ---------- 元素辉光（B5）：统一走 ::before，只动 opacity ---------- */
+.die::before{content:"";position:absolute;inset:-5px;pointer-events:none;opacity:0;box-shadow:0 0 10px 3px rgba(var(--glow-rgb,139,63,217),.6);z-index:-1}
+.die[data-type="fire"]{--glow-rgb:217,123,63}
+.die[data-type="fire"]::before{animation:fireBreath82 1.17s steps(2,end) infinite;animation-delay:calc(var(--i,0) * -.23s)}
+@keyframes fireBreath82{0%{opacity:.32}14%{opacity:.68}29%{opacity:.40}47%{opacity:.82}63%{opacity:.36}81%{opacity:.56}100%{opacity:.32}}
+.die[data-type="ice"]{--glow-rgb:111,183,217}
+.die[data-type="ice"]::before{animation:iceBreath82 3.9s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.61s)}
+@keyframes iceBreath82{0%,100%{opacity:.24}50%{opacity:.44}}
+.die[data-type="water"]{--glow-rgb:111,183,217}
+.die[data-type="water"]::before{animation:waterBreath82 3.4s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.47s)}
+@keyframes waterBreath82{0%,100%{opacity:.20}50%{opacity:.38}}
+.die[data-type="dark"]{--glow-rgb:139,63,217}
+.die[data-type="dark"]::before{animation:darkBreath82 4.7s cubic-bezier(.45,0,.55,1) infinite;animation-delay:calc(var(--i,0) * -.83s)}
+@keyframes darkBreath82{0%,28%{opacity:.12}55%{opacity:.58}72%{opacity:.46}100%{opacity:.12}}
+.die[data-type="light"]{--glow-rgb:201,162,39}
+.die[data-type="light"]::before{animation:lightBreath82 2.6s steps(3,end) infinite;animation-delay:calc(var(--i,0) * -.37s)}
+@keyframes lightBreath82{0%,100%{opacity:.30}50%{opacity:.58}}
+.die[data-type="earth"]{--glow-rgb:201,162,39}
+.die[data-type="earth"]::before{animation:earthBreath82 5.6s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.71s)}
+@keyframes earthBreath82{0%,100%{opacity:.22}50%{opacity:.30}}
+.die[data-type="poison"]{--glow-rgb:63,174,106}
+.die[data-type="poison"]::before{animation:poisonBreath82 2.23s steps(1,end) infinite;animation-delay:calc(var(--i,0) * -.29s)}
+@keyframes poisonBreath82{0%{opacity:.22}38%{opacity:.48}71%{opacity:.29}100%{opacity:.22}}
+.die[data-type="wild"]{--glow-rgb:139,63,217}
+.die[data-type="wild"]::before{animation:wildBreath82 2.9s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.43s)}
+@keyframes wildBreath82{0%,100%{opacity:.28}50%{opacity:.52}}
+.die[data-type="loaded"]{--glow-rgb:201,162,39}
+.die[data-type="loaded"]::before{opacity:.26}
+.die.blank62::before{--glow-rgb:139,63,217;animation:darkBreath82 4.7s cubic-bezier(.45,0,.55,1) infinite}
+.die.heat62-3::before{--glow-rgb:139,63,217;animation:heatPulse82 1.6s steps(2,end) infinite}
+@keyframes heatPulse82{0%,100%{opacity:.35}50%{opacity:.75}}
+/* 克制金边常亮 + 伪元素脉冲；改命目标红脉冲；发烫骰停掉旧 box-shadow 动画 */
+.die.counter-glow{border-color:#c9a227!important;animation:none!important}
+.die.counter-glow::before{--glow-rgb:201,162,39;animation:counterPulse82 .7s steps(2,end) infinite}
+@keyframes counterPulse82{0%,100%{opacity:.35}50%{opacity:.75}}
+.die.fate-target{animation:none;box-shadow:0 0 0 2px rgba(168,50,50,.55),0 3px 0 #14101c}
+.die.fate-target::before{--glow-rgb:168,50,50;animation:fatePulse82 .9s steps(2,end) infinite alternate}
+@keyframes fatePulse82{from{opacity:.30}to{opacity:.70}}
+.die.heat62-3{animation:none}
+/* ---------- 锁定（B2）：金栓条 + 落栓/回落 ---------- */
+.dice-tray{padding-top:10px}
+.die.locked{border-color:#c9a227;transform:translateY(-7px);box-shadow:inset -3px -3px 0 #e3cf9e,0 3px 0 #8a6d1f,0 7px 0 rgba(20,16,28,.35)}
+.die.locked::after{content:"";position:absolute;left:50%;top:-7px;width:22px;height:4px;margin-left:-11px;background:#c9a227;box-shadow:0 2px 0 #8a6d1f;pointer-events:none;opacity:1;animation:none;z-index:4}
+.die.lock-in{animation:lockIn82 .21s cubic-bezier(.2,.8,.2,1) both}
+.die.lock-in::after{animation:pinIn82 .21s steps(2,end) both}
+.die.lock-out{animation:lockOut82 .18s cubic-bezier(.3,.7,.4,1) both}
+@keyframes lockIn82{0%{transform:translateY(2px) scale(1.03,.92)}45%{transform:translateY(-9px) scale(.98,1.04)}75%{transform:translateY(-6px)}100%{transform:translateY(-7px)}}
+@keyframes pinIn82{0%{opacity:0;transform:translateY(-5px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes lockOut82{0%{transform:translateY(-7px)}48%{transform:translateY(1px) scale(1.03,.94)}76%{transform:translateY(-1px)}100%{transform:translateY(0)}}
+/* ---------- 点数刻孔确认（B4）+ 落定确认闪（A6） ---------- */
+.die.face-set .pip.on{animation:pipSet82 .12s steps(2,end)}
+@keyframes pipSet82{0%{opacity:.25;transform:scale(.5)}70%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
+.die.face-confirm82{color:#e3cf9e}
+.die.face-confirm-gold82{box-shadow:inset 2px 2px 0 #f2ead8,inset -3px -3px 0 #e3cf9e,0 3px 0 #14101c,0 0 0 2px #c9a227}
+/* ---------- 掷骰飞行（A2）：一次主跳 + 两次衰减弹跳；最后一颗悬念收尾 ---------- */
+.die.rolling82{animation:dieFlight82 var(--dur,.96s) linear var(--delay,0s) both;will-change:transform;transform-origin:50% 72%;z-index:5}
+.die.suspense82{animation:dieSuspense82 var(--dur,1.25s) linear var(--delay,0s) both;will-change:transform;transform-origin:50% 72%;z-index:5}
+@keyframes dieFlight82{
+0%{transform:translate(0,0) rotate(0deg) scale(1);animation-timing-function:cubic-bezier(.18,.65,.32,1)}
+22%{transform:translate(calc(var(--x1,8px)*.55),var(--y1,-46px)) rotate(var(--r1,140deg)) scale(1.04);animation-timing-function:cubic-bezier(.58,0,.86,.42)}
+43%{transform:translate(calc(var(--x1,8px) + var(--cx,0px)),0) rotate(calc(var(--r2,300deg) + var(--cr,0deg))) scale(1.06,.90)}
+47%{transform:translate(calc(var(--x1,8px)*.92),-2px) rotate(calc(var(--r2,300deg) + 14deg)) scale(1)}
+58%{transform:translate(calc(var(--x1,8px)*.6),var(--y2,-13px)) rotate(var(--r3,430deg)) scale(1.02)}
+71%{transform:translate(calc(var(--x1,8px)*.3),0) rotate(var(--r4,540deg)) scale(1.04,.94)}
+75%{transform:translate(calc(var(--x1,8px)*.22),-1px) rotate(calc(var(--r4,540deg) + 10deg)) scale(1)}
+83%{transform:translate(calc(var(--x1,8px)*.1),var(--y3,-4px)) rotate(var(--r5,640deg)) scale(1.01)}
+93%{transform:translate(0,0) rotate(var(--r6,700deg)) scale(1.025,.97)}
+100%{transform:translate(0,0) rotate(var(--rot,720deg)) scale(1)}}
+@keyframes dieSuspense82{
+0%{transform:translate(0,0) rotate(0deg) scale(1);animation-timing-function:cubic-bezier(.18,.65,.32,1)}
+22%{transform:translate(calc(var(--x1,6px)*.55),var(--y1,-60px)) rotate(var(--r1,180deg)) scale(1.05);animation-timing-function:cubic-bezier(.58,0,.86,.42)}
+43%{transform:translate(var(--x1,6px),0) rotate(var(--r2,380deg)) scale(1.06,.90)}
+47%{transform:translate(calc(var(--x1,6px)*.92),-2px) rotate(calc(var(--r2,380deg) + 12deg)) scale(1)}
+58%{transform:translate(calc(var(--x1,6px)*.6),var(--y2,-14px)) rotate(var(--r3,520deg)) scale(1.02)}
+71%{transform:translate(calc(var(--x1,6px)*.3),0) rotate(var(--r4,620deg)) scale(1.04,.94)}
+78%{transform:translate(calc(var(--x1,6px)*.15),-3px) rotate(calc(var(--rot,720deg) - 24deg)) scale(1)}
+87%{transform:translate(0,0) rotate(calc(var(--rot,720deg) - 14deg)) scale(1.035,.965)}
+94%{transform:translate(0,-1px) rotate(calc(var(--rot,720deg) - 5deg)) scale(1)}
+100%{transform:translate(0,0) rotate(var(--rot,720deg)) scale(1)}}
+/* ---------- 托盘冲击（A5）：起手轻晃 + 首落轻冲击 + 末落强冲击 ---------- */
+.dice-tray.sway82{animation:traySway82 .17s ease}
+@keyframes traySway82{0%,100%{transform:translate(0,0)}25%{transform:translate(-2px,0)}75%{transform:translate(2px,0)}}
+.dice-tray.impact-light82{animation:trayImpactLight82 .15s cubic-bezier(.2,.8,.3,1)}
+@keyframes trayImpactLight82{0%{transform:translate(0,0)}30%{transform:translate(0,3px)}55%{transform:translate(-1px,-1px)}80%{transform:translate(1px,0)}100%{transform:translate(0,0)}}
+.dice-tray.impact-strong82{animation:trayImpactStrong82 .19s cubic-bezier(.2,.8,.3,1)}
+@keyframes trayImpactStrong82{0%{transform:translate(0,0)}20%{transform:translate(0,5px)}42%{transform:translate(-2px,-2px)}64%{transform:translate(2px,1px)}82%{transform:translate(0,-1px)}100%{transform:translate(0,0)}}
+.dice-tray.goldflash82{animation:trayEdge82 .26s steps(2,end)}
+@keyframes trayEdge82{0%{box-shadow:inset 0 0 0 2px #c9a227}100%{box-shadow:inset 0 0 0 2px rgba(122,74,43,0)}}
+/* ---------- 过热（C1 驱动变量 / C2 每骰火势 / C3 抖动 / C4 顶焰图集） ---------- */
+.die.overheat74{isolation:isolate;--hf:calc(var(--oh74,0)*var(--oh-gain,1));transform-origin:50% 82%;animation-name:ohShake82;animation-duration:calc(680ms - 180ms*var(--oh74,0));animation-timing-function:steps(1,end);animation-iteration-count:infinite;background-image:linear-gradient(165deg,rgba(227,207,158,calc(.06 + .08*var(--hf,0))) 0 32%,rgba(217,123,63,calc(.08 + .14*var(--hf,0))) 32% 66%,rgba(168,50,50,calc(.08 + .22*var(--hf,0))) 66% 100%);box-shadow:inset 0 0 0 2px rgba(94,31,36,.5),inset 0 0 calc(6px + 8px*var(--hf,0)) rgba(168,50,50,calc(.25 + .3*var(--hf,0))),0 0 14px rgba(217,123,63,calc(.4*var(--hf,0))),0 3px 0 #14101c}
+@keyframes ohShake82{
+0%,9%,17%,26%,41%,49%,64%,78%,100%{transform:translate(0,0) rotate(0deg) scale(1)}
+10%{transform:translate(calc(1px*var(--hf,0)),0) rotate(0deg) scale(1)}
+18%{transform:translate(calc(-1px*var(--hf,0)),calc(-1px*var(--hf,0))) rotate(calc(-.3deg*var(--hf,0))) scale(1)}
+27%{transform:translate(calc(3px*var(--hf,0)),calc(-2px*var(--hf,0))) rotate(calc(2.2deg*var(--hf,0))) scale(calc(1 + .018*var(--hf,0)))}
+31%{transform:translate(calc(-2px*var(--hf,0)),calc(1px*var(--hf,0))) rotate(calc(-1deg*var(--hf,0))) scale(1)}
+35%{transform:translate(0,0) rotate(0deg) scale(1)}
+50%{transform:translate(0,calc(-1px*var(--hf,0))) rotate(0deg) scale(1)}
+65%{transform:translate(calc(-1px*var(--hf,0)),0) rotate(0deg) scale(1)}
+79%{transform:translate(calc(-3px*var(--hf,0)),calc(-2px*var(--hf,0))) rotate(calc(-2deg*var(--hf,0))) scale(calc(1 + .018*var(--hf,0)))}
+83%{transform:translate(calc(2px*var(--hf,0)),calc(1px*var(--hf,0))) rotate(calc(.8deg*var(--hf,0))) scale(1)}
+87%{transform:translate(0,0) rotate(0deg) scale(1)}}
+.die.overheat74::before{opacity:calc(var(--hf,0)*.5);animation-name:ohCrack82;animation-duration:.24s;animation-timing-function:steps(2,end);animation-iteration-count:infinite;animation-direction:alternate;animation-delay:var(--oh-delay,0ms);z-index:1}
+@keyframes ohCrack82{from{opacity:calc(var(--hf,0)*.30)}to{opacity:calc(var(--hf,0)*.5)}}
+.die.overheat74::after{content:"";position:absolute;left:50%;top:auto;bottom:78%;width:calc(72% + 26%*var(--hf,0));height:calc(52% + 34%*var(--hf,0));transform:translateX(-50%);background-color:transparent;background-image:url(https://dice-spire.pages.dev/assets/fx-flame82.png);background-size:400% 100%;background-repeat:no-repeat;image-rendering:pixelated;box-shadow:none;opacity:calc(var(--hf,0)*.9);animation:ohFlame82 var(--oh-fire-dur,420ms) steps(1,end) infinite;animation-delay:var(--oh-delay,0ms);pointer-events:none;z-index:-1}
+@keyframes ohFlame82{0%{background-position:0% 0}25%{background-position:33.333% 0}50%{background-position:66.667% 0}75%{background-position:100% 0}100%{background-position:100% 0}}
+.die.overheat74 .pip{position:relative;z-index:3;text-shadow:1px 1px 0 #14101c}
+/* ---------- 烟雾（C5）/ 地面火光（C7）/ 骰子火星（C6） ---------- */
+#dice-tray::before{display:none!important}
+.die-wrap{position:relative;z-index:1}
+.oh-glow82{position:absolute;left:4%;right:4%;bottom:-4px;height:24px;background-image:url(https://dice-spire.pages.dev/assets/fx-glow82.png);background-size:200% 100%;background-repeat:no-repeat;image-rendering:pixelated;opacity:calc(var(--oh74,0)*.32);pointer-events:none;z-index:0;animation:ohGlow82 .39s steps(1,end) infinite}
+@keyframes ohGlow82{0%,55%{background-position:0% 0}56%,100%{background-position:100% 0}}
+.oh-smoke82{position:absolute;left:50%;top:-54px;width:min(46%,260px);height:54px;background-image:url(https://dice-spire.pages.dev/assets/fx-smoke82.png);background-size:400% 100%;background-repeat:no-repeat;image-rendering:pixelated;opacity:0;pointer-events:none;z-index:8;animation:ohSmoke82 1.6s steps(1,end) infinite}
+@keyframes ohSmoke82{0%{background-position:0% 0;transform:translate(-50%,4px);opacity:0}12%{opacity:calc(var(--oh74,0)*.30)}33%{background-position:33.333% 0;transform:translate(-50%,0);opacity:calc(var(--oh74,0)*.38)}66%{background-position:66.667% 0;transform:translate(-50%,-4px);opacity:calc(var(--oh74,0)*.28)}85%{opacity:calc(var(--oh74,0)*.16)}100%{background-position:100% 0;transform:translate(-50%,-8px);opacity:0}}
+.oh-sparks74{position:absolute;inset:0;pointer-events:none;z-index:6}
+.oh-spark82{position:absolute;width:2px;height:2px;background:#e3cf9e;pointer-events:none}
+@media (prefers-reduced-motion: reduce){
+.die,.die.rolling82,.die.suspense82,.die.lock-in,.die.lock-out,.die-stage.is-rolling .die-shadow,.dice-tray.sway82,.dice-tray.impact-light82,.dice-tray.impact-strong82,.dice-tray.goldflash82,.oh-smoke82,.oh-glow82{animation:none!important}
+.die::before,.die::after{animation:none!important}
+.die.face-set .pip.on{animation:none!important}
+}
+</style>
+<script>
+"use strict";
+/* ================= v82: 骰子特效逻辑（Kimi 分析落地） =================
+   P0: animateRoll 每骰独立收尾（animationend + 双时间轴 + 合法面降频）、
+       过热单 RAF 点火/冷却（320ms 引燃 / 460ms 线性熄火）；
+   P1: 锁定落栓接线、新合成音效（die_hit/clack/tick/land、tray_thud、
+       dice_lock/unlock，55ms 限流、最多 4 声部）、每骰飞行参数（fxR
+       视觉随机，不碰玩法 RNG R()）、.die-stage + 地面影子、托盘冲击、
+       骰盘火星（≤10/s、池 10、总预算 24）；P2: renderDice 写 --i /
+       data-i。平衡 / 结算 / 存档一律不动。 */
+function fxR82() { return Math.random(); }
+function dieEl82(i) { var tray = $("dice-tray"); if (!tray) return null; var wrap = tray.children[i]; if (!wrap || !wrap.querySelector) return null; return wrap.querySelector(".die"); }
+function stageEl82(i) { var el = dieEl82(i); if (!el) return null; var p = el.parentElement; return (p && p.classList && p.classList.contains("die-stage"))? p: null; }
+function setPips82(el, face) { if (!el || typeof PIPS === "undefined") return; var on = PIPS[face] || []; Array.prototype.forEach.call(el.querySelectorAll(".pip"), function(p, c) { p.classList.toggle("on", on.indexOf(c) >= 0); }); }
+function getLegalFaces82(die) {
+try {
+if (die && die.type === "blank62") { var bc = Math.max(4, Math.min(7, 6 + countTalisman("capUp") - countTalisman("capDown"))); var bf = []; for (var bi = 1; bi <= bc; bi++) bf.push(bi); return bf; }
+var cap = currentCap(), faces = [], i;
+if (die && die.type === "loaded") { [Math.max(1, cap - 3), Math.max(1, cap - 2), Math.max(1, cap - 1), cap].forEach(function(v) { if (faces.indexOf(v) < 0) faces.push(v); }); return faces; }
+for (i = 1; i <= cap; i++) faces.push(i);
+return faces;
+} catch (e) { return [1, 2, 3, 4, 5, 6]; }
+}
+/* ---------- 新音效：绑接触关键帧 + 全局限流 ---------- */
+try {
+if (typeof AU !== "undefined" && AU) {
+var _auSfx82 = AU.sfx;
+var _lastHit82 = {}, _recent82 = [];
+AU.sfx = function(name) {
+if (!this.ctx || this.muted || this.sfxMuted) return;
+var t = this.ctx.currentTime + 0.01, self = this;
+var pitch = 0.94 + Math.random() * 0.12;
+function throttled82(group) {
+var now = performance.now();
+if (_lastHit82[group] && now - _lastHit82[group] < 55) return true;
+_lastHit82[group] = now;
+_recent82 = _recent82.filter(function(x) { return now - x < 120; });
+if (_recent82.length >= 4) return true;
+_recent82.push(now);
+return false;
+}
+try {
+if (name === "die_hit") { if (throttled82("hit")) return; this.tone(170 * pitch, t, 0.10, "square", 0.14, 58); this.noiseAt(t, 0.055, 0.13, 540, 190); return; }
+if (name === "die_clack") { if (throttled82("clack")) return; this.noiseAt(t, 0.03, 0.07, 2500, 1500); this.tone(1150 * pitch, t, 0.022, "square", 0.028); return; }
+if (name === "die_tick") { if (throttled82("tick")) return; this.tone(150 * pitch, t, 0.07, "square", 0.075, 60); this.noiseAt(t, 0.03, 0.05, 480, 200); return; }
+if (name === "die_land") { if (throttled82("land")) return; this.tone(132 * pitch, t, 0.09, "triangle", 0.10, 52); this.noiseAt(t, 0.04, 0.06, 420, 160); return; }
+if (name === "tray_thud") { this.tone(84, t, 0.17, "triangle", 0.20, 38); this.noiseAt(t, 0.11, 0.11, 300, 75); return; }
+if (name === "dice_lock") { this.noiseAt(t, 0.02, 0.09, 3200, 2100); this.tone(880 * pitch, t, 0.045, "square", 0.05); this.tone(196, t + 0.03, 0.07, "triangle", 0.09, 150); return; }
+if (name === "dice_unlock") { this.noiseAt(t, 0.02, 0.06, 2100, 1500); this.tone(392 * pitch, t, 0.05, "square", 0.045, 660); return; }
+} catch (e) {}
+return _auSfx82.call(this, name);
+};
+}
+} catch (e) {}
+/* ---------- 托盘冲击（A5） ---------- */
+function trayImpact82(strong) {
+var tray = $("dice-tray"); if (!tray) return;
+tray.classList.remove("impact-light82", "impact-strong82", "goldflash82"); void tray.offsetWidth;
+tray.classList.add(strong? "impact-strong82": "impact-light82");
+if (strong) tray.classList.add("goldflash82");
+setTimeout(function() { tray.classList.remove("impact-light82", "impact-strong82", "goldflash82"); }, 320);
+}
+/* ---------- 落地尘土（A8）：普通 ≤2 粒、最后一颗 ≤4 粒、同屏 ≤8 ---------- */
+var dustActive82 = 0;
+function spawnDust82(stage, isLast) {
+try {
+if (!stage) return;
+var n = isLast? 4: 2;
+for (var k = 0; k < n; k++) {
+if (dustActive82 >= 8) return;
+var d = document.createElement("i");
+d.className = "land-dust82";
+d.style.background = (isLast && k === 0)? "#c9a227": (k % 2? "#7a4a2b": "#8a84a0");
+d.style.left = (30 + Math.random() * 40) + "%";
+d.style.bottom = "0px";
+stage.appendChild(d);
+dustActive82++;
+var dx = (Math.random() < 0.5? -1: 1) * Math.round(4 + Math.random() * 5);
+var up = Math.round(3 + Math.random() * 4);
+var dur = 180 + Math.random() * 40;
+var done82 = (function(dd) { return function() { if (dd.parentElement) dd.parentElement.removeChild(dd); dustActive82--; }; })(d);
+if (d.animate) {
+var a = d.animate([
+{ transform: "translate(0,0)", opacity: 1 },
+{ transform: "translate(" + dx + "px," + (-up) + "px)", opacity: 1, offset: 0.55 },
+{ transform: "translate(" + Math.round(dx * 1.4) + "px,0px)", opacity: 0 }
+], { duration: dur, easing: "steps(5,end)", fill: "forwards" });
+a.onfinish = done82;
+} else setTimeout(done82, dur);
+}
+} catch (e) {}
+}
+/* ---------- animateRoll 重写（A1/A2/A3/A6/A7） ---------- */
+var rollSeq82 = 0;
+function animateRoll82(indices, done) {
+if (!indices || !indices.length) { if (done) done(); return; }
+if (typeof REDUCED_MOTION !== "undefined" && REDUCED_MOTION) { S.busy = false; renderAll(); if (done) done(); return; }
+S.busy = true; renderAll();
+var tray = $("dice-tray");
+if (!tray) { S.busy = false; if (done) done(); return; }
+var seq = ++rollSeq82;
+tray.classList.remove("rolling-tray", "suspense-tray", "impact-light82", "impact-strong82", "goldflash82");
+void tray.offsetWidth;
+tray.classList.add("sway82");
+var cup = $("dice-cup");
+if (cup) { cup.classList.add("show"); cup.textContent = " 骰子弹起来了！在空中翻转——屏住呼吸，等它落定…"; }
+try { sfx("roll"); } catch (e) {}
+var t0 = performance.now();
+var lastPos = indices.length - 1;
+var clashPos = -1, p;
+for (p = 0; p < lastPos; p++) { if (indices[p + 1] === indices[p] + 1) { clashPos = p; break; } }
+var firstDir = 1;
+var states = indices.map(function(di, pos) {
+var isLast = pos === lastPos;
+var dir = isLast? (pos === 0? 1: -firstDir): (fxR82() < 0.5? -1: 1);
+if (pos === 0 && !isLast) firstDir = dir;
+var rot = (isLast? 720: (fxR82() < 0.5? 720: 1080)) * dir;
+var y1 = isLast? -(56 + fxR82() * 8): -(38 + fxR82() * 14);
+var st = {
+i: di, pos: pos, isLast: isLast, cls: isLast? "suspense82": "rolling82",
+dur: isLast? 1.22 + fxR82() * 0.06: 0.90 + fxR82() * 0.12,
+delay: Math.max(0, pos * 0.075 + (fxR82() * 0.03 - 0.015)),
+y1: Math.round(y1), y2: Math.round(y1 * (isLast? 0.22: 0.25 + fxR82() * 0.07)),
+y3: isLast? -Math.round(2 + fxR82()): -Math.round(3 + fxR82() * 2),
+x1: (fxR82() < 0.5? -1: 1) * Math.round(isLast? 4 + fxR82() * 4: 6 + fxR82() * 6),
+rot: rot, landed: false, stopFlip: false, lastFake: -1, timers: []
+};
+st.endAbs = t0 + (st.delay + st.dur) * 1000;
+st.land1Abs = t0 + (st.delay + st.dur * 0.43) * 1000;
+st.land2Abs = t0 + (st.delay + st.dur * 0.71) * 1000;
+if (pos === clashPos) { st.cx = 5; st.cr = 25; }
+if (pos === clashPos + 1) { st.cx = -5; st.cr = -25; }
+return st;
+});
+var finished = false, landedCount = 0, firstHitDone = false;
+var watchdog = null, failsafe = null;
+function applyDie(st) {
+var el = dieEl82(st.i); if (!el) return;
+var stage = stageEl82(st.i);
+var effDelay = st.delay - (performance.now() - t0) / 1000;
+var vars = {
+"--dur": st.dur + "s", "--delay": effDelay + "s",
+"--y1": st.y1 + "px", "--y2": st.y2 + "px", "--y3": st.y3 + "px", "--x1": st.x1 + "px",
+"--rot": st.rot + "deg",
+"--r1": Math.round(st.rot * 0.19) + "deg", "--r2": Math.round(st.rot * 0.42) + "deg",
+"--r3": Math.round(st.rot * 0.60) + "deg", "--r4": Math.round(st.rot * 0.75) + "deg",
+"--r5": Math.round(st.rot * 0.88) + "deg", "--r6": Math.round(st.rot * 0.97) + "deg"
+};
+if (st.cx) { vars["--cx"] = st.cx + "px"; vars["--cr"] = st.cr + "deg"; }
+Object.keys(vars).forEach(function(k2) { el.style.setProperty(k2, vars[k2]); if (stage) stage.style.setProperty(k2, vars[k2]); });
+el.classList.add(st.cls);
+if (stage) stage.classList.add("is-rolling");
+el._v82st = st;
+if (!el._v82L) {
+el._v82L = true;
+el.addEventListener("animationend", function(ev) {
+if (ev.animationName !== "dieFlight82" && ev.animationName !== "dieSuspense82") return;
+var s2 = ev.target._v82st;
+if (s2) markLanded(s2);
+});
+}
+}
+function showReal(st) {
+var el = dieEl82(st.i); if (!el) return;
+setPips82(el, S.dice[st.i].face);
+el.classList.add("face-confirm82");
+if (st.isLast) el.classList.add("face-confirm-gold82");
+setTimeout(function() { var e2 = dieEl82(st.i); if (e2) e2.classList.remove("face-confirm82", "face-confirm-gold82"); }, 150);
+}
+function flipStep(st) {
+if (finished || st.stopFlip || seq !== rollSeq82) return;
+var el = dieEl82(st.i);
+if (el) {
+var legal = getLegalFaces82(S.dice[st.i]);
+var f = legal[Math.floor(fxR82() * legal.length)];
+if (legal.length > 1) { var guard = 0; while (f === st.lastFake && guard++ < 6) f = legal[Math.floor(fxR82() * legal.length)]; }
+st.lastFake = f;
+setPips82(el, f);
+}
+var now = performance.now();
+var remain = st.endAbs - 100 - now;
+if (remain <= 0) { st.stopFlip = true; showReal(st); return; }
+var iv;
+if (now < st.land1Abs) iv = 55 + fxR82() * 15;
+else if (now < st.land2Abs) iv = 85 + fxR82() * 25;
+else iv = st.isLast? 150 + fxR82() * 30: 130 + fxR82() * 40;
+st.timers.push(setTimeout(function() { flipStep(st); }, Math.min(iv, remain)));
+}
+function markLanded(st) {
+if (finished || st.landed || seq !== rollSeq82) return;
+st.landed = true;
+st.stopFlip = true;
+st.timers.forEach(function(x) { clearTimeout(x); });
+showReal(st);
+spawnDust82(stageEl82(st.i), st.isLast);
+if (st.isLast) {
+try { sfx("die_land"); } catch (e) {}
+try { sfx("tray_thud"); } catch (e) {}
+trayImpact82(true);
+}
+landedCount++;
+if (landedCount >= states.length) setTimeout(finish, 130);
+}
+function finish() {
+if (finished) return;
+finished = true;
+if (watchdog) clearInterval(watchdog);
+if (failsafe) clearTimeout(failsafe);
+states.forEach(function(st) { st.stopFlip = true; st.timers.forEach(function(x) { clearTimeout(x); }); });
+states.forEach(function(st) {
+var el = dieEl82(st.i); if (el) el.classList.remove("rolling82", "suspense82");
+var stage = stageEl82(st.i); if (stage) stage.classList.remove("is-rolling");
+});
+var cup2 = $("dice-cup"); if (cup2) cup2.classList.remove("show");
+S.busy = false;
+renderAll();
+indices.forEach(function(di) {
+var el = dieEl82(di); if (!el) return;
+el.classList.add("face-set");
+setTimeout(function() { var e3 = dieEl82(di); if (e3) e3.classList.remove("face-set"); }, 140);
+});
+if (done) done();
+}
+states.forEach(function(st) {
+applyDie(st);
+st.timers.push(setTimeout(function() { flipStep(st); }, Math.max(0, st.delay * 1000)));
+st.timers.push(setTimeout(function() {
+if (finished || seq !== rollSeq82) return;
+try { sfx("die_hit"); } catch (e) {}
+if (!firstHitDone) { firstHitDone = true; trayImpact82(false); }
+}, (st.delay + st.dur * 0.43) * 1000));
+if (st.pos === clashPos) {
+st.timers.push(setTimeout(function() { if (!finished && seq === rollSeq82) { try { sfx("die_clack"); } catch (e) {} } }, (st.delay + st.dur * 0.40) * 1000));
+}
+st.timers.push(setTimeout(function() { if (!finished && seq === rollSeq82) { try { sfx("die_tick"); } catch (e) {} } }, (st.delay + st.dur * 0.71) * 1000));
+if (!st.isLast) {
+st.timers.push(setTimeout(function() { if (!finished && seq === rollSeq82) { try { sfx("die_land"); } catch (e) {} } }, (st.delay + st.dur * 0.93) * 1000));
+}
+});
+watchdog = setInterval(function() {
+if (finished || seq !== rollSeq82) { clearInterval(watchdog); return; }
+var now = performance.now();
+states.forEach(function(st) {
+if (st.landed) return;
+var el = dieEl82(st.i);
+if (!el) return;
+if (!el.classList.contains(st.cls)) {
+if (now > st.endAbs + 30) markLanded(st);
+else applyDie(st);
+} else if (now > st.endAbs + 60) markLanded(st);
+});
+}, 45);
+var maxEnd = 0;
+states.forEach(function(st) { maxEnd = Math.max(maxEnd, st.delay + st.dur); });
+failsafe = setTimeout(function() { finish(); }, maxEnd * 1000 + 250);
+}
+animateRoll = animateRoll82;
+/* ---------- renderDice 接线：.die-stage + 影子 + --i/data-i + 托盘特效层 ---------- */
+var _rd82 = renderDice;
+renderDice = function() {
+_rd82();
+try {
+var tray = $("dice-tray"); if (!tray) return;
+if (!tray.querySelector(".oh-glow82")) { var g = document.createElement("div"); g.className = "oh-glow82"; g.setAttribute("aria-hidden", "true"); tray.appendChild(g); }
+if (!tray.querySelector(".oh-smoke82")) { var sm = document.createElement("div"); sm.className = "oh-smoke82"; sm.setAttribute("aria-hidden", "true"); tray.appendChild(sm); }
+if (!tray.querySelector(".oh-sparks74")) { var sp = document.createElement("div"); sp.className = "oh-sparks74"; sp.setAttribute("aria-hidden", "true"); tray.appendChild(sp); }
+Array.prototype.forEach.call(tray.children, function(wrap, i) {
+if (!wrap.classList || !wrap.classList.contains("die-wrap")) return;
+var die = wrap.querySelector(".die"); if (!die) return;
+die.dataset.i = i;
+die.style.setProperty("--i", i);
+if (!die.parentElement.classList.contains("die-stage")) {
+var stage = document.createElement("span");
+stage.className = "die-stage";
+var sh = document.createElement("i");
+sh.className = "die-shadow";
+sh.setAttribute("aria-hidden", "true");
+wrap.insertBefore(stage, die);
+stage.appendChild(sh);
+stage.appendChild(die);
+}
+if (typeof ohLive74 !== "undefined" && ohLive74 && typeof S !== "undefined" && S && S.dice && S.dice[i]) { die.classList.add("overheat74"); ohSeedDie74(die, i); }
+});
+if (typeof ohLive74 !== "undefined" && ohLive74) tray.style.setProperty("--oh74", (typeof ohV74 === "number"? ohV74: 0).toFixed(3));
+} catch (e) {}
+};
+/* ---------- 锁定接线（B2）：只给本次操作的骰子播落栓/回落 + 音效 ---------- */
+var _odc82 = onDieClick;
+onDieClick = function(i) {
+var before = null;
+try { if (typeof S !== "undefined" && S && S.dice && S.dice[i]) before = { locked: !!S.dice[i].locked, face: S.dice[i].face }; } catch (e) {}
+_odc82(i);
+try {
+if (!before || typeof S === "undefined" || !S || !S.dice || !S.dice[i]) return;
+var d = S.dice[i];
+var el = dieEl82(i); if (!el) return;
+if (d.locked !== before.locked) {
+var wasLocked = before.locked;
+try { sfx(wasLocked? "dice_unlock": "dice_lock"); } catch (e) {}
+el.classList.add(wasLocked? "lock-out": "lock-in");
+setTimeout(function() { el.classList.remove("lock-in", "lock-out"); }, 240);
+} else if (d.face !== before.face) {
+el.classList.add("face-set");
+setTimeout(function() { el.classList.remove("face-set"); }, 140);
+}
+} catch (e) {}
+};
+/* ---------- 过热重写（C1/C2/C6）：唯一 RAF + 引燃/冷却 + 骰盘火星 ---------- */
+var ohV74 = 0, ohTarget74 = 0, ohLive74 = false, ohRaf74 = 0, ohLast74 = 0, ohCoolFrom74 = 0, ohSparkAcc74 = 0;
+var OH_GAIN82 = [.82, 1.06, .92, 1.14, .78, 1, .88, 1.10];
+function ohSeedDie74(el, i) {
+if (!el) return;
+el.style.setProperty("--oh-gain", OH_GAIN82[i % 8]);
+el.style.setProperty("--oh-delay", (-((i * 97) % 520)) + "ms");
+el.style.setProperty("--oh-fire-dur", (360 + ((i * 53) % 160)) + "ms");
+}
+function ohApply74(v) {
+ohV74 = v;
+var tray = $("dice-tray");
+if (tray) tray.style.setProperty("--oh74", v.toFixed(3));
+try { cpFireHeat80(v); } catch (e) {}
+}
+function ohStartRaf74() { if (!ohRaf74) { ohLast74 = 0; ohRaf74 = requestAnimationFrame(ohFrame74); } }
+function ohFrame74(now) {
+ohRaf74 = 0;
+if (!ohLive74) return;
+var dt = ohLast74? Math.min(40, now - ohLast74): 16;
+ohLast74 = now;
+var v = ohV74, t = ohTarget74;
+if (t === 0) { var rate = Math.max(ohCoolFrom74, 0.05) / 460; v = Math.max(0, v - dt * rate); }
+else if (v < 0.25) v = Math.min(0.25, v + dt * (0.25 / 320));
+else v = v + (t - v) * (1 - Math.exp(-dt / 90));
+if (Math.abs(t - v) < 0.001) v = t;
+ohApply74(v);
+if (ohTarget74 > 0 && v > 0.35) {
+ohSparkAcc74 += (dt / 1000) * (2 + 8 * v);
+while (ohSparkAcc74 >= 1) { ohSparkAcc74 -= 1; ohEmitSpark82(); }
+}
+if (t === 0 && v <= 0) {
+ohLive74 = false; ohV74 = 0;
+var tray = $("dice-tray");
+if (tray) {
+Array.prototype.forEach.call(tray.querySelectorAll(".die.overheat74"), function(d) { d.classList.remove("overheat74"); });
+tray.style.removeProperty("--oh74");
+}
+try { cpFireStop80(); } catch (e) {}
+return;
+}
+if (v === t && t > 0 && v <= 0.35) return;
+ohRaf74 = requestAnimationFrame(ohFrame74);
+}
+function overheatOn74() {
+var tray = $("dice-tray"); if (!tray) return;
+if (!ohLive74) {
+ohLive74 = true; ohV74 = 0;
+tray.style.setProperty("--oh74", "0.000");
+Array.prototype.forEach.call(tray.querySelectorAll(".die"), function(d, i) { d.classList.add("overheat74"); ohSeedDie74(d, i); });
+try { cpFireOn80(); } catch (e) {}
+}
+if (ohTarget74 < 0.25) ohTarget74 = 0.25;
+if (typeof REDUCED_MOTION !== "undefined" && REDUCED_MOTION) { ohApply74(ohTarget74); return; }
+ohStartRaf74();
+}
+function overheatHeat74(h) {
+if (!ohLive74) overheatOn74();
+ohTarget74 = Math.max(0, Math.min(1, h));
+if (typeof REDUCED_MOTION !== "undefined" && REDUCED_MOTION) { ohApply74(ohTarget74); return; }
+ohStartRaf74();
+}
+function overheatStop74() {
+if (!ohLive74) { try { cpFireStop80(); } catch (e) {} return; }
+if (typeof REDUCED_MOTION !== "undefined" && REDUCED_MOTION) {
+ohLive74 = false; ohTarget74 = 0; ohV74 = 0;
+var tray = $("dice-tray");
+if (tray) {
+Array.prototype.forEach.call(tray.querySelectorAll(".die.overheat74"), function(d) { d.classList.remove("overheat74"); });
+tray.style.removeProperty("--oh74");
+}
+try { cpFireStop80(); } catch (e) {}
+return;
+}
+ohCoolFrom74 = Math.max(ohV74, 0.05);
+ohTarget74 = 0;
+ohStartRaf74();
+}
+/* ---------- 骰盘火星（C6）：共享发射率、10 节点池、硬切三色 ---------- */
+var ohSparkPool82 = [];
+function ohEmitSpark82() {
+try {
+var tray = $("dice-tray"); if (!tray) return;
+var layer = tray.querySelector(".oh-sparks74"); if (!layer) return;
+var local = layer.querySelectorAll(".oh-spark82").length;
+if (local >= 10) return;
+var centerLayer = $("center-pop69");
+var centerN = centerLayer? centerLayer.querySelectorAll(".cp-spark80").length: 0;
+if (centerN + local >= 24) return;
+var stages = tray.querySelectorAll(".die-stage"); if (!stages.length) return;
+var idx = Math.floor(Math.random() * stages.length);
+for (var k = 0; k < 2; k++) {
+var j = Math.floor(Math.random() * stages.length);
+if (Math.random() < OH_GAIN82[j % 8] - 0.7) idx = j;
+}
+var stage = stages[idx];
+var sr = stage.getBoundingClientRect(), tr = tray.getBoundingClientRect();
+var node = ohSparkPool82.pop();
+if (!node) { node = document.createElement("i"); node.className = "oh-spark82"; }
+var big = Math.random() < 0.3;
+node.style.width = big? "3px": "2px";
+node.style.height = big? "3px": "2px";
+node.style.left = (sr.left - tr.left + sr.width * (0.25 + Math.random() * 0.5)) + "px";
+node.style.top = (sr.top - tr.top + 1) + "px";
+node.style.background = "#e3cf9e";
+node.style.opacity = "1";
+layer.appendChild(node);
+var dx = Math.round((Math.random() * 2 - 1) * 10);
+var up = Math.round(18 + Math.random() * 16);
+var dur = 360 + Math.random() * 140;
+if (node.animate) {
+var anim = node.animate([
+{ transform: "translate(0,0)", backgroundColor: "#e3cf9e", opacity: 1 },
+{ transform: "translate(" + Math.round(dx * 0.5) + "px," + (-up) + "px)", backgroundColor: "#d97b3f", opacity: 1, offset: 0.62 },
+{ transform: "translate(" + dx + "px," + (-up + 6) + "px)", backgroundColor: "#a83232", opacity: 1, offset: 0.85 },
+{ transform: "translate(" + dx + "px," + (-up + 6) + "px)", backgroundColor: "#a83232", opacity: 0 }
+], { duration: dur, easing: "steps(6,end)", fill: "forwards" });
+anim.onfinish = function() {
+if (node.parentElement) node.parentElement.removeChild(node);
+if (ohSparkPool82.length < 10) ohSparkPool82.push(node);
+};
+} else {
+setTimeout(function() { if (node.parentElement) node.parentElement.removeChild(node); }, dur);
+}
+} catch (e) {}
+}
+</script>
+
 </body>
 </html>
