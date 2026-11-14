@@ -48,7 +48,7 @@ color-scheme: light dark;
 --armor: #4a1e6e;
 --poison: #3fae6a;
 --shadow: 0 10px 28px rgba(31,92,56,0.14);
---die-bg: #f2ead8;
+--die-bg: #ffffff;
 --die-ink: #1f5c38;
 }
 @media (prefers-color-scheme: dark) {
@@ -69,7 +69,7 @@ color-scheme: light dark;
 --armor: #6fb7d9;
 --poison: #3fae6a;
 --shadow: 0 10px 28px rgba(20,16,28,0.45);
---die-bg: #f2ead8;
+--die-bg: #ffffff;
 --die-ink: #1f5c38;
 }
 }
@@ -1463,7 +1463,7 @@ real game — home entry above START GAME, banner chip inside the battle */
 One unified palette for sprites, UI, map, cards and VFX:
 0B0910 14101D 1E1830 2A2140 3B2D55 5B4382 8A63C9 B79CED 7E1F2B B03327
 E05A3A 6E5518 C9A227 EFC94C E8DFC8 B8AC93 6E6858 223526 5B8A4E 2C4A66 6FA8C9 */
-:root{--bg:#14101c;--bg-deep:#14101c;--panel:#241f30;--panel-2:#241f30;--ink:#f2ead8;--ink-soft:#8a84a0;--line:#4a1e6e;--accent:#a83232;--accent-ink:#f2ead8;--gold:#C9A227;--gold-bg:#241f30;--green:#3fae6a;--hp:#a83232;--armor:#6fb7d9;--poison:#3fae6a;--shadow:0 10px 28px rgba(20,16,28,.6);--die-bg:#f2ead8;--die-ink:#14101c;color-scheme:dark}
+:root{--bg:#14101c;--bg-deep:#14101c;--panel:#241f30;--panel-2:#241f30;--ink:#f2ead8;--ink-soft:#8a84a0;--line:#4a1e6e;--accent:#a83232;--accent-ink:#f2ead8;--gold:#C9A227;--gold-bg:#241f30;--green:#3fae6a;--hp:#a83232;--armor:#6fb7d9;--poison:#3fae6a;--shadow:0 10px 28px rgba(20,16,28,.6);--die-bg:#ffffff;--die-ink:#14101c;color-scheme:dark}
 body{background:radial-gradient(900px 480px at 50% -120px,#241f30,transparent 70%),#14101c}
 .arena{background:linear-gradient(180deg,#14101c 0%,#241f30 46%,#1f5c38 135%)!important;border-color:#14101c!important}
 .charm-bar-wrap{background:linear-gradient(180deg,#241f30,#14101c);border-color:#14101c}
@@ -14924,7 +14924,7 @@ try { window.OPTIMIZATION_K = OPTIMIZATION_K81; window.softCap81 = softCap81; wi
 .die:active{animation:none;transform:translateY(2px) scale(.96);transition:none}
 .die.locked:active{transform:translateY(-5px) scale(.96)}
 /* ---------- 紫骰结晶纹（B3，::after；锁定时被栓条覆盖、过热时被火焰覆盖） ---------- */
-.die[data-type="normal"]::after,.die:not([data-type])::after{content:"";position:absolute;left:5px;top:5px;width:12px;height:2px;background:#8b3fd9;box-shadow:2px 2px 0 #4a1e6e;opacity:.42;pointer-events:none;z-index:1;animation:veinIdle82 3.6s steps(2,end) infinite;animation-delay:calc(var(--i,0) * -.41s)}
+.die[data-type="normal"]::after,.die:not([data-type])::after{content:"";position:absolute;left:5px;top:5px;width:12px;height:2px;background:#8a84a0;box-shadow:2px 2px 0 #5b5470;opacity:.42;pointer-events:none;z-index:1;animation:veinIdle82 3.6s steps(2,end) infinite;animation-delay:calc(var(--i,0) * -.41s)}
 @keyframes veinIdle82{0%,100%{opacity:.34}50%{opacity:.78}}
 /* ---------- 元素辉光（B5）：统一走 ::before，只动 opacity ---------- */
 .die::before{content:"";position:absolute;inset:-5px;pointer-events:none;opacity:0;box-shadow:0 0 10px 3px rgba(var(--glow-rgb,139,63,217),.6);z-index:-1}
@@ -15050,14 +15050,14 @@ try { window.OPTIMIZATION_K = OPTIMIZATION_K81; window.softCap81 = softCap81; wi
 @keyframes cpFlameBack82{0%{background-position:0% 0;transform:translateX(-50%) scale(.95,.92)}25%{background-position:33.333% 0;transform:translateX(-50%) scale(1.04,1.08)}50%{background-position:66.667% 0;transform:translateX(-50%) scale(.98,1.01)}75%{background-position:100% 0;transform:translateX(-50%) scale(1.08,1.16)}100%{background-position:100% 0;transform:translateX(-50%) scale(1.03,1.08)}}
 #cp-total69.ohfire80::after{left:50%;top:62%;width:calc(175% + 65%*var(--ohfx80,.25));height:calc(95% + 55%*var(--ohfx80,.25));transform:translate(-50%,-50%);transform-origin:50% 50%;background-image:url(https://dice-spire.pages.dev/assets/fx-glow82.png);background-size:200% 100%;background-repeat:no-repeat;background-position:0% 0;image-rendering:pixelated;box-shadow:0 0 calc(18px + 36px*var(--ohfx80,.25)) rgba(217,123,63,calc(.28 + .34*var(--ohfx80,.25))),0 0 calc(6px + 12px*var(--ohfx80,.25)) rgba(201,162,39,calc(.24 + .26*var(--ohfx80,.25)));animation:cpGlowBack82 calc(440ms - 160ms*var(--ohfx80,.25)) steps(1,end) infinite;z-index:-2}
 @keyframes cpGlowBack82{0%,49%{background-position:0% 0;transform:translate(-50%,-50%) scale(.94,.86);opacity:calc(.3 + .3*var(--ohfx80,.25))}50%,100%{background-position:100% 0;transform:translate(-50%,-50%) scale(1.06,1);opacity:calc(.4 + .4*var(--ohfx80,.25))}}
-/* ---------- v83：龙血紫晶骰面、落地重量与栓条精修 ---------- */
+/* ---------- v83改：白色骰面、落地重量与栓条精修 ---------- */
 .die{
-border-radius:12px;border-color:#8b3fd9;background-color:#4a1e6e;
+border-radius:12px;border-color:#8a84a0;background-color:#ffffff;
 background-image:
-linear-gradient(135deg,rgba(242,234,216,.30) 0 17%,transparent 17% 100%),
-linear-gradient(315deg,rgba(20,16,28,.28) 0 25%,transparent 25% 100%),
-linear-gradient(160deg,#cfc9dd 0%,#8b3fd9 48%,#4a1e6e 100%);
-box-shadow:inset 2px 2px 0 #f2ead8,inset -3px -3px 0 #241f30,0 3px 0 #14101c,0 7px 12px rgba(20,16,28,.28);
+linear-gradient(135deg,rgba(255,255,255,.95) 0 17%,transparent 17% 100%),
+linear-gradient(315deg,rgba(20,16,28,.16) 0 25%,transparent 25% 100%),
+linear-gradient(160deg,#ffffff 0%,#f2ead8 55%,#e3cf9e 100%);
+box-shadow:inset 2px 2px 0 #ffffff,inset -3px -3px 0 #e3cf9e,0 3px 0 #14101c,0 7px 12px rgba(20,16,28,.28);
 }
 .die .pip{
 position:relative;z-index:2;width:9px;height:9px;border-radius:0;background:currentColor;
@@ -15066,7 +15066,7 @@ box-shadow:inset 2px 2px 0 rgba(20,16,28,.72),inset -1px -1px 0 rgba(242,234,216
 /* 阶梯状晶裂只作骰面纹理；点数始终压在纹理上方。锁定与过热仍使用各自原图层。 */
 .die[data-type="normal"]:not(.locked):not(.overheat74)::after,
 .die:not([data-type]):not(.locked):not(.overheat74)::after{
-left:7px;top:6px;width:18px;height:13px;background:#8b3fd9;box-shadow:none;
+left:7px;top:6px;width:18px;height:13px;background:#8a84a0;box-shadow:none;
 clip-path:polygon(0 0,9px 0,9px 3px,13px 3px,13px 7px,18px 7px,18px 10px,13px 10px,13px 8px,10px 8px,10px 5px,6px 5px,6px 3px,0 3px);
 }
 @keyframes veinIdle82{0%,100%{opacity:.28}42%{opacity:.72}58%{opacity:.42}76%{opacity:.62}}
