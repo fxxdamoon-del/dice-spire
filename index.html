@@ -12489,7 +12489,10 @@ var hpBase = Math.round(def.hp * hpMul * 0.88);
 var turns = isBoss ? 10.5 : isElite ? 6.5 : 4.0;
 var real = 0;
 try { real = measureReal63(id); } catch (e) {}
-var hp = Math.max(hpBase, Math.round(real * turns));
+/* v85 血量方案：村子（故事模式 region=village）纯固定 hpBase，不跟随玩家伤害；
+   进塔后（tower / summit）与无尽模式跟随 50%：max(hpBase, round(real × turns × 0.5)) */
+var inVillage85 = S.mode !== "endless" && S.region === "village";
+var hp = inVillage85 ? hpBase : Math.max(hpBase, Math.round(real * turns * 0.5));
 if (!(hp > 0)) hp = hpBase;
 if (hp > 200000000) hp = 200000000;
 return { hp: hp, intents: orig.intents };
